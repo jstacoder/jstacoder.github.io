@@ -1,0 +1,7 @@
+{
+  "name": "Jstacoder.github.io",
+  "tagline": "My Projects",
+  "body": "### Welcome to My World\r\nCome along with me to learn about python, and maybe have some fun along the way, or not. Its kind of up to you.\r\nIm mainly a fan of Flask, Sqlalchemy, amoung other things.\r\n\r\n```python\r\n>>> from os import path\r\n>>> print os.path.realpath(os.path.curdir)\r\n>>> print 'Python examples'\r\n```\r\n\r\nHere are some projects you might want to see\r\n\r\n### [Flask-XXL](https://github.com/jstacoder/flask-xxl)\r\nFlask-XXL was written to help me develop large projects at a fast pace, it has many tools to help do that.\r\n\r\n### [Flask-CMS](https://github.com/jstacoder/flask-cms)\r\nFlask-Cms is still a WIP, but its got many nice features already.\r\n\r\n### [Flask-Apps](https://github.com/jstacoder/flask-apps)\r\nFlask extension to support auto app loading\r\n\r\n### [Flask-SA-Restful-Resource](https://github.com/jstacoder/flask-sa-restful-resource)\r\nextension to flask-restless, to support auto resource loading\r\n\r\n### [Flask-Angular-Blog](https://github.com/jstacoder/flask-angular-blog)\r\nsmall blog implemented with flask backend, and angular frontend\r\n\r\n### [Flask-Ide](https://github.com/jstacoder/flask-ide)\r\nweb based ide, built on flask and ace editor \r\n\r\n### [Flask-Template-Loader](https://github.com/jstacoder/flask-template-loader)\r\ncontrol your template loader\r\n\r\n[My blog](kyle-vm.level2designs.com)\r\n",
+  "google": "",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
