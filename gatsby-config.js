@@ -1,6 +1,7 @@
 const { buildClientSchema } = require(`graphql`)
 const { createHttpLink } = require(`apollo-link-http`)
 const fetch = require('node-fetch')
+const path = require('path')
 
 module.exports = {
   siteMetadata: {
@@ -13,7 +14,12 @@ module.exports = {
   },
   pathPrefix: '/',
   plugins: [
-    'gatsby-source-unsplash',
+    {
+      resolve: 'gatsby-source-unsplash',
+      options: {
+        UNSPLASH_API_KEY: process.env.UNSPLASH_ACCESS_KEY,
+      },
+    },
     {
       resolve: 'gatsby-source-graphql',
       options: {
@@ -131,5 +137,13 @@ module.exports = {
     'gatsby-plugin-twitter',
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
+  ],
+  __experimentalThemes: [
+    {
+      resolve: path.resolve('../gatsby-theme-basic-blog'),
+    },
+    // {
+    //   resolve: 'gatsby-theme-docz'
+    // }
   ],
 }

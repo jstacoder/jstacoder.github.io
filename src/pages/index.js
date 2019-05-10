@@ -52,13 +52,6 @@ export const pageQuery = graphql`
             tags
             description
             date(formatString: "YYYY/MM/DD")
-            image {
-              childImageSharp {
-                fixed(width: 500) {
-                  ...GatsbyImageSharpFixed_withWebp
-                }
-              }
-            }
           }
         }
       }

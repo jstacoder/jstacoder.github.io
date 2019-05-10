@@ -1,4 +1,4 @@
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import get from 'lodash/get'
 import Img from 'gatsby-image'
 import React from 'react'
@@ -7,6 +7,15 @@ import { siteMetadata } from '../../gatsby-config'
 import Layout from 'components/Layout'
 import Meta from 'components/Meta'
 import SkillList from 'components/SkillList'
+
+import styled from 'styled-components'
+
+const PicSection = styled.section`
+  background-image: url('https://source.unsplash.com/c2E2LMAgFIg/1920x560 ');
+  background-position: 169em;
+  background-repeat: repeat;
+  text-align: center;
+`
 
 export default class Profile extends React.Component {
   render() {
@@ -23,7 +32,7 @@ export default class Profile extends React.Component {
       <Layout location={location}>
         <Meta site={siteMetadata} title="Profile" />
         <div>
-          <section className="text-center">
+          <PicSection>
             <div className="container">
               <Img fixed={profile} className="rounded-circle" />
               <h1>jstacoder</h1>
@@ -39,7 +48,7 @@ export default class Profile extends React.Component {
                 </a>
               </div>
             </div>
-          </section>
+          </PicSection>
 
           <section className="bg-primary text-white text-center">
             <SkillList skills={skills} />
@@ -91,7 +100,7 @@ export default class Profile extends React.Component {
           </section>
 
           <section id="repos" className="bg-secondary text-white">
-            <div className="container">
+            <div className="container-fluid">
               <div className="row align-items-center">
                 <div className="col-md-12 text-left">
                   <h2 className="section-heading">Repositories</h2>
@@ -150,7 +159,7 @@ const RepoList = props => {
     <div>
       <div className={'row'}>
         {groups.map((repos, i) => (
-          <div key={i} className={'col-md-6'}>
+          <div key={i} className={'col-md-3'}>
             {repos.map(repo => (
               <Repo key={repo.name} repo={repo} />
             ))}
@@ -164,15 +173,15 @@ const RepoList = props => {
 const Repo = props => {
   console.log(props.repo)
   return (
-    <div className={'col pt-3 col-md-auto list-group'}>
-      <a
-        href={'#'}
+    <div className={'col pt-2 col-md-auto list-group'}>
+      <Link
+        to={`/github/${props.repo.name}`}
         className={
-          'py-4 bg-primary text-white text-center list-group-item list-group-item-action'
+          'py-3 text-nowrap text-truncate bg-primary text-white text-center list-group-item list-group-item-action'
         }
       >
         {props.repo.name}
-      </a>
+      </Link>
     </div>
   )
 }

@@ -10,14 +10,17 @@ import './style.scss'
 
 const Post = ({ data, options }) => {
   const {
-    category,
-    tags,
-    description,
-    title,
-    path,
-    date,
-    image,
-  } = data.frontmatter
+    frontmatter: {
+      category,
+      tags,
+      description,
+      title,
+      path,
+      date,
+      // image,
+    },
+    tableOfContents,
+  } = data
   const { isIndex, adsense } = options
   const html = get(data, 'html')
   const isMore = isIndex && !!html.match('<!--more-->')
@@ -25,6 +28,14 @@ const Post = ({ data, options }) => {
 
   return (
     <div className="article" key={path}>
+      <div className={'sidebar'}>
+        <div
+          className="toc"
+          dangerouslySetInnerHTML={{
+            __html: tableOfContents,
+          }}
+        />
+      </div>
       <div className="container">
         <div className="info">
           <Link style={{ boxShadow: 'none' }} to={path}>
