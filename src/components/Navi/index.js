@@ -1,6 +1,12 @@
 import React from 'react'
 import { Link } from 'gatsby'
 
+const LinkWrapper = ({ location, path, children }) => (
+  <li className={location.pathname === path ? 'nav-item active' : 'nav-item'}>
+    {children}
+  </li>
+)
+
 class Navi extends React.Component {
   render() {
     const { location, title } = this.props
@@ -12,26 +18,21 @@ class Navi extends React.Component {
           </Link>
           <div className="navbar-nav-scroll">
             <ul className="navbar-nav bd-navbar-nav flex-row">
-              <li
-                className={
-                  location.pathname === '/' ? 'nav-item active' : 'nav-item'
-                }
-              >
+              <LinkWrapper location={location} path={'/'}>
                 <Link to="/" className="nav-link">
                   Home
                 </Link>
-              </li>
-              <li
-                className={
-                  location.pathname === '/profile/'
-                    ? 'nav-item active'
-                    : 'nav-item'
-                }
-              >
-                <Link to="/profile/" className="nav-link">
+              </LinkWrapper>
+              <LinkWrapper location={location} path={'/Profile/'}>
+                <Link to="/Profile/" className="nav-link">
                   Profile
                 </Link>
-              </li>
+              </LinkWrapper>
+              <LinkWrapper location={location} path={'/github-repos/'}>
+                <Link to={'/github-repos/'} className={'nav-link'}>
+                  Github Repos
+                </Link>
+              </LinkWrapper>
             </ul>
           </div>
           <div className="navbar-nav flex-row ml-md-auto d-none d-md-flex" />

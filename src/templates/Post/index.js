@@ -1,11 +1,11 @@
 import { Link } from 'gatsby'
 import get from 'lodash/get'
 import React from 'react'
-import map from 'lodash/map'
 import Img from 'gatsby-image'
 
+import Badges from 'components/Badges'
 import Adsense from 'components/Adsense'
-import Footer from 'components/Footer'
+import Button from 'components/Button'
 import './style.scss'
 
 const Post = ({ data, options }) => {
@@ -31,8 +31,8 @@ const Post = ({ data, options }) => {
             <h1>{title}</h1>
             <time dateTime={date}>{date}</time>
           </Link>
-          {Badges({ items: [category], primary: true })}
-          {Badges({ items: tags })}
+          <Badges items={[category]} primary={true} />
+          <Badges items={tags} />
         </div>
         <div className="content">
           <p>{description}</p>
@@ -48,7 +48,7 @@ const Post = ({ data, options }) => {
             __html: isMore ? getDescription(html) : html,
           }}
         />
-        {isMore ? Button({ path, label: 'MORE', primary: true }) : ''}
+        {isMore ? <Button path={path} label={'MORE'} primary={true} /> : ''}
         {getAd(isIndex, adsense)}
       </div>
     </div>
@@ -62,7 +62,7 @@ const getAd = (isIndex, adsense) => {
 }
 
 const getDescription = body => {
-  body = body.replace(/<blockquote>/g, '<blockquote class="blockquote">')
+  // body = body.replace(/<blockquote>/g, '<blockquote class="blockquote">')
   if (body.match('<!--more-->')) {
     body = body.split('<!--more-->')
     if (typeof body[0] !== 'undefined') {
@@ -71,27 +71,3 @@ const getDescription = body => {
   }
   return body
 }
-
-const Button = ({ path, label, primary }) => (
-  <Link className="readmore" to={path}>
-    <span
-      className={`btn btn-outline-primary btn-block ${
-        primary ? 'btn-outline-primary' : 'btn-outline-secondary'
-      }`}
-    >
-      {label}
-    </span>
-  </Link>
-)
-
-const Badges = ({ items, primary }) =>
-  map(items, (item, i) => {
-    return (
-      <span
-        className={`badge ${primary ? 'badge-primary' : 'badge-secondary'}`}
-        key={i}
-      >
-        {item}
-      </span>
-    )
-  })

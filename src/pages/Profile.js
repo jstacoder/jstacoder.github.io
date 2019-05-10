@@ -17,9 +17,7 @@ export default class Profile extends React.Component {
     const back1 = get(data, 'back1.childImageSharp.sizes')
     const back2 = get(data, 'back2.childImageSharp.sizes')
     const skills = get(data, 'skills.nodes')
-    const imgUrl = get(data, 'github.viewer.avatarUrl')
-
-    console.log(imgUrl)
+    const repos = get(data, 'github.viewer.repoList.repos')
 
     return (
       <Layout location={location}>
@@ -27,11 +25,7 @@ export default class Profile extends React.Component {
         <div>
           <section className="text-center">
             <div className="container">
-              <img
-                style={{ height: '100px', width: '100px' }}
-                src={imgUrl}
-                className="rounded-circle"
-              />
+              <Img fixed={profile} className="rounded-circle" />
               <h1>jstacoder</h1>
               <p className="lead text-muted">Full Stack Engineer.</p>
               <div>
@@ -96,15 +90,21 @@ export default class Profile extends React.Component {
             </div>
           </section>
 
-          <section id="repos">
+          <section id="repos" className="bg-secondary text-white">
             <div className="container">
               <div className="row align-items-center">
                 <div className="col-md-12 text-left">
                   <h2 className="section-heading">Repositories</h2>
-                  <p>
-                    My Github
-                    <a href="https://github.com/jstacoder/">Repo</a>
+                  <p className={'lead'}>
+                    My Github{' '}
+                    <a
+                      className={'text-light'}
+                      href="https://github.com/jstacoder/"
+                    >
+                      Repos:
+                    </a>
                   </p>
+                  <RepoList repos={repos} />
                 </div>
               </div>
             </div>
@@ -132,6 +132,51 @@ export default class Profile extends React.Component {
   }
 }
 
+const RepoList = props => {
+  const groups = [[]]
+  props.repos.forEach(repo => {
+    const lastGroup = groups.pop()
+    let currentGroup = []
+    if (lastGroup.length == 5) {
+      groups.push(lastGroup)
+    } else {
+      currentGroup = lastGroup
+    }
+    currentGroup.push(repo)
+    groups.push(currentGroup)
+  })
+  console.log(groups)
+  return (
+    <div>
+      <div className={'row'}>
+        {groups.map((repos, i) => (
+          <div key={i} className={'col-md-6'}>
+            {repos.map(repo => (
+              <Repo key={repo.name} repo={repo} />
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const Repo = props => {
+  console.log(props.repo)
+  return (
+    <div className={'col pt-3 col-md-auto list-group'}>
+      <a
+        href={'#'}
+        className={
+          'py-4 bg-primary text-white text-center list-group-item list-group-item-action'
+        }
+      >
+        {props.repo.name}
+      </a>
+    </div>
+  )
+}
+
 export const query = graphql`
   query ProfilePageQuery {
     skills: allSkillsJson {
@@ -143,15 +188,33 @@ export const query = graphql`
     github {
       viewer {
         avatarUrl
+        repoList: repositories(
+          first: 20
+          orderBy: { direction: DESC, field: STARGAZERS }
+        ) {
+          repos: nodes {
+            name
+            stargazers {
+              totalCount
+            }
+          }
+        }
       }
     }
-    profile: file(name: { eq: "profile" }) {
+    profile: file(name: { eq: "me" }) {
       childImageSharp {
         fixed(width: 120, height: 120) {
           ...GatsbyImageSharpFixed_withWebp
         }
       }
     }
+    #    profile: file(name: { eq: "profile" }) {
+    #      childImageSharp {
+    #        fixed(width: 120, height: 120) {
+    #          ...GatsbyImageSharpFixed_withWebp
+    #        }
+    #      }
+    #    }
     work1: file(name: { eq: "work1" }) {
       childImageSharp {
         sizes(quality: 100) {

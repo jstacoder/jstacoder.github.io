@@ -5,6 +5,14 @@
   max-width: 400px;
   margin: 50px auto 0;
 
+  p {
+    position: relative;
+    left: 0px;
+    bottom:57px;
+    font-weight: 600;
+    font-size: small;
+  }
+
   svg {
     font-size: $display4-size;
     margin-bottom: 20px;

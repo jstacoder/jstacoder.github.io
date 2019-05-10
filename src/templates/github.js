@@ -1,17 +1,24 @@
 import React, { Component } from 'react'
+import { graphql } from 'gatsby'
 import { faStar as star } from '@fortawesome/free-solid-svg-icons'
 import Icon from 'components/Icon'
+import Meta from 'components/Meta'
+import Layout from 'components/Layout'
 
-export default ({ pageContext }) => {
+export default ({ pageContext, location, data }) => {
   return (
-    <div className="container">
-      <p>Repo Count: {pageContext.repositories.totalCount}</p>
-      <p>
-        Contributed to count: {pageContext.repositoriesContributedTo.totalCount}
-      </p>
-      <p>Repos:</p>
-      <RepoList repos={pageContext.repositories.nodes} />
-    </div>
+    <Layout location={location}>
+      <Meta site={data.site.metadata} />
+      <div className="container">
+        <p>Repo Count: {pageContext.repositories.totalCount}</p>
+        <p>
+          Contributed to count:{' '}
+          {pageContext.repositoriesContributedTo.totalCount}
+        </p>
+        <p>Repos:</p>
+        <RepoList repos={pageContext.repositories.nodes} />
+      </div>
+    </Layout>
   )
 }
 
@@ -48,3 +55,18 @@ class RepoList extends Component {
     )
   }
 }
+
+export const pageQuery = graphql`
+  query {
+    site {
+      meta: siteMetadata {
+        title
+        description
+        url: siteUrl
+        author
+        twitter
+        adsense
+      }
+    }
+  }
+`

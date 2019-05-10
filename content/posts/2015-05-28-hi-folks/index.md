@@ -7,11 +7,14 @@ category: Typography
 tags:
   - Markdown
   - Emoji
+  - guide
 ---
 
 Paragraphs are separated by a blank line.
 
-2nd paragraph. _Italic_, **bold**, and `monospace`. Itemized lists
+2nd paragraph. _Italic_,
+**bold**, and `monospace`.  
+Itemized lists
 look like:
 
 - this one
@@ -30,9 +33,11 @@ content starts at 4-columns in.
 
 Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
 in chapters 12--14"). Three dots ... will be converted to an ellipsis.
-Unicode is supported 😄
+Unicode is supported 😄 :+1
 
 ```js
 // javascript
 console.log('Hello World!!')
 ```
+
+-[ ] nj

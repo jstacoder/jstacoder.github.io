@@ -3,6 +3,22 @@ const Promise = require('bluebird')
 const path = require('path')
 const PostTemplate = path.resolve('./src/templates/index.js')
 
+const createGithubPage = (repo, createPage) => {
+  createPage({
+    path: `/github/${repo.name}`,
+    component: require.resolve('./src/templates/github-page.js'),
+    context: {
+      repo,
+    },
+  })
+}
+
+const createGithubPages = (repos, createPage) => {
+  repos.nodes.forEach(repo => {
+    createGithubPage(repo, createPage)
+  })
+}
+
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   const pageLength = 2
@@ -41,6 +57,25 @@ exports.createPages = ({ graphql, actions }) => {
                   nodes {
                     name
                     stargazers {
+                      totalCount
+                    }
+                    createdAt
+                    description
+                    forkCount
+                    homepageUrl
+                    isFork
+                    issues {
+                      totalCount
+                    }
+
+                    primaryLanguage {
+                      name
+                    }
+                    pullRequests {
+                      totalCount
+                    }
+                    sshUrl
+                    watchers {
                       totalCount
                     }
                   }
@@ -96,6 +131,7 @@ exports.createPages = ({ graphql, actions }) => {
             repositoriesContributedTo,
           },
         })
+        createGithubPages(repositories, createPage)
         // Create blog posts & pages.
         const items = data.allFile.edges
         const posts = items.filter(({ node }) => /posts/.test(node.name))
@@ -130,6 +166,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         components: path.resolve(__dirname, 'src/components'),
         templates: path.resolve(__dirname, 'src/templates'),
         scss: path.resolve(__dirname, 'src/scss'),
+        pages: path.resolve(__dirname, 'src/pages'),
       },
     },
   })

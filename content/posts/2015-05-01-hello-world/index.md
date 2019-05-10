@@ -79,7 +79,7 @@ In the standard process of making type, a hard metal punch (made by punchcutting
 The invention of the making of types with punch, matrix and mold has been widely attributed to Gutenberg. However, recent evidence suggests that Gutenberg's process was somewhat different. If he used the punch and matrix approach, all his letters should have been nearly identical, with some variations due to miscasting and inking. However, the type used in Gutenberg's earliest work shows other variations.
 
 <figure>
-	<blockquote>
+	<blockquote class="blockquote">
 		<p>It is a press, certainly, but a press from which shall flow in inexhaustible streams… Through it, god will spread his word.</p>
 		<footer>
 			<cite>—Johannes Gutenberg</cite>

@@ -13,6 +13,7 @@ module.exports = {
   },
   pathPrefix: '/',
   plugins: [
+    'gatsby-source-unsplash',
     {
       resolve: 'gatsby-source-graphql',
       options: {
@@ -57,6 +58,10 @@ module.exports = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
+          {
+            resolve: 'gatsby-remark-emoji',
+            options: {},
+          },
           {
             resolve: 'gatsby-remark-images',
             options: {

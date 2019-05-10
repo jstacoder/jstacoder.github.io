@@ -46,9 +46,5 @@
   {
     "name": "docker",
     "title": "Docker"
-  },
-  {
-    "name": "confluence",
-    "title": "Confluence"
   }
 ]

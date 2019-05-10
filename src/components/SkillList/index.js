@@ -25,19 +25,19 @@ export default class SkillList extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="container-flex">
-          <div className="row">
-            <div className="col-lg-12">
-              <h2 className="section-heading">MY SKILLS</h2>
-              <hr className="border-white" />
-            </div>
+        <div>
+          <div className="col-lg-12">
+            <h2 className="section-heading">MY SKILLS</h2>
+            <hr className="border-white" />
           </div>
         </div>
 
-        <div className="container-fex">
-          {this.state.groups.map(skills => (
-            <SkillRow skills={skills} />
-          ))}
+        <div>
+          <div className="col-lg-12">
+            {this.state.groups.map(skills => (
+              <SkillRow skills={skills} />
+            ))}
+          </div>
         </div>
       </React.Fragment>
     )

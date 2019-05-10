@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
+import { faStar } from '@fortawesome/free-regular-svg-icons'
 import React from 'react'
 
 import {
@@ -32,6 +33,7 @@ import {
 import './style.scss'
 
 library.add(
+  faStar,
   faApple,
   faAws,
   faFacebook,
@@ -66,6 +68,7 @@ const iconList = [
   faGithub,
   faHtml5,
   faJs,
+  faStar,
   faNode,
   faPhp,
   faReact,
@@ -91,11 +94,11 @@ const icons = {}
 iconList.forEach(icon => {
   icons[icon.iconName] = icon
 })
-console.log(icons)
 
-const Icon = ({ name }) => (
-  <div className="icon" title={name}>
-    <FontAwesomeIcon icon={icons[name]} />
+const Icon = ({ name, icon, text = '' }) => (
+  <div className="icon" title={name || icon.iconName}>
+    <FontAwesomeIcon icon={icons[name || icon.iconName]} />
+    <p>{text}</p>
   </div>
 )
 
