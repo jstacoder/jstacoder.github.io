@@ -6,7 +6,16 @@ exports.sourceNodes = (
   configOptions
 ) => {
   const { createNode, createTypes } = actions
-  //
+  const typeDefs = [
+    schema.buildObjectType({
+      name: 'PhotoObjectType',
+      fields: {
+        id: {
+          type: 'ID!',
+        },
+      },
+    }),
+  ]
   // const typeDefs = [
   //   schema.buildObjectType({
   //     name: 'MarkdownRemark',

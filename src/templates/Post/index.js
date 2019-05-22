@@ -3,22 +3,17 @@ import get from 'lodash/get'
 import React from 'react'
 import Img from 'gatsby-image'
 
+// noinspection NpmUsedModulesInstalled
 import Badges from 'components/Badges'
+// noinspection NpmUsedModulesInstalled
 import Adsense from 'components/Adsense'
+// noinspection NpmUsedModulesInstalled
 import Button from 'components/Button'
 import './style.scss'
 
 const Post = ({ data, options }) => {
   const {
-    frontmatter: {
-      category,
-      tags,
-      description,
-      title,
-      path,
-      date,
-      // image,
-    },
+    frontmatter: { category, tags, description, title, path, date, image },
     tableOfContents,
   } = data
   const { isIndex, adsense } = options

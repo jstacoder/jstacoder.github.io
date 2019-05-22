@@ -5,15 +5,20 @@ const path = require('path')
 
 module.exports = {
   siteMetadata: {
-    title: 'Gatstrap',
+    title: 'Jstacoder ',
     description: 'Jstacoders Info',
     siteUrl: 'https://gatstrap.netlify.com',
     author: 'jstacoder',
     twitter: 'amigodornot666',
     adsense: '',
+    style: `light`,
+    layout: `sidebar`,
   },
-  pathPrefix: '/',
+  pathPrefix: process.env.PATH_PREFIX || '/',
   plugins: [
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-sass`,
+    `gatsby-transformer-yaml`,
     {
       resolve: 'gatsby-source-unsplash',
       options: {
@@ -58,6 +63,13 @@ module.exports = {
       options: {
         path: `${__dirname}/content/images/`,
         name: 'images',
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/src/data/`,
+        name: 'yaml',
       },
     },
     {
@@ -116,9 +128,10 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
-        trackingId: '',
+        trackingId: 'UA-140530265-1',
       },
     },
+
     {
       resolve: 'gatsby-plugin-netlify',
       options: {
@@ -129,21 +142,11 @@ module.exports = {
     },
     'gatsby-plugin-catch-links',
     'gatsby-plugin-offline',
-    'gatsby-plugin-react-helmet',
     'gatsby-plugin-react-next',
-    'gatsby-plugin-sass',
     'gatsby-plugin-sharp',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-twitter',
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
-  ],
-  __experimentalThemes: [
-    {
-      resolve: path.resolve('../gatsby-theme-basic-blog'),
-    },
-    // {
-    //   resolve: 'gatsby-theme-docz'
-    // }
   ],
 }

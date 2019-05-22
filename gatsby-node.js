@@ -1,6 +1,7 @@
 const each = require('lodash/each')
 const Promise = require('bluebird')
 const path = require('path')
+const { createFilePath } = require(`gatsby-source-filesystem`)
 
 module.paths.push(path.resolve('../', 'gatsby-theme-basic-blog'))
 
@@ -18,6 +19,14 @@ const createGithubPages = (repos, createPage) => {
   repos.nodes.forEach(repo => {
     createGithubPage(repo, createPage)
   })
+}
+
+exports.onCreateNode = ({ actions, node }) => {
+  const { createNodeField } = actions
+  console.log(node.internal.type)
+  if (!node.remark) return
+  const { path } = node.remark.frontmatter
+  createNodeField({ node: node, name: 'slug', value: path })
 }
 
 exports.createPages = ({ graphql, actions }) => {

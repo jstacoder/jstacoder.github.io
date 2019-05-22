@@ -1,60 +1,63 @@
-import { graphql } from 'gatsby'
-import React from 'react'
-import get from 'lodash/get'
+import React, { useContext } from 'react'
+import 'components/Toggle.css'
 
-import Post from 'templates/Post'
-import Meta from 'components/Meta'
-import Layout from 'components/Layout'
+import Layout from 'components/layout'
+import { ThemeContext } from '../theme-context'
+import MastHead from 'components/mastHead'
+import Projects from 'components/projects'
+import Interests from 'components/interests'
+import Thoughts from 'components/thoughts'
+import SEO from 'components/seo'
+import useSiteMetadata from '../hooks/siteMetaData'
 
-const BlogIndex = ({ data, location }) => {
-  const posts = get(data, 'remark.posts')
+function IndexPage() {
+  const {
+    state: { style },
+  } = useContext(ThemeContext)
+  const { layout } = useSiteMetadata()
   return (
-    <Layout location={location}>
-      <Meta site={get(data, 'site.meta')} />
-      {posts.map(({ post }, i) => (
-        <Post
-          data={post}
-          options={{
-            isIndex: true,
-          }}
-          key={i}
-        />
-      ))}
+    <Layout>
+      <SEO />
+      {layout === 'stacked' ? (
+        <div className="container-lg py-6 p-responsive text-center">
+          <MastHead metaData={true} />
+          <div className="my-6">
+            <Projects />
+          </div>
+          <div className="my-6">
+            <Interests />
+          </div>
+          <div className="my-6">
+            <Thoughts />
+          </div>
+        </div>
+      ) : (
+        <div className={`d-md-flex ${style !== 'dark' && 'border-md-bottom'}`}>
+          <div
+            className={`flex-self-stretch ${
+              style === 'dark'
+                ? 'bg-gray-dark'
+                : 'border-md-right border-gray-light bg-white'
+            } col-md-5 col-lg-4 col-xl-3 px-4 px-md-6 px-lg-7 py-6`}
+          >
+            <MastHead metaData={true} />
+          </div>
+          <div
+            className="col-md-7 col-lg-8 col-xl-9 px-4 py-6 px-lg-7 border-top border-md-top-0"
+            style={{
+              backgroundColor: style === 'dark' ? '#2f363d' : '#fafbfc',
+            }}
+          >
+            <div className="mx-auto" style={{ maxWidth: '900px' }}>
+              <Projects />
+              <Interests />
+              <Thoughts />
+            </div>
+          </div>
+        </div>
+      )}
     </Layout>
   )
 }
 
-export default BlogIndex
-
-export const pageQuery = graphql`
-  query IndexQuery {
-    site {
-      meta: siteMetadata {
-        title
-        description
-        url: siteUrl
-        author
-        twitter
-        adsense
-      }
-    }
-    remark: allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
-    ) {
-      posts: edges {
-        post: node {
-          html
-          frontmatter {
-            layout
-            title
-            path
-            category
-            tags
-            description
-            date(formatString: "YYYY/MM/DD")
-          }
-        }
-      }
-    }
-  }
-`
+export default IndexPage

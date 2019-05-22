@@ -9,6 +9,7 @@ category: Typography
 tags:
   - Movable Type
   - Johannes Gutenberg
+published: true
 ---
 
 <figcaption>Johannes Gutenberg</figcaption>

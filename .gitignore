@@ -5,3 +5,8 @@ public
 .intermediate-representation/
 .cache/
 .vscode/
+*~
+*.komodo*
+.idea/
+schema.graphql
+*.log
