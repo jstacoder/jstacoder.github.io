@@ -22,7 +22,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-unsplash',
       options: {
-        UNSPLASH_API_KEY: process.env.UNSPLASH_ACCESS_KEY,
+        UNSPLASH_API_KEY: process.env.UNSPLASH_API_KEY,
       },
     },
     {
