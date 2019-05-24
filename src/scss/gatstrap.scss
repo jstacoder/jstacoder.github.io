@@ -61,7 +61,7 @@ $link-hover-decoration: none !default;
 //
 @import './fonts.scss';
 
-@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import '~bootstrap/scss/bootstrap.scss';
 
 html,
 body {
@@ -83,10 +83,10 @@ p {
 img {
   margin-bottom: 15px;
   max-width: 100%;
-}
 
-img:hover {
-  animation: pulse 0.5s;
+  &:hover {
+    animation: pulse 0.5s;
+  }
 }
 
 .masthead {

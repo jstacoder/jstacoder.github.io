@@ -1,12 +1,15 @@
 import React, { useContext } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import TopicCard from './topicCard'
+import { Col } from 'reactstrap'
+
+import TopicCard from 'components/topicCard'
 import { ThemeContext } from '../theme-context'
 
 function Topics() {
   const {
     state: { style },
   } = useContext(ThemeContext)
+  // language=GraphQL
   const {
     allDataYaml: { edges },
   } = useStaticQuery(
@@ -35,9 +38,9 @@ function Topics() {
       </p>
       <div className="d-sm-flex flex-wrap gutter-condensed mb-4">
         {topics.map((topic, i) => (
-          <div key={i} className="col-sm-6 col-md-12 col-lg-6 col-xl-4 mb-3">
+          <Col sm={6} md={12} lg={6} xl={4} className={'mb-3'} key={i}>
             <TopicCard topic={topic} />
-          </div>
+          </Col>
         ))}
       </div>
     </>

@@ -10,3 +10,4 @@ public
 .idea/
 schema.graphql
 *.log
+.env*

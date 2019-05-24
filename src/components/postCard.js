@@ -23,7 +23,7 @@ function PostCard({ post }) {
     >
       <div className="d-flex flex-justify-between flex-items-start mb-1">
         <h1 className="f4 lh-condensed mb-1">
-          <Link to={post.slug}>{post.frontmatter.title}</Link>
+          <Link to={post.slug || 'xxxx'}>{post.frontmatter.title}</Link>
         </h1>
       </div>
       <div className="text-gray mb-2 ws-normal">{`${''}`}</div>
