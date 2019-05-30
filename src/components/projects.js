@@ -4,7 +4,6 @@ import { useStaticQuery, graphql } from 'gatsby'
 // noinspection NpmUsedModulesInstalled
 import NavTabs from 'components/Tabs'
 // noinspection NpmUsedModulesInstalled
-import RepoCard from 'components/repoCard'
 import ProjectGrid from 'components/ProjectGrid'
 
 import { ThemeContext } from '../theme-context'
@@ -15,7 +14,7 @@ function Projects() {
   } = useContext(ThemeContext)
   const {
     github: {
-      viewer: { repositoriesContributedTo, TopProjects, PinnedProjects },
+      viewer: { MoreProjectsContributedTo, TopProjects, TopContributions },
     },
   } = useStaticQuery(
     graphql`
@@ -24,24 +23,24 @@ function Projects() {
           viewer {
             TopProjects: repositories(
               privacy: PUBLIC
-              first: 9
+              first: 6
               orderBy: { field: STARGAZERS, direction: DESC }
             ) {
               nodes {
                 ...GithubRepoQuery
               }
             }
-            PinnedProjects: repositories(
+            TopContributions: pinnedRepositories(
               privacy: PUBLIC
-              first: 9
-              orderBy: { field: UPDATED_AT, direction: DESC }
+              first: 6
+              orderBy: { field: STARGAZERS, direction: DESC }
             ) {
               nodes {
                 ...GithubRepoQuery
               }
             }
-            repositoriesContributedTo(
-              first: 9
+            MoreProjectsContributedTo: repositoriesContributedTo(
+              first: 6
               orderBy: { field: STARGAZERS, direction: DESC }
             ) {
               nodes {
@@ -60,20 +59,24 @@ function Projects() {
       </h2>
 
       <NavTabs
-        tabs={['TopProjects', 'LatestProjects', 'ProjectsContributedTo']}
-        initialActiveTab={'TopProjects'}
+        tabs={[
+          'Top Projects',
+          'Top Contributions',
+          'More Projects Ive Contributed To',
+        ]}
+        initialActiveTab={'Top Projects'}
       >
         <ProjectGrid
           projects={TopProjects}
-          subtitle={'My Top Github Projects'}
+          subtitle={'My Top Personal Github Projects'}
         />
         <ProjectGrid
-          projects={PinnedProjects}
-          subtitle={'My Latest updated projects'}
+          projects={TopContributions}
+          subtitle={'The Hightest Starred Projects Ive Made Contributions To'}
         />
         <ProjectGrid
-          projects={repositoriesContributedTo}
-          subtitle={'Top projects ive contributed to'}
+          projects={MoreProjectsContributedTo}
+          subtitle={'More projects ive contributed to'}
         />
       </NavTabs>
     </>

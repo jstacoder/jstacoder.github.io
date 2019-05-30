@@ -16,8 +16,16 @@ module.exports = {
   },
   pathPrefix: process.env.PATH_PREFIX || '/',
   plugins: [
+    `gatsby-mdx`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sass`,
+    {
+      resolve: `gatsby-plugin-sass`,
+      // options: {
+      //   // importLoaders: 1,
+      //   // modules: true,
+      //   localIdentName: '[name]__[local]'
+      // }
+    },
     `gatsby-transformer-yaml`,
     {
       resolve: 'gatsby-source-unsplash',
@@ -34,7 +42,7 @@ module.exports = {
           createHttpLink({
             uri: `https://api.github.com/graphql`,
             headers: {
-              Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
+              Authorization: `bearer ${process.env.GITHUB_API_KEY}`,
             },
             fetch,
           }),
@@ -149,4 +157,8 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
   ],
+  //   __experimentalThemes:[
+  //  'gatsby-theme-basic-blog',
+  //  'gatsby-theme-docz'
+  //  ]
 }

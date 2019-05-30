@@ -165,7 +165,8 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       alias: {
         'gatsby-theme-basic-blog': path.resolve(
           __dirname,
-          '../gatsby-theme-basic-blog'
+          '..',
+          'gatsby-theme-basic-blog'
         ),
         components: path.resolve(__dirname, 'src/components'),
         templates: path.resolve(__dirname, 'src/templates'),
