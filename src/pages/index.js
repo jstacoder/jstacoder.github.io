@@ -9,6 +9,14 @@ import Interests from 'components/interests'
 import Thoughts from 'components/thoughts'
 import SEO from 'components/seo'
 import useSiteMetadata from '../hooks/siteMetaData'
+import { my, py } from 'styled-components-spacing'
+import styled from 'styled-components'
+
+import { Row, Col, Container } from 'styled-bootstrap'
+
+const My6Div = styled.div`
+  ${my(6)}
+`
 
 function IndexPage() {
   const {
@@ -21,15 +29,15 @@ function IndexPage() {
       {layout === 'stacked' ? (
         <div className="container-lg py-6 p-responsive text-center">
           <MastHead metaData={true} />
-          <div className="my-6">
+          <My6Div>
             <Projects />
-          </div>
-          <div className="my-6">
+          </My6Div>
+          <My6Div>
             <Interests />
-          </div>
-          <div className="my-6">
+          </My6Div>
+          <My6Div>
             <Thoughts />
-          </div>
+          </My6Div>
         </div>
       ) : (
         <div className={`d-md-flex ${style !== 'dark' && 'border-md-bottom'}`}>
