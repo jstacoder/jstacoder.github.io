@@ -1,7 +1,7 @@
-
+@import '../../scss/colors.scss';
 /* Tabs*/
 section {
-    padding: 60px 0;
+  padding: 60px 0;
 }
 
 section .section-title {
@@ -18,7 +18,10 @@ section .section-title {
     color: #eee;
 }
 
-#tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+#tabs .nav-tabs .nav-item.show .nav-link,
+#tabs .nav-tabs .nav-item.show .nav-link:hover,
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link.active:hover{
     color: #f3f3f3;
     background-color: transparent;
     border-color: transparent transparent #f3f3f3;
@@ -26,11 +29,17 @@ section .section-title {
     font-size: 20px;
     font-weight: bold;
 }
-#tabs .nav-tabs .nav-link {
+#tabs .nav-tabs .nav-link,
+#tabs .nav-tabs .nav-link:hover {
     border: 1px solid transparent;
     border-top-left-radius: .25rem;
     border-top-right-radius: .25rem;
     color: #eee;
     font-size: 20px;
     cursor: pointer;
+}
+
+.light #tabs .nav-tabs .nav-link,
+.light #tabs .nav-tabs .nav-link:hover {
+  color: #495057;
 }

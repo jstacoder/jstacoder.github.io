@@ -61,7 +61,7 @@ $link-hover-decoration: none !default;
 //
 @import './fonts.scss';
 
-@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import '~bootstrap/scss/bootstrap.scss';
 
 html,
 body {

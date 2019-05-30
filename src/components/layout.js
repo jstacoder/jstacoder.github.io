@@ -6,18 +6,24 @@
  */
 
 import React, { useContext, useEffect } from 'react'
+import { MDXProvider } from '@mdx-js/react'
 import { ThemeContext } from '../theme-context'
 
 import './layout.scss'
 
-function Layout({ children }) {
+export default function Layout({ children }) {
   const {
     state: { theme },
   } = useContext(ThemeContext)
   useEffect(() => {
     document.body.style.backgroundColor = theme.background
   }, [theme.background])
-  return <main>{children}</main>
+  const components = {
+    li: props => <input type={'checkbox'} {...props} />,
+  }
+  return (
+    <MDXProvider components={components}>
+      <main>{children}</main>
+    </MDXProvider>
+  )
 }
-
-export default Layout

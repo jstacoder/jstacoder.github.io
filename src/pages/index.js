@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
-import 'components/Toggle.css'
+import '../components/Toggle.css'
 
-import Layout from 'components/layout'
+import Layout from '../components/layout'
 import { ThemeContext } from '../theme-context'
-import MastHead from 'components/mastHead'
-import Projects from 'components/projects'
-import Interests from 'components/interests'
-import Thoughts from 'components/thoughts'
-import SEO from 'components/seo'
+import MastHead from '../components/mastHead'
+import Projects from '../components/projects'
+import Interests from '../components/interests'
+import Thoughts from '../components/thoughts'
+import SEO from '../components/seo'
 import useSiteMetadata from '../hooks/siteMetaData'
 
 function IndexPage() {
@@ -48,7 +48,7 @@ function IndexPage() {
               backgroundColor: style === 'dark' ? '#2f363d' : '#fafbfc',
             }}
           >
-            <div className="mx-auto" style={{ maxWidth: '900px' }}>
+            <div className={`mx-auto ${style}`} style={{ maxWidth: '900px' }}>
               <Projects />
               <Interests />
               <Thoughts />

@@ -2,6 +2,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 const windowGlobal = typeof window !== 'undefined' && window
 
 const useSiteMetadata = () => {
+  // language=GraphQL
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -9,6 +10,12 @@ const useSiteMetadata = () => {
           siteMetadata {
             style
             layout
+            adsense
+            author
+            description
+            siteUrl
+            title
+            twitter
           }
         }
       }
