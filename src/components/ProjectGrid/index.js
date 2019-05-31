@@ -12,7 +12,7 @@ const ProjectGrid = ({ projects, title, subtitle }) => {
   return (
     <>
       <h2 className={style === 'dark' ? 'text-white' : ''}>{title}</h2>
-      <p className={`f4 mb-4 ${style === 'dark' ? 'text-white' : 'text-gray'}`}>
+      <p className={`f5 mb-4 ${style === 'dark' ? 'text-white' : 'text-gray'}`}>
         {subtitle}
       </p>
       <div className="d-sm-flex flex-wrap gutter-condensed mb-4">

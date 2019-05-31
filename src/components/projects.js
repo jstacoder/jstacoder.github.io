@@ -14,7 +14,7 @@ function Projects() {
   } = useContext(ThemeContext)
   const {
     github: {
-      viewer: { MoreProjectsContributedTo, TopProjects, TopContributions },
+      viewer: { MyPinnedRepos, TopProjects, TopContributions },
     },
   } = useStaticQuery(
     graphql`
@@ -39,7 +39,7 @@ function Projects() {
                 ...GithubRepoQuery
               }
             }
-            MoreProjectsContributedTo: repositoriesContributedTo(
+            MyPinnedRepos: repositoriesContributedTo(
               first: 6
               orderBy: { field: STARGAZERS, direction: DESC }
             ) {
@@ -59,11 +59,7 @@ function Projects() {
       </h2>
 
       <NavTabs
-        tabs={[
-          'Top Projects',
-          'Top Contributions',
-          'More Projects Ive Contributed To',
-        ]}
+        tabs={['Top Projects', 'Top Contributions', 'My Pinned Repos']}
         initialActiveTab={'Top Projects'}
       >
         <ProjectGrid
@@ -75,7 +71,7 @@ function Projects() {
           subtitle={'The Hightest Starred Projects Ive Made Contributions To'}
         />
         <ProjectGrid
-          projects={MoreProjectsContributedTo}
+          projects={MyPinnedRepos}
           subtitle={'More projects ive contributed to'}
         />
       </NavTabs>

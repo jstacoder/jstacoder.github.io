@@ -1,11 +1,20 @@
 const axios = require('axios')
 const queryString = require('query-string')
+const { createRemoteFileNode } = require('gatsby-source-filesystem')
 
-exports.sourceNodes = (
-  { actions, createNodeId, createContentDigest, schema },
+exports.sourceNodes = async (
+  {
+    store,
+    cache,
+    createContentDigest,
+    actions,
+    getNode,
+    createNodeId,
+    schema,
+    _auth,
+  },
   configOptions
 ) => {
-  const { createNode, createTypes } = actions
   const typeDefs = [
     schema.buildObjectType({
       name: 'PhotoObjectType',
@@ -52,6 +61,7 @@ exports.sourceNodes = (
   //   })
   // ]
   // createTypes(typeDefs)
+  const { createNode, touchNode } = actions
 
   const { UNSPLASH_API_KEY } = configOptions
 
@@ -79,10 +89,28 @@ exports.sourceNodes = (
   const apiUrl = `https://api.unsplash.com/photos?client_id=${UNSPLASH_API_KEY}`
   console.log(apiOptions, apiUrl)
 
-  return axios.get(apiUrl).then(response => {
-    response.data.forEach(photo => {
+  return axios.get(apiUrl).then(async response => {
+    response.data.forEach(async photo => {
       const nodeData = processPhoto(photo)
       createNode(nodeData)
+
+      const node = getNode(nodeData.id)
+
+      let fileNode
+      console.log(node)
+
+      try {
+        fileNode = await createRemoteFileNode({
+          url: node.urls.raw,
+          parentNodeId: node.id,
+          store,
+          cache,
+          createNode,
+          createNodeId,
+          ext: '.jpg',
+        })
+        console.log(fileNode)
+      } catch (e) {}
     })
   })
 }
