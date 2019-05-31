@@ -12,5 +12,9 @@ export const GithubRepoQuery = graphql`
       totalCount
     }
     forkCount
+    language: primaryLanguage {
+      color
+      name
+    }
   }
 `

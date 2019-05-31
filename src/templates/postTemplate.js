@@ -1,11 +1,23 @@
 import React, { useContext } from 'react'
 import { Link, graphql } from 'gatsby'
 import Octicon, { ChevronLeft } from '@githubprimer/octicons-react'
-import Layout from '../components/layout'
-import MastHead from '../components/mastHead'
+import Layout from 'components/layout'
+import MastHead from 'components/mastHead'
 import useSiteMetadata from '../hooks/siteMetaData'
 import { ThemeContext } from '../theme-context'
-import { formatePostDate } from '../components/postCard'
+import { formatePostDate } from 'components/postCard'
+import { Container, Row, Col } from 'styled-bootstrap-components'
+import { p, py, mt, mr, mb, px } from 'styled-components-spacing'
+import styled from 'styled-components'
+import { Flex, FlexItem } from 'styled-components-flex'
+
+const ProjectContainer = styled(Container)`
+  &&& {
+    text-align: center;
+  }
+  ${py(6)}
+  ${p('responsive')}
+`
 
 export default ({ data }) => {
   const {
@@ -16,7 +28,7 @@ export default ({ data }) => {
   return (
     <Layout>
       {layout === 'stacked' ? (
-        <div className="container-lg py-6 p-responsive text-center">
+        <ProjectContainer>
           <MastHead metaData={false} />
           <div className="container-md f4 text-left border rounded-2 bg-white p-3 p-sm-5 mt-6">
             <p className="f5">
@@ -44,7 +56,7 @@ export default ({ data }) => {
             </p>
             <div dangerouslySetInnerHTML={{ __html: post.html }} />
           </div>
-        </div>
+        </ProjectContainer>
       ) : (
         <div
           className={`d-md-flex ${style !== 'dark' ? 'border-md-bottom' : ''}`}
@@ -114,14 +126,14 @@ export default ({ data }) => {
 
 export const query = graphql`
   query($slug: String!) {
-        markdownRemark(frontmatter: {slug: {eq}} fields: {slug: {eq: $slug } }) {
-        html
+    markdownRemark(frontmatter: { path: { eq: $slug } }) {
+      html
       frontmatter {
         title
+        postDate: date
       }
-      fields {
-          postDate
-        }
-      }
+      timeToRead
+      slug: fileAbsolutePath
     }
-  `
+  }
+`

@@ -8,6 +8,7 @@
     "@githubprimer/octicons-react": "^8.5.0",
     "@mdx-js/mdx": "^1.0.0-rc.4",
     "@mdx-js/react": "^1.0.0-rc.5",
+    "@primer/components": "^13.0.0",
     "@storybook/addon-info": "^5.0.11",
     "@storybook/addon-knobs": "^5.0.11",
     "ansi-html": "0.0.7",
