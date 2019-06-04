@@ -1,5 +1,4 @@
-import React, { useReducer, createContext, useLayoutEffect } from 'react'
-import { ThemeProvider } from 'styled-components'
+import React, { useReducer, createContext } from 'react'
 
 export const themes = {
   light: {
@@ -45,7 +44,7 @@ const localTheme =
 
 const initialState = {
   style: localTheme,
-  theme: themes[`${localTheme}`],
+  theme: themes[localTheme],
 }
 
 const reducer = (state, action) => {
@@ -53,15 +52,11 @@ const reducer = (state, action) => {
     windowGlobal.localStorage.setItem('theme', action.value)
   switch (action.type) {
     case 'TOGGLE_THEME':
-      return state.style === 'light'
-        ? { theme: themes.dark, style: 'dark' }
-        : { theme: themes.light, style: 'light' }
+      return { theme: themes[action.value], style: action.value }
     case 'CHANGE_THEME':
-      return action.value === 'light'
-        ? { theme: themes.light, style: 'light' }
-        : { theme: themes.dark, style: 'dark' }
+      return { theme: themes[action.value], style: action.value }
     default:
-      return { theme: themes.light, style: 'light' }
+      return state
   }
 }
 
@@ -75,7 +70,7 @@ function ThemeContextProvider(props) {
   const value = { state, dispatch }
   return (
     <ThemeContext.Provider value={value}>
-      <ThemeProvider theme={state.theme}>{props.children}</ThemeProvider>
+      {props.children}
     </ThemeContext.Provider>
   )
 }
