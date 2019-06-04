@@ -84,7 +84,7 @@ module.exports = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
-          'gatsby-remark-tables',
+          // 'gatsby-remark-tables',
           {
             resolve: 'gatsby-remark-emoji',
             options: {},
@@ -155,8 +155,19 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-twitter',
+    'gatsby-plugin-styled-components',
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
+  ],
+  __experimentalThemes: [
+    {
+      resolve: '@jxnblk/gatsby-theme-mdx-blog',
+      options: {
+        name: 'writing',
+        path: 'src/content',
+        pageSize: 16,
+      },
+    },
   ],
   //   __experimentalThemes:[
   //  'gatsby-theme-basic-blog',

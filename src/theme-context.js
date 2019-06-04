@@ -1,4 +1,5 @@
 import React, { useReducer, createContext } from 'react'
+import { ThemeProvider } from 'styled-components'
 
 export const themes = {
   light: {
@@ -47,14 +48,13 @@ const initialState = {
   theme: themes[localTheme],
 }
 
-const reducer = (state, action) => {
-  windowGlobal.localStorage &&
-    windowGlobal.localStorage.setItem('theme', action.value)
-  switch (action.type) {
+const reducer = (state, { value, type }) => {
+  windowGlobal.localStorage && windowGlobal.localStorage.setItem('theme', value)
+  const theme = themes[value]
+  switch (type) {
     case 'TOGGLE_THEME':
-      return { theme: themes[action.value], style: action.value }
     case 'CHANGE_THEME':
-      return { theme: themes[action.value], style: action.value }
+      return { theme, style: value }
     default:
       return state
   }
@@ -70,7 +70,7 @@ function ThemeContextProvider(props) {
   const value = { state, dispatch }
   return (
     <ThemeContext.Provider value={value}>
-      {props.children}
+      <ThemeProvider theme={state.theme}>{props.children}</ThemeProvider>
     </ThemeContext.Provider>
   )
 }

@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import '../components/Toggle.css'
 
 import Layout from '../components/layout'
-import { ThemeContext } from '../theme-context'
+import useTheme from '../hooks/useTheme'
 import MastHead from '../components/mastHead'
 import Projects from '../components/projects'
 import Interests from '../components/interests'
@@ -21,7 +21,7 @@ const My6Div = styled.div`
 function IndexPage() {
   const {
     state: { style },
-  } = useContext(ThemeContext)
+  } = useTheme()
   const { layout } = useSiteMetadata()
   return (
     <Layout>

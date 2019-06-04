@@ -1,12 +1,27 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import PostCard from './postCard'
-import { ThemeContext } from '../theme-context'
+import styled from 'styled-components'
+import useTheme from '../hooks/useTheme'
+import { Col } from 'styled-bootstrap-grid'
+
+const DarkWhiteHeader = styled.h2`
+  color: ${props => (props.dark ? props.theme.colors.white : 'inherit')};
+`
+
+const BaseDarkWhiteLightGreyText = styled.p`
+  color: ${({ theme, dark }) =>
+    dark ? theme.colors.white : theme.colors.gray};
+`
+
+const DarkWhiteLightGreyText = ({ className, ...props }) => (
+  <BaseDarkWhiteLightGreyText {...props} className={`${className} f4 mb-4`} />
+)
 
 function Thoughts() {
   const {
     state: { style },
-  } = useContext(ThemeContext)
+  } = useTheme()
   const {
     allMarkdownRemark: { edges },
   } = useStaticQuery(
@@ -32,23 +47,21 @@ function Thoughts() {
       }
     `
   )
+  const darkStyle = style === 'dark'
   return edges.length > 0 ? (
-    <>
-      <h2 className={style === 'dark' ? 'text-white' : ''}>My Thoughts</h2>
-      <p className={`f4 mb-4 ${style === 'dark' ? 'text-white' : 'text-gray'}`}>
+    <React.Fragment>
+      <DarkWhiteHeader dark={darkStyle}>My Thoughts</DarkWhiteHeader>
+      <DarkWhiteLightGreyText dark={darkStyle}>
         Articles I've written.
-      </p>
+      </DarkWhiteLightGreyText>
       <div className="d-sm-flex flex-wrap gutter-condensed mb-4">
         {edges.map((edge, index) => (
-          <div
-            key={index}
-            className="col-sm-6 col-md-12 col-lg-6 col-xl-4 mb-3"
-          >
+          <Col sm={6} md={12} lg={6} xl={4} className={'mb-3'} key={index}>
             <PostCard post={edge.node} />
-          </div>
+          </Col>
         ))}
       </div>
-    </>
+    </React.Fragment>
   ) : null
 }
 
