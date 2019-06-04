@@ -159,16 +159,16 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
   ],
-  __experimentalThemes: [
-    {
-      resolve: '@jxnblk/gatsby-theme-mdx-blog',
-      options: {
-        name: 'writing',
-        path: 'src/content',
-        pageSize: 16,
-      },
-    },
-  ],
+  // __experimentalThemes: [
+  //   {
+  //     resolve: '@jxnblk/gatsby-theme-mdx-blog',
+  //     options: {
+  //       name: 'writing',
+  //       path: 'src/content',
+  //       pageSize: 16,
+  //     },
+  //   },
+  //],
   //   __experimentalThemes:[
   //  'gatsby-theme-basic-blog',
   //  'gatsby-theme-docz'
