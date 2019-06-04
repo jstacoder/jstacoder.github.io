@@ -19,9 +19,11 @@ function Thoughts() {
           edges {
             node {
               frontmatter {
-                slug: path
                 title
                 published
+              }
+              fields {
+                slug
               }
               html
             }

@@ -3,9 +3,9 @@ topics:
     web_url: https://gatsbyjs.org
     image_url: https://www.vectorlogo.zone/logos/gatsbyjs/gatsbyjs-icon.svg
 
-  - name: React-Native
-    web_url: https://facebook.github.io/react-native/
-    image_url: https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg
+  - name: GraphQL
+    web_url: https://graphql.org/
+    image_url: https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/GraphQL_Logo.svg/2000px-GraphQL_Logo.svg.png
 
   - name: React
     web_url: https://reactjs.org

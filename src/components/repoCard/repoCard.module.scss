@@ -1,0 +1,15 @@
+@import '../../scss/colors.scss';
+
+.repo-text {
+  color: $gray-600;
+}
+
+.repo-color-ball {
+  border-radius: 50%;
+  display: inline-block;
+  height: 12px;
+  position: relative;
+  top: 1px;
+  width: 12px;
+}
+

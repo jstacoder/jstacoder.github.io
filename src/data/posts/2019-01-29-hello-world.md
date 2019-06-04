@@ -1,8 +1,8 @@
 ---
-title: 'Welcome to My World!!'
+title: 'Using Graphql in Gatsbyjs'
 published: true
 path: /first
-layout: main
+layout: stacked
 category: pppp
 tags:
   - slijdl
@@ -10,7 +10,7 @@ description: ffwef
 date: 2019-05-05
 ---
 
-## This is where i am going to rant!
+# Graphql why?
 
 ### About:
 
@@ -27,3 +27,5 @@ const StateWrapper = props => {
   const [state, setState] = React.useState()
 }
 ```
+
+- [ ] test checklist

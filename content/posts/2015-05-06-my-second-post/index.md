@@ -22,16 +22,16 @@ yolk will be less rich."?
 
 Yeah, I didn't either.
 
--[x] ahhhhh  
--[ ] coool -[ ] a list
+- [x] ahhhhh
+- [ ] coool
+- [ ] a list
 
-| ddd |
+| First Header | Second Header |
+| ------------ | ------------- |
+| Content Cell | Content Cell  |
+| Content Cell | Content Cell  |
 
-# | ok |
-
-| table | here |
-
----
+{class='table table-light'}
 
 | ok |c | c| cool
 
