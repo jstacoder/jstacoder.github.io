@@ -20,7 +20,7 @@ const DarkWhiteLightGreyText = ({ className, ...props }) => (
 
 function Thoughts() {
   const {
-    state: { style },
+    state: { style, theme },
   } = useTheme()
   const {
     allMarkdownRemark: { edges },
@@ -50,8 +50,10 @@ function Thoughts() {
   const darkStyle = style === 'dark'
   return edges.length > 0 ? (
     <React.Fragment>
-      <DarkWhiteHeader dark={darkStyle}>My Thoughts</DarkWhiteHeader>
-      <DarkWhiteLightGreyText dark={darkStyle}>
+      <DarkWhiteHeader theme={theme} dark={darkStyle}>
+        My Thoughts
+      </DarkWhiteHeader>
+      <DarkWhiteLightGreyText theme={theme} dark={darkStyle}>
         Articles I've written.
       </DarkWhiteLightGreyText>
       <div className="d-sm-flex flex-wrap gutter-condensed mb-4">
