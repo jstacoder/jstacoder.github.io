@@ -12,6 +12,7 @@ import Octicon, {
 import Toggle from 'react-toggle'
 import useSiteMetadata from '../hooks/siteMetaData'
 import { ThemeContext } from '../theme-context'
+import styles from '../pages/index.module.scss'
 
 function mastHead({ metaData }) {
   const { layout } = useSiteMetadata()
@@ -47,6 +48,11 @@ function mastHead({ metaData }) {
             }
             isDeveloperProgramMember
             websiteUrl
+            organizations(first: 10) {
+              nodes {
+                avatarUrl
+              }
+            }
           }
         }
       }
@@ -88,7 +94,7 @@ function mastHead({ metaData }) {
           </div>
         )}
       </div>
-      <hr />
+      <hr className={`${(style === 'dark' && styles.darkHr) || ''}`} />
       {user.isDeveloperProgramMember && (
         <div
           className={`${metadata_styles} ` + (style === 'dark' && 'text-white')}
@@ -196,6 +202,22 @@ function mastHead({ metaData }) {
             Available for hire
           </span>
         )}
+        <hr className={`${(style === 'dark' && styles.darkHr) || ''}`} />
+        <div className={'mb-1'}>
+          <h2 className={`mb-2 h4 ${(style === 'dark' && 'text-white') || ''}`}>
+            Organizations
+          </h2>
+          {user.organizations &&
+            user.organizations.nodes.map(org => (
+              <a
+                className={'avatar-group-item mr-2'}
+                style={{ cursor: 'pointer' }}
+                key={org.avatarUrl}
+              >
+                <img style={{ height: 35, width: 35 }} src={org.avatarUrl} />
+              </a>
+            ))}
+        </div>
         <div style={{ marginTop: 16 }}>
           <Toggle
             defaultChecked={style === 'dark'}

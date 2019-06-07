@@ -21,12 +21,26 @@ const createGithubPages = (repos, createPage) => {
   })
 }
 
-exports.onCreateNode = ({ actions, node }) => {
+exports.onCreateNode = ({ actions, node, getNode }) => {
   const { createNodeField } = actions
   console.log(node.internal.type)
-  if (!node.remark) return
-  const { path } = node.remark.frontmatter
-  createNodeField({ node: node, name: 'slug', value: path })
+  if (node.internal.type === 'MarkdownRemark') {
+    const slug = createFilePath({ node, getNode, basePath: 'posts' })
+    const [postYear, postMonth, postDay, ...filenames] = slug
+      .replace('/', '')
+      .split('-')
+    const filename = filenames.join('-')
+    createNodeField({
+      node,
+      name: 'slug',
+      value: `/${postYear}/${postMonth}/${postDay}/${filename}`,
+    })
+    createNodeField({
+      node,
+      name: 'postDate',
+      value: `${postYear}-${postMonth}-${postDay}`,
+    })
+  }
 }
 
 exports.createPages = ({ graphql, actions }) => {
@@ -104,18 +118,20 @@ exports.createPages = ({ graphql, actions }) => {
                 }
               }
             }
-            allFile(filter: { extension: { regex: "/md|js/" } }, limit: 1000) {
-              edges {
-                node {
+            allPosts: allMarkdownRemark(
+              filter: { frontmatter: { published: { eq: true } } }
+            ) {
+              posts: edges {
+                post: node {
                   id
-                  name: sourceInstanceName
-                  path: absolutePath
-                  remark: childMarkdownRemark {
-                    id
-                    frontmatter {
-                      layout
-                      path
-                    }
+                  path: fileAbsolutePath
+                  fields {
+                    postDate
+                    slug
+                  }
+                  frontmatter {
+                    layout
+                    title
                   }
                 }
               }
@@ -128,6 +144,7 @@ exports.createPages = ({ graphql, actions }) => {
           reject(errors)
         }
         const {
+          allPosts: { posts },
           github: {
             viewer: { repositories, repositoriesContributedTo },
           },
@@ -143,15 +160,18 @@ exports.createPages = ({ graphql, actions }) => {
         })
         createGithubPages(repositories, createPage)
         // Create blog posts & pages.
-        const items = data.allFile.edges
-        const pages = items.filter(({ node }) => /page/.test(node.name))
-        each(pages, ({ node }) => {
-          if (!node.remark) return
-          const { name } = path.parse(node.path)
-          const PageTemplate = path.resolve(node.path)
+        each(posts, ({ post: node }) => {
+          if (node === undefined) return
+          const name = node.frontmatter.title
+
+          const PageTemplate = require.resolve('./src/templates/PostTemplate')
           createPage({
-            path: name,
+            path: node.fields.slug,
             component: PageTemplate,
+            context: {
+              slug: node.fields.slug,
+              date: node.fields.postDate,
+            },
           })
         })
       })

@@ -1,14 +1,19 @@
 import React, { useContext } from 'react'
 import Emoji from 'react-emoji-render'
 import { Link } from 'gatsby'
-import { ThemeContext } from '../theme-context'
+import { ThemeContext } from '../../theme-context'
 import { StarIcon, RepoIcon, GitBranchIcon } from 'react-octicons'
 import styled from 'styled-components'
 import { mr, mx } from 'styled-components-spacing'
+import styles from './repoCard.module.scss'
 
-const makeIcon = Icon => ({ className, ...props }) => (
-  <Icon className={className} {...props} />
+const makeIcon = Icon => ({ className, children, ...props }) => (
+  <Icon className={className} {...props}>
+    {children}
+  </Icon>
 )
+
+const Span = ({ children, ...props }) => <span {...props}>{children}</span>
 
 const RepoStar = makeIcon(styled(StarIcon)`
   ${mr(1)}
@@ -22,20 +27,16 @@ const RepoRepo = makeIcon(styled(RepoIcon)`
   ${mr(1)}
 `)
 
-const RepoLanguageText = styled.span`
-  ${mx(2)};
-  color: grey;
-`
-
-const RepoColor = styled.span`
-  border-radius: 50%;
-  display: inline-block;
-  height: 12px;
-  position: relative;
-  top: 1px;
-  width: 12px;
-  background-color: ${props => props.color};
-`
+const RepoLanguageText = props => (
+  <Span className={`mr-2 ${styles.repoText}`} {...props} />
+)
+const RepoColor = ({ color, ...props }) => (
+  <Span
+    {...props}
+    style={{ backgroundColor: color }}
+    className={`mr-2 mt-1 ${styles.repoColorBall} ${color}`}
+  />
+)
 
 function RepoCard({ repository }) {
   const {
@@ -60,7 +61,9 @@ function RepoCard({ repository }) {
           <h1 className="f5 lh-condensed mb-1">
             <Link to={`/github/${repository.name}`}>
               <RepoRepo />
-              <span className="text-normal">{repository.owner.login}/</span>
+              <span className="ml-1 text-normal">
+                {repository.owner.login}/
+              </span>
               {repository.name}
             </Link>
           </h1>
@@ -72,11 +75,11 @@ function RepoCard({ repository }) {
           <RepoColor color={repository.language.color} />
           <RepoLanguageText>{repository.language.name}</RepoLanguageText>
           <a href={repository.url} className="d-inline-block link-gray mr-4">
-            <RepoStar />
+            <RepoStar className={'mr-1'} />
             {repository.stargazers.totalCount}
           </a>
           <a href={repository.url} className="d-inline-block link-gray mr-4">
-            <RepoGitBranch />
+            <RepoGitBranch className={'mr-1'} />
             {repository.forkCount}
           </a>
         </div>

@@ -9,7 +9,7 @@ import { formatePostDate } from 'components/postCard'
 import { Container, Row, Col } from 'styled-bootstrap-components'
 import { p, py, mt, mr, mb, px } from 'styled-components-spacing'
 import styled from 'styled-components'
-import { Flex, FlexItem } from 'styled-components-flex'
+// import { Flex, FlexItem } from 'styled-flex-components'
 
 const ProjectContainer = styled(Container)`
   &&& {
@@ -126,14 +126,16 @@ export default ({ data }) => {
 
 export const query = graphql`
   query($slug: String!) {
-    markdownRemark(frontmatter: { path: { eq: $slug } }) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       frontmatter {
         title
-        postDate: date
       }
       timeToRead
-      slug: fileAbsolutePath
+      fields {
+        postDate
+        slug
+      }
     }
   }
 `
