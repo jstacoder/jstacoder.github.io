@@ -1,31 +1,35 @@
 ---
-title: 'Using Graphql in Gatsbyjs'
+title: Using Graphql in Gatsbyjs
 published: true
-path: /first
+path: "/first"
 layout: stacked
 category: pppp
 tags:
-  - slijdl
+- " gatsbyjs"
+- react
+- graphql
 description: ffwef
-date: 2019-05-05
----
+date: '2019-05-05'
 
+---
 # Graphql why?
 
-### About:
+### You may have heard about Gatsby and that it uses graphql
 
-- python
-- javascript (probably react related)
-- etc...
+This may cause you to ask: 
 
-### So please just be paitent
+> Why GraphQL? Do i really need to learn this to make use of Gatsby?
 
-```javascript
-import React from 'react'
+So to answer your question:
 
-const StateWrapper = props => {
-  const [state, setState] = React.useState()
-}
-```
+> Because GraphQL is BaddASS and yes you need to learn it
 
-- [ ] test checklist
+but don't worry, it's not that hard. 
+
+Lets look at what it means to query things in graphql:
+
+*  first we will go over graphql query syntax and schema definitions
+* then well look at what data we would query for in Gatsby and why
+* and we will tie it all together by showing how to get the data in Gatsby using graphql queries
+
+### What is a graphql query?

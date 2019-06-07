@@ -1,0 +1,77 @@
+---
+label: programming post
+hide_body: false
+display_field: title
+fields:
+- name: title
+  type: text
+  config:
+    required: true
+  label: Title
+  description: the title for the post
+- name: date_added
+  type: datetime
+  description: the original date a post was added
+  config:
+    required: true
+    date_format: 
+    time_format: 
+    display_utc: false
+    export_format: YYYY-MM-DDThh:mm:ssZ
+  label: Date Added
+  default: now
+  hidden: true
+- name: date_modified
+  type: datetime
+  label: Date Modified
+  description: the last time the field was edited
+  config:
+    required: true
+    date_format: 
+    time_format: 
+    display_utc: false
+    export_format: YYYY-MM-DDThh:mm:ssZ
+  default: now
+  hidden: true
+- name: published
+  type: boolean
+  label: Published
+  description: should the post be visible to the public
+- name: layout
+  type: select
+  default: stacked
+  config:
+    required: true
+    options:
+    - stacked
+    - dual_column
+    - tri_column
+    - sidebar
+    source:
+      type: simple
+      section: 
+      file: 
+      path: 
+  label: Layout
+  description: 'how should the page be displayed '
+- name: tags
+  type: tag_list
+  default: []
+  label: Tags
+  description: tags describing the post
+- name: content
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: true
+    schema:
+      format: markdown
+  label: Content
+- name: categories
+  type: tag_list
+  default: []
+  label: Categories
+pages:
+- src/pages/theme-docs.js
+- src/pages/theme-docs-1.js
