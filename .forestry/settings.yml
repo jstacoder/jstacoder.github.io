@@ -9,17 +9,21 @@ sections:
   label: src/pages
   create: all
   match: "**/*"
-  new_doc_ext: jsx
+  new_doc_ext: js
 - type: directory
   path: content/posts
   label: content/posts
   create: all
   match: "**/*"
+  templates:
+  - programming-post
 - type: directory
   path: src/data/posts
   label: src/data/posts
   create: all
   match: "**/*"
+  templates:
+  - programming-post
 upload_dir: content/images
 public_path: "/uploads"
 front_matter_path: ''
