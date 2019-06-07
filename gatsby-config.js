@@ -84,7 +84,7 @@ module.exports = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
-          'gatsby-remark-tables',
+          // 'gatsby-remark-tables',
           {
             resolve: 'gatsby-remark-emoji',
             options: {},
