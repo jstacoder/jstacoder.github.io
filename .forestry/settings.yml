@@ -9,7 +9,7 @@ sections:
   label: src/pages
   create: all
   match: "**/*"
-  new_doc_ext: ".mdx"
+  new_doc_ext: mdx
 - type: directory
   path: content/posts
   label: content/posts
