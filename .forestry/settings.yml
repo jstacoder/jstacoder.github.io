@@ -4,12 +4,16 @@ auto_deploy: false
 admin_path: ''
 webhook_url: 
 sections:
+- type: heading
+  label: Pages
 - type: directory
   path: src/pages
   label: src/pages
   create: all
   match: "**/*"
   new_doc_ext: mdx
+- type: heading
+  label: Posts
 - type: directory
   path: content/posts
   label: content/posts
@@ -24,6 +28,14 @@ sections:
   match: "**/*"
   templates:
   - programming-post
+- type: heading
+  label: Documentation
+- type: heading
+  label: Templates
+- type: document
+  path: src/templates/PostTemplate.js
+  label: postTemplate
+  match: "**/*"
 upload_dir: content/images
 public_path: "/uploads"
 front_matter_path: ''
