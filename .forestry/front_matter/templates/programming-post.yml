@@ -20,6 +20,7 @@ fields:
     export_format: YYYY-MM-DDThh:mm:ssZ
   label: Date Added
   default: now
+  hidden: true
 - name: date_modified
   type: datetime
   label: Date Modified
@@ -31,6 +32,7 @@ fields:
     display_utc: false
     export_format: YYYY-MM-DDThh:mm:ssZ
   default: now
+  hidden: true
 - name: published
   type: boolean
   label: Published
