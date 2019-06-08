@@ -1,45 +1,29 @@
 ---
-title: Markdown 📝
+title: "Markdown \U0001F4DD"
 date: '2015-05-28T22:40:32.169Z'
-layout: post
-path: '/markdown/'
+layout: stacked
+path: "/markdown/"
 category: Typography
 published: true
-
 tags:
-  - Markdown
-  - Emoji
-  - guide
+- Markdown
+- Emoji
+- guide
+
 ---
+# Vanilla Redux
 
-Paragraphs are separated by a blank line.
+## Why Just Redux?
 
-2nd paragraph. _Italic_,
-**bold**, and `monospace`.  
-Itemized lists
-look like:
+Many people find it difficult to learn react-redux, because they may know react, but if they have not yet run into redux it can be very confusing. So i found it useful to start out learning how to use redux by itself, then when you need to connect it to react you will have a much better idea of what is needed.
 
-- this one
-- that one
-- the other one
+So what does that mean? We can make a small command line task list app as an example.
 
-## An h2 header
+To start lets use `npm` or `yarn` to install our requirements, for this we will just use redux.
 
-content starts at 4-columns in.
+    mkdir tasklist
+    cd tasklist
+    yarn init -y
+    yarn add redux
 
-> Block quotes are
-> written like so.
->
-> They can span multiple paragraphs,
-> if you like.
-
-Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
-in chapters 12--14"). Three dots ... will be converted to an ellipsis.
-Unicode is supported 😄 :+1
-
-```js
-// javascript
-console.log('Hello World!!')
-```
-
--[ ] nj
+once that finishes we can start by 

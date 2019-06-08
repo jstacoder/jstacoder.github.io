@@ -35,7 +35,6 @@ sections:
 - type: document
   path: src/templates/PostTemplate.js
   label: postTemplate
-  match: "**/*"
 upload_dir: content/images
 public_path: "/uploads"
 front_matter_path: ''

@@ -73,5 +73,5 @@ fields:
   default: []
   label: Categories
 pages:
-- src/pages/theme-docs.js
 - src/pages/theme-docs-1.js
+- src/pages/theme-docs.js
