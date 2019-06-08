@@ -59,15 +59,6 @@ fields:
   default: []
   label: Tags
   description: tags describing the post
-- name: content
-  type: textarea
-  default: ''
-  config:
-    required: false
-    wysiwyg: true
-    schema:
-      format: markdown
-  label: Content
 - name: categories
   type: tag_list
   default: []
