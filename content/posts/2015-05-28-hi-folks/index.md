@@ -21,10 +21,12 @@ So what does that mean? We can make a small command line task list app as an exa
 
 To start lets use `npm` or `yarn` to install our requirements, for this we will just use redux.
 
-    mkdir tasklist
-    cd tasklist
-    yarn init -y
-    yarn add redux
+```sh
+$ mkdir tasklist
+$ cd tasklist
+$ yarn init -y
+$ yarn add redux uuid prompt
+```
 
 once that finishes we can start by looking at what it means to use redux.
 
@@ -58,31 +60,19 @@ a task list needs to be able to:
 
 Now lets define what a task looks like
 
-    type Task = {
-      id: number
-      text: String
-      complete: Bool = false
-    }
+```graphql
+type Task = {
+  id: numbe
+  text: String
+  complete: Bool = false
+}
+```
 
 At some point we should add a due date but for now all we really need is an object with a text property and a property to store its state, ill just call it complete and default it to false.
 
-There are plenty of ways to create a simple object like that, but i love using classes in javascript, ,so lets write a Task class to represent our tasks
-
-> Task.js
-
-    const uuid = require('uuid')
-    
-    class Task {
-      constructor(text){
-        this.id = uuid()
-        this.text = text
-        this.complete = false
-      }
-      markComplete = () => this.complete = true
-    }
-
 now we will define our actions
 
+```js
     const uuid = require('uuid')
     const fs = require('fs')
     const prompt = require('prompt')
@@ -241,3 +231,6 @@ now we will define our actions
         actions[whatToDo.toLowerCase()](store)
       })
     })
+```    
+
+now let explain
