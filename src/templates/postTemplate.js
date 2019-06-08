@@ -9,6 +9,7 @@ import { formatePostDate } from 'components/postCard'
 import { Container, Row, Col } from 'styled-bootstrap-components'
 import { p, py, mt, mr, mb, px } from 'styled-components-spacing'
 import styled from 'styled-components'
+import '../scss/prisim-dark.scss'
 // import { Flex, FlexItem } from 'styled-flex-components'
 
 const ProjectContainer = styled(Container)`
