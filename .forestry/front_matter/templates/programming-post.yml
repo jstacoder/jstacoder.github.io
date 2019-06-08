@@ -63,6 +63,12 @@ fields:
   type: tag_list
   default: []
   label: Categories
+- name: category
+  type: text
+  config:
+    required: false
+  label: Category
+  description: for sorting
 pages:
 - src/pages/theme-docs-1.js
 - src/pages/theme-docs.js
