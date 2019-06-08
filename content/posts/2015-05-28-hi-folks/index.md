@@ -70,18 +70,26 @@ type Task = {
 
 At some point we should add a due date but for now all we really need is an object with a text property and a property to store its state, ill just call it complete and default it to false.
 
-now we will define our actions
+first we need to import the stuff we want to use
 
 ```js
     const uuid = require('uuid')
     const fs = require('fs')
     const prompt = require('prompt')
     const { createStore, combineReducers } = require('redux')
-    
+```
+
+now we will define our action types, in redux an action is an object, with a type and sometimes a payload of data. An action creator is a function that returns an action. 
+
+```js
     // action type constants
     const ADD_TASK = 'ADD_TASK'
     const MARK_COMPLETE = 'MARK_COMPLETE'
-    
+```
+
+Now we can write some functions to return our action objects
+
+```js
     // action creator functions
     const addTaskAction = ({text}) =>({
       type: ADD_TASK,
@@ -96,7 +104,11 @@ now we will define our actions
         taskId
       }
     })
-    
+```
+
+Now we need to write a reducer, which is a function that will take our current state, and an action, and uses it to update the state
+
+```js
     const initialState = []
     
     const taskListReducer = (state = initialState, { type, payload : { text, taskId } = {}})=>{
@@ -119,11 +131,18 @@ now we will define our actions
           return state
       }
     }
-    
+```
+
+Now for any of this to last after running, we need to have a way to save the data somehow, so we will just dump json to a file, and read from it to do that.
+
+```js
     const loadInitialState = () => {
       return new Promise(
         (resolve, reject) => {
           return fs.readFile('./tasks.json',(err, result)=>{
+            if(err) {
+              reject(err)
+            }
             let tasks
             try{
               tasks = JSON.parse(result.toString())
@@ -136,6 +155,25 @@ now we will define our actions
       )
     }
     
+     const saveState = ({tasks}) =>{
+      const data = JSON.stringify(tasks)
+      try{
+        JSON.parse(data)
+        fs.writeFile('./tasks.json', data,(err,res)=>{})
+      }catch(e){
+        console.log(err)
+      }
+    }
+```
+
+Now to tie redux up and have it ready we need to create our "`store`" using the aptly named redux function createStore, which takes 3 arguments:
+* your root reducer (the combination of any reducers you have)
+* any needed initial state
+* an "enhancer" which i wont use or go into further here.
+
+since we want to load our tasks from a file, we need to tie that into creating our store:
+
+```js
     
     const loadStore = () => {
       return loadInitialState().then(initialState => {
@@ -145,39 +183,16 @@ now we will define our actions
         )
       })
     }
-    
-    const saveState = ({tasks}) =>{
-      const data = JSON.stringify(tasks)
-      try{
-        JSON.parse(data)
-        fs.writeFile('./tasks.json', data,(err,res)=>{})
-      }catch(e){
-        console.log(err)
-      }
-    }
-    
-    const displayTasks = tasks =>{
-      tasks.forEach(({text, complete}, index)=>{
-        console.log(`${index+1} [${complete ? 'x' : ' '}] ${text}`)
-      })
-    }
-    
-    const askWhatToDo = [{
-      name: 'whatToDo',
-      description: 'what would you like to do?\n[A] Add task\n[L] List tasks\n[C] Complete Task'
-    }]
-    
-    const askWhatTaskToAdd = [{
-      name: 'text',
-      description: 'What should the text of the task be?'
-    }]
-    
-    const askWhatTaskToComplete = [{
-      name: 'taskIndex',
-      description: 'What task Should we mark as complete?',
-    }]
-    
-    
+```
+
+now that we have a store, that gives us the `dispatch` function we can use to execute our actions, so lets write some helper functions to do that for us. 
+
+we need functions to:
+* add a task
+* mark a task complete
+* display tasks
+
+```js
     
     const addTask = ({dispatch}, text) =>{
       dispatch(
@@ -191,13 +206,47 @@ now we will define our actions
       )
     }
     
+    const displayTasks = tasks =>{
+      tasks.forEach(({text, complete}, index)=>{
+        console.log(`${index+1} [${complete ? 'x' : ' '}] ${text}`)
+      })
+    }
+```
+to get our user input, we will use the `prompt` libtrary. which takes an object config, namely `name` which is how the data is returned, and `description` which is the question to ask the user.
+
+```js
+    const askWhatToDo = [{
+      name: 'whatToDo',
+      description: 'what would you like to do?\n[A] Add task\n[L] List tasks\n[C] Complete Task'
+    }]
+    
+    const askWhatTaskToAdd = [{
+      name: 'text',
+      description: 'What should the text of the task be?'
+    }]
+    
+    const askWhatTaskToComplete = [{
+      name: 'taskIndex',
+      description: 'What task Should we mark as complete?',
+    }]    
+ ```
+ 
+ now lets tie the questions to our functions
+ 
+ when they want to add a task we need to ask what the task is
+ 
+ ```js
     const doAddTask = store =>{
       prompt.get(askWhatTaskToAdd, (err, {text})=>{
         console.log(`adding ${text}`)
         addTask(store, text)
       })
     }
-    
+```
+
+to complete a task we need to know which one to mark complete
+
+```js
     const doCompleteTask = store =>{
       prompt.get(askWhatTaskToComplete, (err, {taskIndex})=>{
         const { tasks } = store.getState()
@@ -206,12 +255,20 @@ now we will define our actions
         markComplete(store, id)
       })
     }
-    
+```
+listing is easy, no questions needed
+
+```js
     const doListTasks = store =>{
       const { tasks } = store.getState()
       displayTasks(tasks)
     }
-    
+```
+
+now lets tie it all together along with a question to find out what the user wants to do.
+
+```js
+
     loadStore().then(store=> {
     
       store.subscribe(()=>{
@@ -233,4 +290,3 @@ now we will define our actions
     })
 ```    
 
-now let explain
