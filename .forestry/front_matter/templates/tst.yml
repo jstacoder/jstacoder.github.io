@@ -1,0 +1,17 @@
+---
+label: tst
+hide_body: true
+fields:
+- type: field_group_list
+  name: topics
+  label: topics
+  fields:
+  - type: text
+    name: name
+    label: name
+  - type: text
+    name: web_url
+    label: web_url
+  - type: file
+    name: image_url
+    label: image_url
