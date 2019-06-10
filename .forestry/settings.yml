@@ -7,12 +7,6 @@ sections:
 - type: heading
   label: Pages
 - type: directory
-  path: content/data
-  label: json
-  create: all
-  match: "**/*.json"
-  new_doc_ext: ".json"
-- type: directory
   path: src/pages
   label: src/pages
   create: all
@@ -41,6 +35,14 @@ sections:
 - type: document
   path: src/templates/PostTemplate.js
   label: postTemplate
+- type: heading
+  label: Data
+- type: directory
+  path: content/data
+  label: json
+  create: all
+  match: "**/*.json"
+  new_doc_ext: ".json"
 upload_dir: content/images
 public_path: "/uploads"
 front_matter_path: ''
