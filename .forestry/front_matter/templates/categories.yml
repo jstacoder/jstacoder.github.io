@@ -11,6 +11,21 @@ fields:
       required: true
     label: Name
     description: category name
+  - name: sub_categories
+    type: field_group_list
+    fields:
+    - name: name
+      type: text
+      config:
+        required: true
+      label: Name
+      description: the sub category
+    config:
+      min: 
+      max: 
+      labelField: 
+    label: Sub Categories
+    description: categories to be included in an outer category
   config:
     min: 
     max: 
