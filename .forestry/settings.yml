@@ -7,6 +7,12 @@ sections:
 - type: heading
   label: Pages
 - type: directory
+  path: content/data
+  label: json
+  create: all
+  match: "**/*.json"
+  new_doc_ext: ".json"
+- type: directory
   path: src/pages
   label: src/pages
   create: all
