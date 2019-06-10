@@ -15,3 +15,18 @@ fields:
   - type: file
     name: image_url
     label: image_url
+- name: categories
+  type: field_group_list
+  fields:
+  - name: name
+    type: text
+    config:
+      required: true
+    label: name
+    description: category name
+  config:
+    min: 
+    max: 
+    labelField: 
+  label: Categories
+  description: categories for posts
