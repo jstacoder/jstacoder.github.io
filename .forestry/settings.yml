@@ -47,8 +47,8 @@ sections:
   path: src/data
   label: yaml
   create: all
-  match: "**/*.[yaml|yml]"
-  new_doc_ext: ".yaml"
+  match: "**/*.y.ml"
+  new_doc_ext: yaml
 upload_dir: content/images
 public_path: "/uploads"
 front_matter_path: ''
