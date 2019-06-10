@@ -1,3 +1,7 @@
 ---
 categories:
 - name: Programming
+  sub_categories:
+  - name: dotnet-core
+  - name: Php
+  - name: Python
