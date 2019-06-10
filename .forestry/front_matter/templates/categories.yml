@@ -1,4 +1,19 @@
 ---
 label: Categories
 hide_body: true
-fields: []
+fields:
+- name: categories
+  type: field_group_list
+  fields:
+  - name: name
+    type: text
+    config:
+      required: true
+    label: Name
+    description: category name
+  config:
+    min: 
+    max: 
+    labelField: name
+  label: Categories
+  description: post categories
