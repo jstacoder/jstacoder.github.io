@@ -17,3 +17,5 @@ fields:
     labelField: name
   label: Categories
   description: post categories
+pages:
+- src/data/categories.yaml
