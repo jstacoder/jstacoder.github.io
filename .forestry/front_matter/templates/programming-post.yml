@@ -60,15 +60,17 @@ fields:
   label: Tags
   description: tags describing the post
 - name: categories
-  type: tag_list
-  default: []
-  label: Categories
-- name: category
-  type: text
+  type: list
   config:
-    required: false
-  label: Category
-  description: for sorting
+    use_select: true
+    min: 
+    max: 
+    source:
+      type: documents
+      section: yaml-a3353430-9ff9-45d7-94e8-4152c540ae65
+      file: src/data/categories.yaml
+  label: Categories
+  description: post categories
 pages:
 - src/pages/theme-docs-1.js
 - src/pages/theme-docs.js
