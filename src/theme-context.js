@@ -39,23 +39,29 @@ export const themes = {
 
 const windowGlobal = typeof window !== 'undefined' && window
 
-const localTheme =
+export const getLocalThemeFromStorage = () =>
   (windowGlobal.localStorage && windowGlobal.localStorage.getItem('theme')) ||
   'light'
+
+export const setLocalThemeInStorage = theme => {
+  windowGlobal.localStorage && windowGlobal.localStorage.setItem('theme', theme)
+}
+
+const localTheme = getLocalThemeFromStorage()
 
 const initialState = {
   style: localTheme,
   theme: themes[localTheme],
 }
 
-const reducer = (state, action) => {
-  windowGlobal.localStorage &&
-    windowGlobal.localStorage.setItem('theme', action.value)
-  switch (action.type) {
+const reducer = (state, { value, type }) => {
+  setLocalThemeInStorage(value)
+  const theme = themes[value]
+  console.log(`called dispatch with ${value}`)
+  switch (type) {
     case 'TOGGLE_THEME':
-      return { theme: themes[action.value], style: action.value }
     case 'CHANGE_THEME':
-      return { theme: themes[action.value], style: action.value }
+      return { theme, style: value }
     default:
       return state
   }
@@ -66,12 +72,12 @@ const ThemeContext = createContext({
   dispatch: () => {},
 })
 
-function ThemeContextProvider(props) {
+function ThemeContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const value = { state, dispatch }
   return (
     <ThemeContext.Provider value={value}>
-      <ThemeProvider theme={state.theme}>{props.children}</ThemeProvider>
+      <ThemeProvider theme={state.theme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   )
 }

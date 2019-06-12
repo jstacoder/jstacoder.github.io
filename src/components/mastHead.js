@@ -23,7 +23,8 @@ function mastHead({ metaData }) {
 
   function onThemeChange(e) {
     const newStyle = e.target.checked ? 'dark' : 'light'
-    console.log('changing: ', e, newStyle)
+    //const newStyle = style === 'light' ? 'dark' : 'light'
+    console.log(dispatch.toString(), 'changing: ', e, newStyle)
     dispatch({ type: 'CHANGE_THEME', value: newStyle })
   }
 

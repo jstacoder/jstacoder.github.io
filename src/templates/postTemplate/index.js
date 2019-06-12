@@ -3,14 +3,26 @@ import { Link, graphql } from 'gatsby'
 import Octicon, { ChevronLeft } from '@githubprimer/octicons-react'
 import Layout from 'components/layout'
 import MastHead from 'components/mastHead'
-import useSiteMetadata from '../hooks/siteMetaData'
-import { ThemeContext } from '../theme-context'
+import useSiteMetadata from '../../hooks/siteMetaData'
+import { ThemeContext } from '../../theme-context'
 import { formatePostDate } from 'components/postCard'
 import { Container, Row, Col } from 'styled-bootstrap-components'
 import { p, py, mt, mr, mb, px } from 'styled-components-spacing'
-import styled from 'styled-components'
-import '../scss/prisim-dark.scss'
+import styled, { createGlobalStyle } from 'styled-components'
+import 'scss/prisim-dark.scss'
 // import { Flex, FlexItem } from 'styled-flex-components'
+
+const GlobalStyle = createGlobalStyle`
+  blockquote {
+    border-left: 5px solid grey;
+    padding-left: 2em;
+    color: ${props => (props.style === 'dark' ? 'gainsboro' : 'grey')};
+    
+    > p {
+      max-width: 600px;
+    }
+  }
+`
 
 const ProjectContainer = styled(Container)`
   &&& {
@@ -28,6 +40,7 @@ export default ({ data }) => {
   const post = data.markdownRemark
   return (
     <Layout>
+      <GlobalStyle style={style} />
       {layout === 'stacked' ? (
         <ProjectContainer>
           <MastHead metaData={false} />
