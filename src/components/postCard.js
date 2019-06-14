@@ -33,7 +33,7 @@ const GrayText = styled.div`
 const RoundDiv = styled.div`
   height: 100%;
   text-align: left;
-  ${({ theme }) => theme.border};
+  border: ${({ theme }) => theme.border};
   background-color: ${({ theme }) => theme.colors.white};
   padding: 16px;
   border-radius: 3px;

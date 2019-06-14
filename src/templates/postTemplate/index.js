@@ -1,18 +1,17 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Link, graphql } from 'gatsby'
 import Octicon, { ChevronLeft } from '@githubprimer/octicons-react'
 import Layout from 'components/layout'
 import MastHead from 'components/mastHead'
 import { Box } from '@primer/components'
 import useSiteMetadata from '../../hooks/siteMetaData'
-import { ThemeContext } from '../../theme-context'
 import { formatePostDate } from 'components/postCard'
 import { Container, Row, Col } from 'styled-bootstrap-components'
 import { space } from 'styled-system'
 import { p, py, mt, mr, mb, px } from 'styled-components-spacing'
 import styled, { createGlobalStyle } from 'styled-components'
 import 'scss/prisim-dark.scss'
-// import { Flex, FlexItem } from 'styled-flex-components'
+import useThemeContext from '../../hooks/themeContext'
 
 // language=STYLED_COMPONENTS
 const GlobalStyle = createGlobalStyle`
@@ -35,13 +34,11 @@ const ProjectContainer = styled(Container)`
     text-align: center;
   }
   ${py(6)}
-  ${p('responsive')}
+  ${p(3)}
 `
 
 export default ({ data }) => {
-  const {
-    state: { style },
-  } = useContext(ThemeContext)
+  const { style } = useThemeContext()
   const { layout } = useSiteMetadata()
   const post = data.markdownRemark
   return (
@@ -68,11 +65,18 @@ export default ({ data }) => {
             </p>
             <h1 className="f00-light lh-condensed">{post.frontmatter.title}</h1>
             <p
-              className={`mb-5 ${
+              className={`mb-1 ${
                 style === 'dark' ? 'text-white' : 'text-gray'
               }`}
             >
               Published
+            </p>
+            <p
+              className={`mb-5 ${
+                style === 'dark' ? 'text-white' : 'text-gray'
+              }`}
+            >
+              <small>{post.timeToRead} min read</small>
             </p>
             <div dangerouslySetInnerHTML={{ __html: post.html }} />
           </div>
@@ -129,9 +133,16 @@ export default ({ data }) => {
                   <p
                     className={`${
                       style === 'dark' ? 'text-white' : 'text-gray'
-                    } mb-5`}
+                    } mb-1`}
                   >
                     Published {formatePostDate(`${post.fields.postDate}`)}
+                  </p>
+                  <p
+                    className={`mb-5 ${
+                      style === 'dark' ? 'text-white' : 'text-gray'
+                    }`}
+                  >
+                    <small>{post.timeToRead} min read</small>
                   </p>
                   <div dangerouslySetInnerHTML={{ __html: post.html }} />
                 </div>
