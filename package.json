@@ -66,7 +66,8 @@
     "styled-bootstrap-components": "^4.0.0-alpha.0",
     "styled-components": "^4.2.0",
     "styled-components-spacing": "^3.1.1",
-    "styled-flex-component": "^3.0.0"
+    "styled-flex-component": "^3.0.0",
+    "styled-system": "^5.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",

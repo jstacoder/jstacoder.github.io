@@ -3,15 +3,18 @@ import { Link, graphql } from 'gatsby'
 import Octicon, { ChevronLeft } from '@githubprimer/octicons-react'
 import Layout from 'components/layout'
 import MastHead from 'components/mastHead'
+import { Box } from '@primer/components'
 import useSiteMetadata from '../../hooks/siteMetaData'
 import { ThemeContext } from '../../theme-context'
 import { formatePostDate } from 'components/postCard'
 import { Container, Row, Col } from 'styled-bootstrap-components'
+import { space } from 'styled-system'
 import { p, py, mt, mr, mb, px } from 'styled-components-spacing'
 import styled, { createGlobalStyle } from 'styled-components'
 import 'scss/prisim-dark.scss'
 // import { Flex, FlexItem } from 'styled-flex-components'
 
+// language=STYLED_COMPONENTS
 const GlobalStyle = createGlobalStyle`
   blockquote {
     border-left: 5px solid grey;
@@ -21,6 +24,9 @@ const GlobalStyle = createGlobalStyle`
     > p {
       max-width: 600px;
     }
+  }
+  ol {
+    padding-left: 25px;
   }
 `
 

@@ -3,8 +3,10 @@ import Emoji from 'react-emoji-render'
 import { Link } from 'gatsby'
 import { ThemeContext } from '../../theme-context'
 import { StarIcon, RepoIcon, GitBranchIcon } from 'react-octicons'
+import { StyledOcticon } from '@primer/components'
 import styled from 'styled-components'
 import { mr, mx } from 'styled-components-spacing'
+import { space } from 'styled-system'
 import styles from './repoCard.module.scss'
 
 const makeIcon = Icon => ({ className, children, ...props }) => (
@@ -60,7 +62,7 @@ function RepoCard({ repository }) {
         <div className="d-flex flex-justify-between flex-items-start mb-1">
           <h1 className="f5 lh-condensed mb-1">
             <Link to={`/github/${repository.name}`}>
-              <RepoRepo />
+              <StyledOcticon icon={RepoIcon} marginRight={1} />
               <span className="ml-1 text-normal">
                 {repository.owner.login}/
               </span>
@@ -75,11 +77,11 @@ function RepoCard({ repository }) {
           <RepoColor color={repository.language.color} />
           <RepoLanguageText>{repository.language.name}</RepoLanguageText>
           <a href={repository.url} className="d-inline-block link-gray mr-4">
-            <RepoStar className={'mr-1'} />
+            <StyledOcticon icon={StarIcon} marginRight={1} />
             {repository.stargazers.totalCount}
           </a>
           <a href={repository.url} className="d-inline-block link-gray mr-4">
-            <RepoGitBranch className={'mr-1'} />
+            <StyledOcticon icon={GitBranchIcon} marginRight={1} />
             {repository.forkCount}
           </a>
         </div>
