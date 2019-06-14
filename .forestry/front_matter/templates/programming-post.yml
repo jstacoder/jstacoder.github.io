@@ -69,6 +69,7 @@ fields:
       type: documents
       section: yaml-a3353430-9ff9-45d7-94e8-4152c540ae65
       file: src/data/categories.yaml
+      path: categories
   label: Categories
   description: post categories
 pages:
