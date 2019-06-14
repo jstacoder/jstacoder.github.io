@@ -44,6 +44,7 @@ function RepoCard({ repository }) {
       border={theme.border && theme.border}
       borderColor={`${style === 'light' && theme.colors.lightGray}`}
       boxShadow={theme.boxShadow && theme.boxShadow}
+      px={3}
     >
       <Flex
         height={'100%'}

@@ -2,67 +2,81 @@ import React, { useContext } from 'react'
 import '../components/Toggle.css'
 
 import Layout from '../components/layout'
-import { ThemeContext } from '../theme-context'
+import useThemeContext from '../hooks/themeContext'
 import MastHead from '../components/mastHead'
 import Projects from '../components/projects'
 import Interests from '../components/interests'
 import Thoughts from '../components/thoughts'
 import SEO from '../components/seo'
 import useSiteMetadata from '../hooks/siteMetaData'
-import { my, py } from 'styled-components-spacing'
+import { spacing, typography, border } from 'styled-system'
 import styled from 'styled-components'
+import { Box, Flex } from '@primer/components'
 
-import { Row, Col, Container } from 'styled-bootstrap'
+import { Row, Column as Col, Container } from 'styled-bootstrap-components'
 
-const My6Div = styled.div`
-  ${my(6)}
+const ContainerLg = styled(Container)`
+  ${spacing};
+  ${typography};
+`
+
+const Column = styled(Col)`
+  ${spacing};
+  ${border};
 `
 
 function IndexPage() {
-  const {
-    state: { style },
-  } = useContext(ThemeContext)
+  const { style, theme } = useThemeContext()
   const { layout } = useSiteMetadata()
   return (
     <Layout>
       <SEO />
       {layout === 'stacked' ? (
-        <div className="container-lg py-6 p-responsive text-center">
+        <ContainerLg py={6} px={3} textAlign={'center'}>
           <MastHead metaData={true} />
-          <My6Div>
+          <Box my={6}>
             <Projects />
-          </My6Div>
-          <My6Div>
+          </Box>
+          <Box my={6}>
             <Interests />
-          </My6Div>
-          <My6Div>
+          </Box>
+          <Box my={6}>
             <Thoughts />
-          </My6Div>
-        </div>
+          </Box>
+        </ContainerLg>
       ) : (
-        <div className={`d-md-flex ${style !== 'dark' && 'border-md-bottom'}`}>
-          <div
-            className={`flex-self-stretch ${
-              style === 'dark'
-                ? 'bg-gray-dark'
-                : 'border-md-right border-gray-light bg-white'
-            } col-md-5 col-lg-4 col-xl-3 px-4 px-md-6 px-lg-7 py-6`}
+        <Flex
+          display={{ md: 'flex' }}
+          border={{ md: style === 'dark' && 'bottom' }}
+        >
+          <Flex.Item
+            alignSelf={'stretch'}
+            bg={`${
+              style === 'dark' ? theme.colors.grayDark : theme.colors.white
+            }`}
+            border={{ md: 'right' }}
+            borderColor={`${style !== 'dark' && theme.colors.gray}`}
           >
-            <MastHead metaData={true} />
-          </div>
-          <div
-            className="col-md-7 col-lg-8 col-xl-9 px-4 py-6 px-lg-7 border-top border-md-top-0"
-            style={{
-              backgroundColor: style === 'dark' ? '#2f363d' : '#fafbfc',
-            }}
+            <Column md={5} lg={4} xl={3} px={[4, 6, 7]} py={6}>
+              <MastHead metaData={true} />
+            </Column>
+          </Flex.Item>
+          <Column
+            md={7}
+            lg={8}
+            xl={9}
+            px={[4, 7]}
+            py={6}
+            borderTop={theme.border}
+            bg={`${style === 'dark' ? '#2f363d' : '#fafbfc'}`}
           >
-            <div className={`mx-auto ${style}`} style={{ maxWidth: '900px' }}>
+            <Box mx={'auto'} className={`${style}`} maxWidth={'900px'}>
               <Projects />
               <Interests />
               <Thoughts />
-            </div>
-          </div>
-        </div>
+            </Box>
+          </Column>
+        </Flex>
       )}
     </Layout>
   )

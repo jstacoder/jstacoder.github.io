@@ -36,8 +36,14 @@ export const themes = {
     3: '1rem',
     4: '1.5rem',
     5: '3rem',
+    6: '16px',
   },
 }
+
+Object.keys(themes).forEach(key => {
+  const currentTheme = themes[key]
+  currentTheme.screenSize = themes.breakpoints
+})
 
 const windowGlobal = typeof window !== 'undefined' && window
 
