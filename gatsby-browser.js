@@ -1,6 +1,6 @@
-const React = require('react')
-const { ThemeContextProvider } = require('./src/theme-context')
+import React from 'react'
+import { ThemeContextProvider } from './src/theme-context'
 
-exports.wrapRootElement = ({ element }) => {
+export const wrapRootElement = ({ element }) => {
   return <ThemeContextProvider>{element}</ThemeContextProvider>
 }

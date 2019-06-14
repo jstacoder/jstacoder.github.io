@@ -1,10 +1,19 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Emoji from 'react-emoji-render'
 import { Link } from 'gatsby'
-import { ThemeContext } from '../../theme-context'
+import useThemeContext from '../../hooks/themeContext'
 import { StarIcon, RepoIcon, GitBranchIcon } from 'react-octicons'
 import styled from 'styled-components'
-import { mr, mx } from 'styled-components-spacing'
+import { mr } from 'styled-components-spacing'
+import {
+  Box,
+  Text,
+  BorderBox,
+  Avatar,
+  BranchName,
+  StyledOcticon,
+  Heading,
+} from '@primer/components'
 import styles from './repoCard.module.scss'
 
 const makeIcon = Icon => ({ className, children, ...props }) => (
@@ -15,7 +24,8 @@ const makeIcon = Icon => ({ className, children, ...props }) => (
 
 const Span = ({ children, ...props }) => <span {...props}>{children}</span>
 
-const RepoStar = makeIcon(styled(StarIcon)`
+const RepoStar = props => <StyledOcticon {...props} icon={StarIcon} />
+makeIcon(styled(StarIcon)`
   ${mr(1)}
 `)
 
@@ -30,18 +40,14 @@ const RepoRepo = makeIcon(styled(RepoIcon)`
 const RepoLanguageText = props => (
   <Span className={`mr-2 ${styles.repoText}`} {...props} />
 )
-const RepoColor = ({ color, ...props }) => (
-  <Span
-    {...props}
-    style={{ backgroundColor: color }}
-    className={`mr-2 mt-1 ${styles.repoColorBall} ${color}`}
-  />
-)
+// const RepoColor = styled.span`
+//     style={{ backgroundColor: color }}
+//     className={`mr-2 mt-1 ${styles.repoColorBall} ${color}`}
+//   />
+// )
 
 function RepoCard({ repository }) {
-  const {
-    state: { style },
-  } = useContext(ThemeContext)
+  const { style } = useThemeContext()
   return (
     <div
       className={`github-component height-full text-left ${
@@ -75,11 +81,11 @@ function RepoCard({ repository }) {
           <RepoColor color={repository.language.color} />
           <RepoLanguageText>{repository.language.name}</RepoLanguageText>
           <a href={repository.url} className="d-inline-block link-gray mr-4">
-            <RepoStar className={'mr-1'} />
+            <RepoStar mr={1} />
             {repository.stargazers.totalCount}
           </a>
           <a href={repository.url} className="d-inline-block link-gray mr-4">
-            <RepoGitBranch className={'mr-1'} />
+            <RepoGitBranch mr={1} />
             {repository.forkCount}
           </a>
         </div>
