@@ -8,8 +8,9 @@ export const themes = {
     colors: {
       grey: '#6a737d',
       white: '#fff',
+      lightGray: '#eaecef',
     },
-    border: 'border : 1px solid #dee2e6',
+    border: '1px solid #dee2e6',
   },
   dark: {
     background: '#2f363d',
@@ -17,8 +18,9 @@ export const themes = {
     colors: {
       grey: '#586069',
       white: '#fff',
+      lightGray: '#eaecef',
     },
-    border: 'box-shadow: 0 1px 1px rgba(27,31,35,0.1)',
+    boxShadow: '0 1px 1px rgba(27,31,35,0.1)',
   },
   breakpoints: {
     xs: 0,

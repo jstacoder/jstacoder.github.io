@@ -32,17 +32,18 @@ const RepoColor = ({ color, ...props }) => (
 )
 
 function RepoCard({ repository }) {
-  const { style } = useThemeContext()
+  const { style, theme } = useThemeContext()
   return (
     <BorderBox
       className={`${styles.githubComponent}`}
       height={'100%'}
       textAlign={'left'}
       bg={'white'}
-      borderRadius={1}
+      borderRadius={3}
       p={3}
-      boxShadow={`${style === 'dark'}`}
-      borders={`${(style === 'light' && 'gray.1') || false}`}
+      border={theme.border && theme.border}
+      borderColor={`${style === 'light' && theme.colors.lightGray}`}
+      boxShadow={theme.boxShadow && theme.boxShadow}
     >
       <Flex
         height={'100%'}
