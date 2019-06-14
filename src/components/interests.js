@@ -26,7 +26,7 @@ function Topics() {
       }
     `
   )
-  const topics = edges[1].node.topics
+  const topics = edges[0].node.topics
   return (
     <>
       <h2 className={style === 'dark' ? 'text-white' : ''}>My Interests</h2>

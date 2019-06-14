@@ -1,12 +1,15 @@
 ---
 title: My Second Post!
 date: '2015-05-06T23:46:37.121Z'
-layout: post
+layout: stacked
 path: '/my-second-post/'
 category: FrontEnd
-description: 'Civil society; save lives pathway to a better life public-private partnerships solution, tackle, protect UNHCR social movement Jane Addams sustainable campaign respond equality.'
+description:
+  Civil society; save lives pathway to a better life public-private partnerships
+  solution, tackle, protect UNHCR social movement Jane Addams sustainable campaign
+  respond equality.
 addUnsplashImage: true
-published: true
+published: false
 tags:
   - programming
 ---

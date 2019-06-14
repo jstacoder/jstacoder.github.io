@@ -4,6 +4,8 @@ import { Link } from 'gatsby'
 import useThemeContext from '../../hooks/themeContext'
 import { StarIcon, RepoIcon, GitBranchIcon } from 'react-octicons'
 import styled from 'styled-components'
+import { mr, mx } from 'styled-components-spacing'
+import { space } from 'styled-system'
 import { mr } from 'styled-components-spacing'
 import {
   Box,
@@ -24,8 +26,7 @@ const makeIcon = Icon => ({ className, children, ...props }) => (
 
 const Span = ({ children, ...props }) => <span {...props}>{children}</span>
 
-const RepoStar = props => <StyledOcticon {...props} icon={StarIcon} />
-makeIcon(styled(StarIcon)`
+const RepoStar = makeIcon(styled(StarIcon)`
   ${mr(1)}
 `)
 
@@ -40,11 +41,13 @@ const RepoRepo = makeIcon(styled(RepoIcon)`
 const RepoLanguageText = props => (
   <Span className={`mr-2 ${styles.repoText}`} {...props} />
 )
-// const RepoColor = styled.span`
-//     style={{ backgroundColor: color }}
-//     className={`mr-2 mt-1 ${styles.repoColorBall} ${color}`}
-//   />
-// )
+const RepoColor = ({ color, ...props }) => (
+  <Span
+    {...props}
+    style={{ backgroundColor: color }}
+    className={`mr-2 mt-1 ${styles.repoColorBall} ${color}`}
+  />
+)
 
 function RepoCard({ repository }) {
   const { style } = useThemeContext()
@@ -66,7 +69,7 @@ function RepoCard({ repository }) {
         <div className="d-flex flex-justify-between flex-items-start mb-1">
           <h1 className="f5 lh-condensed mb-1">
             <Link to={`/github/${repository.name}`}>
-              <RepoRepo />
+              <StyledOcticon icon={RepoIcon} marginRight={1} />
               <span className="ml-1 text-normal">
                 {repository.owner.login}/
               </span>
@@ -81,11 +84,11 @@ function RepoCard({ repository }) {
           <RepoColor color={repository.language.color} />
           <RepoLanguageText>{repository.language.name}</RepoLanguageText>
           <a href={repository.url} className="d-inline-block link-gray mr-4">
-            <RepoStar mr={1} />
+            <StyledOcticon icon={StarIcon} marginRight={1} />
             {repository.stargazers.totalCount}
           </a>
           <a href={repository.url} className="d-inline-block link-gray mr-4">
-            <RepoGitBranch mr={1} />
+            <StyledOcticon icon={GitBranchIcon} marginRight={1} />
             {repository.forkCount}
           </a>
         </div>
