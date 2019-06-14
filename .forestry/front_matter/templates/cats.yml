@@ -1,0 +1,18 @@
+---
+label: cats
+hide_body: true
+fields:
+- type: field_group_list
+  name: categories
+  label: categories
+  fields:
+  - type: text
+    name: name
+    label: name
+  - type: field_group_list
+    name: sub_categories
+    label: sub_categories
+    fields:
+    - type: text
+      name: name
+      label: name
