@@ -57,7 +57,6 @@ const initialState = {
 const reducer = (state, { value, type }) => {
   setLocalThemeInStorage(value)
   const theme = themes[value]
-  console.log(`called dispatch with ${value}`)
   switch (type) {
     case 'TOGGLE_THEME':
     case 'CHANGE_THEME':
@@ -82,6 +81,4 @@ function ThemeContextProvider({ children }) {
   )
 }
 
-const ThemeContextConsumer = ThemeContext.Consumer
-
-export { ThemeContext, ThemeContextProvider, ThemeContextConsumer }
+export { ThemeContext, ThemeContextProvider }
