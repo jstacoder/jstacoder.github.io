@@ -123,6 +123,9 @@
     ]
   },
   "main": "n/a",
+  "husky":{
+    "precommit":"lint-staged"
+  },
   "scripts": {
     "build": "gatsby build",
     "gh-pages": "gh-pages -d public -b master",
@@ -132,7 +135,6 @@
     "lint": "eslint --ext .js,.jsx --ignore-pattern public .",
     "lint:text": "textlint src/pages/**/index.md",
     "lint:textfix": "textlint --fix src/pages/**/index.md",
-    "precommit": "lint-staged",
     "test": "prettier --write \"**/*.+(js|jsx|json|css|scss)\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
