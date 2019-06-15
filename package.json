@@ -123,9 +123,6 @@
     ]
   },
   "main": "n/a",
-  "husky":{
-    "precommit":"lint-staged"
-  },
   "scripts": {
     "build": "gatsby build",
     "gh-pages": "gh-pages -d public -b master",
@@ -138,5 +135,10 @@
     "test": "prettier --write \"**/*.+(js|jsx|json|css|scss)\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
