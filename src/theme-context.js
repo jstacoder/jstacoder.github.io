@@ -80,6 +80,7 @@ const ThemeContext = createContext({
 })
 
 function ThemeContextProvider({ children }) {
+  console.log('INITIAL STATE:', initialState.style)
   const [state, dispatch] = useReducer(reducer, initialState)
   const value = { state, dispatch }
   return (

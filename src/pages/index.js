@@ -9,20 +9,22 @@ import Interests from '../components/interests'
 import Thoughts from '../components/thoughts'
 import SEO from '../components/seo'
 import useSiteMetadata from '../hooks/siteMetaData'
-import { spacing, typography, border } from 'styled-system'
+import { space, typography, border, color, flex } from 'styled-system'
 import styled from 'styled-components'
 import { Box, Flex } from '@primer/components'
 
 import { Row, Column as Col, Container } from 'styled-bootstrap-components'
 
 const ContainerLg = styled(Container)`
-  ${spacing};
+  ${space};
   ${typography};
 `
 
 const Column = styled(Col)`
-  ${spacing};
+  ${space};
   ${border};
+  ${color};
+  ${flex};
 `
 
 function IndexPage() {
@@ -32,7 +34,7 @@ function IndexPage() {
     <Layout>
       <SEO />
       {layout === 'stacked' ? (
-        <ContainerLg py={6} px={3} textAlign={'center'}>
+        <ContainerLg py={6} textAlign={'center'}>
           <MastHead metaData={true} />
           <Box my={6}>
             <Projects />
@@ -49,33 +51,38 @@ function IndexPage() {
           display={{ md: 'flex' }}
           border={{ md: style === 'dark' && 'bottom' }}
         >
-          <Flex.Item
-            alignSelf={'stretch'}
-            bg={`${
-              style === 'dark' ? theme.colors.grayDark : theme.colors.white
-            }`}
-            border={{ md: 'right' }}
-            borderColor={`${style !== 'dark' && theme.colors.gray}`}
-          >
-            <Column md={5} lg={4} xl={3} px={[4, 6, 7]} py={6}>
+          <Row>
+            <Column
+              border={'right'}
+              borderColor={`${style !== 'dark' && theme.colors.gray}`}
+              alignSelf={'stretch'}
+              bg={`${
+                style === 'dark' ? theme.colors.grayDark : theme.colors.white
+              }`}
+              md={5}
+              lg={4}
+              xl={3}
+              px={[4, 6, 7]}
+              py={6}
+            >
               <MastHead metaData={true} />
             </Column>
-          </Flex.Item>
-          <Column
-            md={7}
-            lg={8}
-            xl={9}
-            px={[4, 7]}
-            py={6}
-            borderTop={theme.border}
-            bg={`${style === 'dark' ? '#2f363d' : '#fafbfc'}`}
-          >
-            <Box mx={'auto'} className={`${style}`} maxWidth={'900px'}>
-              <Projects />
-              <Interests />
-              <Thoughts />
-            </Box>
-          </Column>
+            <Column
+              md={7}
+              lg={8}
+              xl={9}
+              px={[4, 7]}
+              py={6}
+              borderTop={theme.border}
+              bg={`${style === 'dark' ? '#2f363d' : '#fafbfc'}`}
+            >
+              <Box mx={'auto'} className={`${style}`} maxWidth={'900px'}>
+                <Projects />
+                <Interests />
+                <Thoughts />
+              </Box>
+            </Column>
+          </Row>
         </Flex>
       )}
     </Layout>

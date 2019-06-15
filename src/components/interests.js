@@ -26,7 +26,7 @@ function Topics() {
       }
     `
   )
-  const topics = edges[0].node.topics
+  const topics = edges.filter(edge => edge.node.topics)[0].node.topics
   return (
     <>
       <h2 className={style === 'dark' ? 'text-white' : ''}>My Interests</h2>
