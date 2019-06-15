@@ -3,7 +3,14 @@ import { Link, graphql } from 'gatsby'
 import Octicon, { ChevronLeft } from '@githubprimer/octicons-react'
 import Layout from 'components/layout'
 import MastHead from 'components/mastHead'
-import { Box } from '@primer/components'
+import {
+  Box,
+  BorderBox,
+  Text,
+  Heading,
+  Flex,
+  StyledOcticon
+} from '@primer/components'
 import useSiteMetadata from '../../hooks/siteMetaData'
 import { formatePostDate } from 'components/postCard'
 import { Container, Row, Col } from 'styled-bootstrap-components'
@@ -130,21 +137,24 @@ export default ({ data }) => {
                   <h1 className="f00-light lh-condensed">
                     {post.frontmatter.title}
                   </h1>
-                  <p
-                    className={`${
-                      style === 'dark' ? 'text-white' : 'text-gray'
-                    } mb-1`}
+                  <Text
+                    as={'p'}
+                    mb={1}
+                    color={`${style === 'dark' ? 'white' : 'gray'}`}
                   >
                     Published {formatePostDate(`${post.fields.postDate}`)}
-                  </p>
-                  <p
-                    className={`mb-5 ${
-                      style === 'dark' ? 'text-white' : 'text-gray'
-                    }`}
+                  </Text>
+                  <Text
+                    as={'p'}
+                    mb={5}
+                    color={`${style === 'dark' ? 'white' : 'gray'}`}
                   >
                     <small>{post.timeToRead} min read</small>
-                  </p>
-                  <div dangerouslySetInnerHTML={{ __html: post.html }} />
+                  </Text>
+                  <div
+                    className={'markdown-body'}
+                    dangerouslySetInnerHTML={{__html: post.html}}
+                  />
                 </div>
               </div>
             </div>
