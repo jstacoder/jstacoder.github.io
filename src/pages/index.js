@@ -52,11 +52,11 @@ const BorderTop = styled(Col)`
   ${colors};
   ${space};
   border: ${props => props.theme.border};
-  ${mediaQuerys.greaterThan('md')`
+  ${mediaQuerys.greaterThan('sm')`
     border-top: 0px;
   `}
 
-  ${mediaQuerys.greaterThan('lg')`
+  ${mediaQuerys.greaterThan('md')`
       ${px(7)};
    `}
 `
@@ -84,7 +84,7 @@ function IndexPage() {
           </Box>
         </div>
       ) : (
-        <Col display={{ md: 'flex' }}>
+        <Col display={{ sm: 'flex' }}>
           <BorderRight
             elementType={'div'}
             alignSelf={'stretch'}
