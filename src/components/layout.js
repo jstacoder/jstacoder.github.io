@@ -19,6 +19,8 @@ export default function Layout({ children }) {
     document.body.style.backgroundColor = theme.background
   }, [theme.background])
   const components = {
+    wrapper: ({ children }) => <React.Fragment>{children}</React.Fragment>,
+
     li: props => <input type={'checkbox'} {...props} />,
   }
   return (

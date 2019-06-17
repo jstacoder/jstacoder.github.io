@@ -1,8 +1,32 @@
 import React, { useReducer, createContext, useLayoutEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
+import { generateMedia } from 'styled-media-query'
+
+const customBreakpoints = {
+  xs: 0,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+}
+
+export const mediaQuerys = generateMedia(customBreakpoints)
+console.log(mediaQuerys)
+
+const space = {
+  0: '0',
+  1: '0.25rem',
+  2: '0.5rem',
+  3: '1rem',
+  4: '1.5rem',
+  5: '3rem',
+  6: '16px',
+}
 
 export const themes = {
   light: {
+    space,
+    mediaQuerys,
     background: '#ffffff',
     iconColor: '#24292e',
     colors: {
@@ -13,6 +37,8 @@ export const themes = {
     border: '1px solid #dee2e6',
   },
   dark: {
+    space,
+    mediaQuerys,
     background: '#2f363d',
     iconColor: '#ffffff',
     colors: {
@@ -28,15 +54,6 @@ export const themes = {
     md: 768,
     lg: 992,
     xl: 1200,
-  },
-  spacing: {
-    0: '0',
-    1: '0.25rem',
-    2: '0.5rem',
-    3: '1rem',
-    4: '1.5rem',
-    5: '3rem',
-    6: '16px',
   },
 }
 

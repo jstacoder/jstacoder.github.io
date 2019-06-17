@@ -9,30 +9,69 @@ import Interests from '../components/interests'
 import Thoughts from '../components/thoughts'
 import SEO from '../components/seo'
 import useSiteMetadata from '../hooks/siteMetaData'
-import { spacing, typography, border } from 'styled-system'
+import { mediaQuerys } from '../theme-context'
+import { colors, space } from 'styled-system'
+import { my, py, px } from 'styled-components-spacing'
+import {
+  Box,
+  BorderBox,
+  Flex,
+  StyledOcticon,
+  Heading,
+  Text,
+  Link,
+  BaseStyles,
+} from '@primer/components'
 import styled from 'styled-components'
-import { Box, Flex } from '@primer/components'
 
-import { Row, Column as Col, Container } from 'styled-bootstrap-components'
+import { Row, Col } from 'react-flexa'
 
-const ContainerLg = styled(Container)`
-  ${spacing};
-  ${typography};
+const BorderRight = styled(Col)`
+  ${colors};
+  ${space};
+  border-color: #eaecef;
+  ${px(4)};
+  
+  
+  ${mediaQuerys.greaterThan('md')`
+     ${px(6)};
+  `}
+  
+  ${mediaQuerys.greaterThan('lg')`
+     ${px(7)};
+  `}
+  
+  ${mediaQuerys.greaterThan('md')`
+     border-right: 1px solid;
+  `}
 `
 
-const Column = styled(Col)`
-  ${spacing};
-  ${border};
+const BorderTop = styled(Col)`
+  background-color: ${props =>
+    props.themeStyle === 'dark' ? '#2f363d' : '#fafbfc'};
+  ${colors};
+  ${space};
+  border: ${props => props.theme.border};
+  ${mediaQuerys.greaterThan('md')`
+    border-top: 0px;
+  `}
+
+  ${mediaQuerys.greaterThan('lg')`
+      ${px(7)};
+   `}
 `
 
 function IndexPage() {
   const { style, theme } = useThemeContext()
   const { layout } = useSiteMetadata()
+  const {
+    colors: { grayDark, white },
+  } = theme
   return (
     <Layout>
       <SEO />
       {layout === 'stacked' ? (
-        <ContainerLg py={6} px={3} textAlign={'center'}>
+        <div className="container-lg py-6 p-responsive text-center">
           <MastHead metaData={true} />
           <Box my={6}>
             <Projects />
@@ -43,40 +82,28 @@ function IndexPage() {
           <Box my={6}>
             <Thoughts />
           </Box>
-        </ContainerLg>
+        </div>
       ) : (
-        <Flex
-          display={{ md: 'flex' }}
-          border={{ md: style === 'dark' && 'bottom' }}
-        >
-          <Flex.Item
+        <Col display={{ md: 'flex' }}>
+          <BorderRight
+            elementType={'div'}
             alignSelf={'stretch'}
-            bg={`${
-              style === 'dark' ? theme.colors.grayDark : theme.colors.white
-            }`}
-            border={{ md: 'right' }}
-            borderColor={`${style !== 'dark' && theme.colors.gray}`}
+            bg={style === 'dark' ? grayDark : white}
+            sm={5}
+            md={4}
+            lg={3}
+            py={4}
           >
-            <Column md={5} lg={4} xl={3} px={[4, 6, 7]} py={6}>
-              <MastHead metaData={true} />
-            </Column>
-          </Flex.Item>
-          <Column
-            md={7}
-            lg={8}
-            xl={9}
-            px={[4, 7]}
-            py={6}
-            borderTop={theme.border}
-            bg={`${style === 'dark' ? '#2f363d' : '#fafbfc'}`}
-          >
-            <Box mx={'auto'} className={`${style}`} maxWidth={'900px'}>
+            <MastHead metaData={true} />
+          </BorderRight>
+          <BorderTop sm={7} md={8} lg={9} px={4} py={6} themeStyle={style}>
+            <Box mx={'auto'} maxWidth={'900px'} className={style}>
               <Projects />
               <Interests />
               <Thoughts />
             </Box>
-          </Column>
-        </Flex>
+          </BorderTop>
+        </Col>
       )}
     </Layout>
   )

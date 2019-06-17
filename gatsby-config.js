@@ -2,6 +2,9 @@ const { buildClientSchema } = require(`graphql`)
 const { createHttpLink } = require(`apollo-link-http`)
 const fetch = require('node-fetch')
 const path = require('path')
+const dotenv = require('dotenv')
+
+dotenv.config()
 
 module.exports = {
   siteMetadata: {
@@ -16,7 +19,6 @@ module.exports = {
   },
   pathPrefix: process.env.PATH_PREFIX || '/',
   plugins: [
-    `gatsby-mdx`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-sass`,
@@ -63,8 +65,8 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/.admin/`,
-        name: 'admin'
-      }
+        name: 'admin',
+      },
     },
     {
       resolve: 'gatsby-source-filesystem',
@@ -164,9 +166,11 @@ module.exports = {
     'gatsby-plugin-twitter',
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
+    `gatsby-plugin-mdx`,
+    //     `gatsby-mdx`,
   ],
-  //   __experimentalThemes:[
-  //  'gatsby-theme-basic-blog',
-  //  'gatsby-theme-docz'
-  //  ]
+  __experimentalThemes: [
+    //  'gatsby-theme-basic-blog',
+    //    'gatsby-theme-mdx'
+  ],
 }

@@ -9,7 +9,7 @@ import {
   Text,
   Heading,
   Flex,
-  StyledOcticon
+  StyledOcticon,
 } from '@primer/components'
 import useSiteMetadata from '../../hooks/siteMetaData'
 import { formatePostDate } from 'components/postCard'
@@ -40,8 +40,8 @@ const ProjectContainer = styled(Container)`
   &&& {
     text-align: center;
   }
-  ${py(6)}
-  ${p(3)}
+  ${py(6)};
+  ${p(3)};
 `
 
 export default ({ data }) => {
@@ -153,7 +153,7 @@ export default ({ data }) => {
                   </Text>
                   <div
                     className={'markdown-body'}
-                    dangerouslySetInnerHTML={{__html: post.html}}
+                    dangerouslySetInnerHTML={{ __html: post.html }}
                   />
                 </div>
               </div>

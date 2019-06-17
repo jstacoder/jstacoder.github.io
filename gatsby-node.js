@@ -2,6 +2,10 @@ const each = require('lodash/each')
 const Promise = require('bluebird')
 const path = require('path')
 const { createFilePath } = require(`gatsby-source-filesystem`)
+const DotenvWebpackPlugin = require('dotenv-webpack')
+const dotenv = require('dotenv')
+
+dotenv.config()
 
 module.paths.push(path.resolve('../', 'gatsby-theme-basic-blog'))
 
@@ -24,6 +28,11 @@ const createGithubPages = (repos, createPage) => {
 exports.onCreateNode = ({ actions, node, getNode }) => {
   const { createNodeField } = actions
   console.log(node.internal.type)
+  if (node.internal.type === 'DoczEntries') {
+    console.log(Object.keys(node))
+    console.log(Object.keys(node.internal))
+    console.log(node.filepath)
+  }
   if (node.internal.type === 'MarkdownRemark') {
     const slug = createFilePath({ node, getNode, basePath: 'posts' })
     const [postYear, postMonth, postDay, ...filenames] = slug
@@ -181,6 +190,7 @@ exports.createPages = ({ graphql, actions }) => {
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
+    plugins: [new DotenvWebpackPlugin()],
     resolve: {
       alias: {
         'gatsby-theme-basic-blog': path.resolve(

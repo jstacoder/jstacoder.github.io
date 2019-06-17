@@ -65,6 +65,7 @@ exports.sourceNodes = async (
 
   const { UNSPLASH_API_KEY } = configOptions
 
+  console.log(UNSPLASH_API_KEY)
   delete configOptions.plugins
 
   const processPhoto = photo => {

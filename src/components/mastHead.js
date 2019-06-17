@@ -1,31 +1,29 @@
-import React, { useContext } from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
+import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import Emoji from 'react-emoji-render'
 import Octicon, {
-  MarkGithub,
+  CircuitBoard,
+  Link,
   Location,
   Mail,
-  CircuitBoard,
+  MarkGithub,
   Organization,
-  Link,
-} from '@githubprimer/octicons-react'
+} from '@primer/octicons-react'
+import { StyledOcticon, Heading, Avatar } from '@primer/components'
 import Toggle from 'react-toggle'
 import useSiteMetadata from '../hooks/siteMetaData'
-import { ThemeContext } from '../theme-context'
+import useThemeContext from '../hooks/themeContext'
 import styles from '../pages/index.module.scss'
 
 function mastHead({ metaData }) {
   const { layout } = useSiteMetadata()
-  const {
-    state: { style, theme },
-    dispatch,
-  } = useContext(ThemeContext)
+  const { style, theme, setTheme } = useThemeContext()
 
   function onThemeChange(e) {
     const newStyle = e.target.checked ? 'dark' : 'light'
     //const newStyle = style === 'light' ? 'dark' : 'light'
-    console.log(dispatch.toString(), 'changing: ', e, newStyle)
-    dispatch({ type: 'CHANGE_THEME', value: newStyle })
+    console.log('changing: ', e, newStyle)
+    setTheme(newStyle)
   }
 
   const {
@@ -63,19 +61,34 @@ function mastHead({ metaData }) {
     layout === 'stacked'
       ? 'd-md-inline-block mr-3'
       : 'd-flex flex-items-center mb-3'
+  const {
+    websiteUrl,
+    bio,
+    login,
+    email,
+    organizations,
+    avatarUrl,
+    isHireable,
+    name,
+    location,
+    isDeveloperProgramMember,
+    company,
+  } = user
   return (
     <>
-      <img
-        src={user.avatarUrl}
+      <Avatar
+        src={avatarUrl}
         alt="user-avatar"
-        className="circle mb-3"
-        style={{ maxWidth: '150px' }}
+        className="circle"
+        mb={3}
+        size={150}
+        maxWidth={'150px'}
       />
       <h1 className={style === 'dark' ? 'text-white' : 'mb-2 lh-condensed'}>
-        {user.name ? user.name : user.login}
+        {name ? name : login}
       </h1>
       <div className="f4 mb-2">
-        {user.name && (
+        {name && (
           <div className={metadata_styles}>
             <span style={{ color: theme.iconColor }}>
               <Octicon
@@ -87,16 +100,16 @@ function mastHead({ metaData }) {
               />
             </span>
             <a
-              href={`https://github.com/${user.login}`}
+              href={`https://github.com/${login}`}
               className={style === 'dark' ? 'text-white' : ''}
             >
-              {user.login}
+              {login}
             </a>
           </div>
         )}
       </div>
       <hr className={`${(style === 'dark' && styles.darkHr) || ''}`} />
-      {user.isDeveloperProgramMember && (
+      {isDeveloperProgramMember && (
         <div
           className={`${metadata_styles} ` + (style === 'dark' && 'text-white')}
         >
@@ -118,10 +131,10 @@ function mastHead({ metaData }) {
         </div>
       )}
       <p className={`mb-3 f4 ${style === 'dark' ? 'text-white' : 'text-gray'}`}>
-        <Emoji text={user.bio || ''} />
+        <Emoji text={bio || ''} />
       </p>
       <div className="f4 mb-6">
-        {user.company && (
+        {company && (
           <div
             className={
               `${metadata_styles} ` + (style === 'dark' && 'text-white')
@@ -136,10 +149,10 @@ function mastHead({ metaData }) {
                 ariaLabel="Location"
               />
             </span>
-            {user.company}
+            {company}
           </div>
         )}
-        {user.location && (
+        {location && (
           <div
             className={
               `${metadata_styles} ` + (style === 'dark' && 'text-white')
@@ -154,10 +167,10 @@ function mastHead({ metaData }) {
                 ariaLabel="Location"
               />
             </span>
-            {user.location}
+            {location}
           </div>
         )}
-        {user.email && (
+        {email && (
           <div className={metadata_styles}>
             <span style={{ color: theme.iconColor }}>
               <Octicon
@@ -169,14 +182,14 @@ function mastHead({ metaData }) {
               />
             </span>
             <a
-              href={`mailto:${user.email}`}
+              href={`mailto:${email}`}
               className={style === 'dark' ? 'text-white' : ''}
             >
-              {user.email}
+              {email}
             </a>
           </div>
         )}
-        {user.websiteUrl && (
+        {websiteUrl && (
           <div className={metadata_styles}>
             <span style={{ color: theme.iconColor }}>
               <Octicon
@@ -188,14 +201,14 @@ function mastHead({ metaData }) {
               />
             </span>
             <a
-              href={user.websiteUrl}
+              href={websiteUrl}
               className={style === 'dark' ? 'text-white' : ''}
             >
-              {user.websiteUrl}
+              {websiteUrl}
             </a>
           </div>
         )}
-        {user.isHireable && (
+        {isHireable && (
           <span
             title="Hire me"
             className="d-inline-block f5 rounded-2 text-white bg-green py-1 px-2"
@@ -205,17 +218,17 @@ function mastHead({ metaData }) {
         )}
         <hr className={`${(style === 'dark' && styles.darkHr) || ''}`} />
         <div className={'mb-1'}>
-          <h2 className={`mb-2 h4 ${(style === 'dark' && 'text-white') || ''}`}>
+          <Heading mb={2} fontSize={4} color={style === 'dark' && 'white'}>
             Organizations
-          </h2>
-          {user.organizations &&
-            user.organizations.nodes.map(org => (
+          </Heading>
+          {organizations &&
+            organizations.nodes.map(({ avatarUrl }) => (
               <a
-                className={'avatar-group-item mr-2'}
+                className={'avatar-group-item'}
                 style={{ cursor: 'pointer' }}
-                key={org.avatarUrl}
+                key={avatarUrl}
               >
-                <img style={{ height: 35, width: 35 }} src={org.avatarUrl} />
+                <Avatar size={35} mr={2} src={avatarUrl} />
               </a>
             ))}
         </div>
