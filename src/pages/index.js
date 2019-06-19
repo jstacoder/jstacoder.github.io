@@ -10,7 +10,7 @@ import Thoughts from '../components/thoughts'
 import SEO from '../components/seo'
 import useSiteMetadata from '../hooks/siteMetaData'
 import { mediaQuerys } from '../theme-context'
-import { colors, space } from 'styled-system'
+import { border, color, space, flex } from 'styled-system'
 import { my, py, px } from 'styled-components-spacing'
 import {
   Box,
@@ -26,8 +26,15 @@ import styled from 'styled-components'
 
 import { Row, Col } from 'react-flexa'
 
+const BoxCol = styled(Col)`
+  ${color};
+  ${space};
+  ${border};
+  ${flex};
+`
+
 const BorderRight = styled(Col)`
-  ${colors};
+  ${color};
   ${space};
   border-color: #eaecef;
   ${px(4)};
@@ -49,7 +56,7 @@ const BorderRight = styled(Col)`
 const BorderTop = styled(Col)`
   background-color: ${props =>
     props.themeStyle === 'dark' ? '#2f363d' : '#fafbfc'};
-  ${colors};
+  ${color};
   ${space};
   border: ${props => props.theme.border};
   ${mediaQuerys.greaterThan('sm')`
@@ -84,26 +91,31 @@ function IndexPage() {
           </Box>
         </div>
       ) : (
-        <Col display={{ sm: 'flex' }}>
-          <BorderRight
-            elementType={'div'}
-            alignSelf={'stretch'}
-            bg={style === 'dark' ? grayDark : white}
-            sm={5}
+        <BorderBox
+          display={[null, null, 'flex']}
+          borderBottom={[0, null, style === 'dark' ? 1 : 0]}
+        >
+          <BoxCol
+            xs={12}
+            sm={12}
             md={4}
             lg={3}
-            py={4}
+            alignSelf={'stretch'}
+            px={[4, 5, 6, 7]}
+            py={[7]}
+            bg={style === 'dark' ? 'gray.9' : 'white'}
+            borderRight={[0, 0, 2]}
           >
             <MastHead metaData={true} />
-          </BorderRight>
-          <BorderTop sm={7} md={8} lg={9} px={4} py={6} themeStyle={style}>
+          </BoxCol>
+          <BorderTop sm={12} md={8} lg={9} px={4} py={6} themeStyle={style}>
             <Box mx={'auto'} maxWidth={'900px'} className={style}>
               <Projects />
               <Interests />
               <Thoughts />
             </Box>
           </BorderTop>
-        </Col>
+        </BorderBox>
       )}
     </Layout>
   )

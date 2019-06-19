@@ -31,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
       max-width: 600px;
     }
   }
-  ol {
+  ol,ul {
     padding-left: 25px;
   }
 `

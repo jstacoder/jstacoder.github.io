@@ -1,6 +1,7 @@
 import React, { useReducer, createContext, useLayoutEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { generateMedia } from 'styled-media-query'
+import { theme as primerTheme } from '@primer/components'
 
 const customBreakpoints = {
   xs: 0,
@@ -25,7 +26,9 @@ const space = {
 
 export const themes = {
   light: {
-    space,
+    ...primerTheme,
+    borders: [...primerTheme.borders, '1px solid lightgray'],
+    // space,
     mediaQuerys,
     background: '#ffffff',
     iconColor: '#24292e',
@@ -37,7 +40,9 @@ export const themes = {
     border: '1px solid #dee2e6',
   },
   dark: {
-    space,
+    ...primerTheme,
+    borders: [...primerTheme.borders, '1px solid lightgray'],
+    // space,
     mediaQuerys,
     background: '#2f363d',
     iconColor: '#ffffff',

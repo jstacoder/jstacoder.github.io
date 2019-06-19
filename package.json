@@ -132,6 +132,7 @@
   "main": "n/a",
   "scripts": {
     "build": "gatsby build",
+    "serve": "gatsby serve",
     "gh-pages": "gh-pages -d public -b master",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public -b master",
     "develop": "gatsby develop",
