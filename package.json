@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter-bootstrap",
-  "description": "Simple starter for Gatsby",
+  "name": "jstacoders-profile",
+  "description": "My personal profile",
   "version": "2.0.2",
-  "author": "Futoshi Iwashita <jaxx2104@gmail.com>",
+  "author": "Kyle Roux<jstacoder@gmail.com>",
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^5.8.2",
     "@githubprimer/octicons-react": "^8.5.0",

@@ -11,46 +11,17 @@ import SEO from '../components/seo'
 import useSiteMetadata from '../hooks/siteMetaData'
 import { mediaQuerys } from '../theme-context'
 import { border, color, space, flex } from 'styled-system'
-import { my, py, px } from 'styled-components-spacing'
-import {
-  Box,
-  BorderBox,
-  Flex,
-  StyledOcticon,
-  Heading,
-  Text,
-  Link,
-  BaseStyles,
-} from '@primer/components'
+import { px } from 'styled-components-spacing'
+import { Box, BorderBox } from '@primer/components'
 import styled from 'styled-components'
 
-import { Row, Col } from 'react-flexa'
+import { Col } from 'react-flexa'
 
 const BoxCol = styled(Col)`
   ${color};
   ${space};
   ${border};
   ${flex};
-`
-
-const BorderRight = styled(Col)`
-  ${color};
-  ${space};
-  border-color: #eaecef;
-  ${px(4)};
-  
-  
-  ${mediaQuerys.greaterThan('md')`
-     ${px(6)};
-  `}
-  
-  ${mediaQuerys.greaterThan('lg')`
-     ${px(7)};
-  `}
-  
-  ${mediaQuerys.greaterThan('md')`
-     border-right: 1px solid;
-  `}
 `
 
 const BorderTop = styled(Col)`

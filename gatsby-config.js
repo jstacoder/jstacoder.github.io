@@ -8,11 +8,11 @@ dotenv.config()
 
 module.exports = {
   siteMetadata: {
-    title: 'Jstacoder ',
+    title: 'Jstacoders profile',
     description: 'Jstacoders Info',
-    siteUrl: 'https://gatstrap.netlify.com',
+    siteUrl: 'https://jstacoder.github.io',
     author: 'jstacoder',
-    twitter: 'amigodornot666',
+    twitter: 'jstacoder',
     adsense: '',
     style: `light`,
     layout: `sidebar`,
@@ -121,10 +121,10 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'Gatstrap',
-        short_name: 'Gatstrap',
-        description: 'Gatsby starter for bootstrap a blog',
-        homepage_url: 'https://gatstrap.netlify.com',
+        name: 'Jstacoders Profile',
+        short_name: 'Profile',
+        description: 'My Profile Page',
+        homepage_url: 'https://jstacoder.github.io',
         start_url: '/',
         background_color: '#fff',
         theme_color: '#673ab7',

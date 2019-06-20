@@ -10,6 +10,7 @@ import {
   Heading,
   Flex,
   StyledOcticon,
+  BaseStyles,
 } from '@primer/components'
 import useSiteMetadata from '../../hooks/siteMetaData'
 import { formatePostDate } from 'components/postCard'
@@ -22,13 +23,17 @@ import useThemeContext from '../../hooks/themeContext'
 
 // language=STYLED_COMPONENTS
 const GlobalStyle = createGlobalStyle`
-  blockquote {
+  .markdown-body blockquote {
     border-left: 5px solid grey;
     padding-left: 2em;
-    color: ${props => (props.style === 'dark' ? 'gainsboro' : 'grey')};
     
     > p {
+      color: ${props => (props.style === 'dark' ? 'gainsboro' : 'grey')};
       max-width: 600px;
+    }
+    
+    span token.function {
+      color: blue;
     }
   }
   ol,ul {
@@ -51,6 +56,7 @@ export default ({ data }) => {
   return (
     <Layout>
       <GlobalStyle style={style} />
+      <BaseStyles />
       {layout === 'stacked' ? (
         <ProjectContainer>
           <MastHead metaData={false} />
