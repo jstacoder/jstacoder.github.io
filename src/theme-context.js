@@ -12,7 +12,6 @@ const customBreakpoints = {
 }
 
 export const mediaQuerys = generateMedia(customBreakpoints)
-console.log(mediaQuerys)
 
 const space = {
   0: '0',
@@ -50,6 +49,7 @@ export const themes = {
       grey: '#586069',
       white: '#fff',
       lightGray: '#eaecef',
+      darkGray: '#24292e',
     },
     boxShadow: '0 1px 1px rgba(27,31,35,0.1)',
   },

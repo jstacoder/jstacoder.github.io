@@ -9,7 +9,7 @@ import Octicon, {
   MarkGithub,
   Organization,
 } from '@primer/octicons-react'
-import { StyledOcticon, Heading, Avatar } from '@primer/components'
+import { StyledOcticon, Heading, Avatar, CircleBadge } from '@primer/components'
 import Toggle from 'react-toggle'
 import useSiteMetadata from '../hooks/siteMetaData'
 import useThemeContext from '../hooks/themeContext'
@@ -82,6 +82,7 @@ function mastHead({ metaData }) {
         className="circle"
         mb={3}
         size={150}
+        borderRadius={'50%'}
         maxWidth={'150px'}
       />
       <h1 className={style === 'dark' ? 'text-white' : 'mb-2 lh-condensed'}>

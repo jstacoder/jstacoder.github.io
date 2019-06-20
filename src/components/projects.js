@@ -1,17 +1,16 @@
 import React, { useContext } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
+import { Heading } from '@primer/components'
 
 // noinspection NpmUsedModulesInstalled
 import NavTabs from 'components/Tabs'
 // noinspection NpmUsedModulesInstalled
 import ProjectGrid from 'components/ProjectGrid'
 
-import { ThemeContext } from '../theme-context'
+import useThemeContext from '../hooks/themeContext'
 
 function Projects() {
-  const {
-    state: { style },
-  } = useContext(ThemeContext)
+  const { style } = useThemeContext()
   const {
     github: {
       viewer: { MyPinnedRepos, TopProjects, TopContributions },
@@ -54,9 +53,13 @@ function Projects() {
   )
   return (
     <>
-      <h2 className={style === 'dark' ? 'text-white' : ''}>
+      <Heading
+        as={'h2'}
+        color={style === 'dark' ? 'white' : undefined}
+        textAlign={['center', null, 'left']}
+      >
         My Github Projects
-      </h2>
+      </Heading>
 
       <NavTabs
         tabs={['Top Projects', 'Top Contributions', 'My Pinned Repos']}

@@ -25,8 +25,6 @@ const BoxCol = styled(Col)`
 `
 
 const BorderTop = styled(Col)`
-  background-color: ${props =>
-    props.themeStyle === 'dark' ? '#2f363d' : '#fafbfc'};
   ${color};
   ${space};
   border: ${props => props.theme.border};
@@ -72,14 +70,22 @@ function IndexPage() {
             md={4}
             lg={3}
             alignSelf={'stretch'}
-            px={[4, 5, 6, 7]}
-            py={[7]}
-            bg={style === 'dark' ? 'gray.9' : 'white'}
-            borderRight={[0, 0, 2]}
+            px={[2, 7, 6, 4]}
+            py={[6]}
+            bg={style === 'dark' ? theme.colors.darkGray : 'white'}
+            borderRight={[0, 0, 1]}
           >
             <MastHead metaData={true} />
           </BoxCol>
-          <BorderTop sm={12} md={8} lg={9} px={4} py={6} themeStyle={style}>
+          <BorderTop
+            bg={style === 'dark' ? 'gray.9' : 'white'}
+            sm={12}
+            md={8}
+            lg={9}
+            px={[4, 6, 7]}
+            py={6}
+            themeStyle={style}
+          >
             <Box mx={'auto'} maxWidth={'900px'} className={style}>
               <Projects />
               <Interests />

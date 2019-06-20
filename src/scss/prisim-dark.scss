@@ -106,6 +106,10 @@ pre[class*="language-"] {
     color: hsl(124, 100%, 27%);
 }
 
+.token.parameter {
+  color: #009999;
+}
+
 .token.regex,
 .token.important {
     color: #a31f1c;
@@ -127,3 +131,13 @@ pre[class*="language-"] {
 .token.deleted {
     color: red;
 }
+
+.token.function {
+  color: #19ab27;
+}
+
+.token.function.function-variable{
+    color: #990073;
+
+}
+
