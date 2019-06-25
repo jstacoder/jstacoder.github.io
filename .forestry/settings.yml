@@ -54,15 +54,3 @@ public_path: "/uploads"
 front_matter_path: ''
 use_front_matter_path: false
 file_template: ":year:-:month:-:day:-:filename:"
-build:
-  preview_command: gatsby build
-  publish_command: gatsby build
-  preview_env:
-  - UNSPLASH_API_KEY=bfd03df0bb4ac755c115b697ab2a826423156599286f078c58c7ea3aa49c53b6
-  - GITHUB_API_KEY=fdcb4869c493a56d0bdd4bb7f249b67369a9b1b6
-  publish_env:
-  - UNSPLASH_API_KEY=bfd03df0bb4ac755c115b697ab2a826423156599286f078c58c7ea3aa49c53b6
-  - GITHUB_API_KEY=fdcb4869c493a56d0bdd4bb7f249b67369a9b1b6
-  preview_output_directory: public
-  output_directory: public
-  instant_preview_command: gatsby develop -H 0.0.0.0 -p 8080
