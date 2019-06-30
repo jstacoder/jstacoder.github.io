@@ -42,7 +42,7 @@ function RepoCard({ repository }) {
       borderRadius={3}
       p={3}
       border={theme.border && theme.border}
-      borderColor={`${style === 'light' && theme.colors.lightGray}`}
+      borderColor={style === 'light' ? 'gray.1' : null}
       boxShadow={theme.boxShadow && theme.boxShadow}
       px={3}
     >
@@ -54,7 +54,7 @@ function RepoCard({ repository }) {
       >
         <Flex.Item
           justifyContent={'space-between'}
-          alignItem={'flex-start'}
+          alignItems={'flex-start'}
           mb={1}
         >
           <Heading fontSize={`13px`} lineHeight={1.25} mb={1}>

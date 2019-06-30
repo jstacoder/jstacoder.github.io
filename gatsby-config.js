@@ -166,10 +166,11 @@ module.exports = {
     'gatsby-plugin-twitter',
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
-    `gatsby-plugin-mdx`,
+    //`gatsby-plugin-mdx`,
     //     `gatsby-mdx`,
   ],
   __experimentalThemes: [
+    'gatsby-theme-docz',
     //  'gatsby-theme-basic-blog',
     //    'gatsby-theme-mdx'
   ],

@@ -8,7 +8,10 @@ const useThemeContext = () => {
   } = useContext(ThemeContext)
 
   const setTheme = newTheme => {
-    dispatch({ type: 'CHANGE_THEME', value: newTheme })
+    dispatch({
+      type: 'CHANGE_THEME',
+      value: newTheme,
+    })
   }
 
   return {

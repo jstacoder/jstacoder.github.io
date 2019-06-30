@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { Link as GatsbyLink, graphql } from 'gatsby'
 import Octicon, { ChevronLeft } from '@githubprimer/octicons-react'
 import Layout from 'components/layout'
 import MastHead from 'components/mastHead'
@@ -11,6 +11,7 @@ import {
   Flex,
   StyledOcticon,
   BaseStyles,
+  Link,
 } from '@primer/components'
 import useSiteMetadata from '../../hooks/siteMetaData'
 import { formatePostDate } from 'components/postCard'
@@ -95,54 +96,65 @@ export default ({ data }) => {
           </div>
         </ProjectContainer>
       ) : (
-        <div
-          className={`d-md-flex ${style !== 'dark' ? 'border-md-bottom' : ''}`}
+        <BorderBox
+          display={[null, null, 'flex']}
+          border={0}
+          borderBottom={[null, null, style !== 'dark' ? 1 : 0]}
         >
-          <div
-            className={`flex-self-stretch ${
-              style === 'dark'
-                ? 'bg-gray-dark'
-                : 'border-md-right border-gray-light bg-white'
-            } col-md-5 col-lg-4 col-xl-3 px-4 px-md-6 px-lg-7 py-6`}
+          <BorderBox
+            alignSelf={'stretch'}
+            bg={style === 'dark' ? 'gray.9' : 'white'}
+            borderColor={style !== 'dark' ? 'gray.1' : ''}
+            borderRight={style !== 'dark' ? 1 : 0}
+            border={0}
+            px={[4, 4, 6, 7]}
+            py={6}
+            width={{ sm: 5 / 12, md: 4 / 12, lg: 3 / 12 }}
           >
             <MastHead metaData={true} />
-          </div>
-
-          <div
-            className="col-md-7 col-lg-8 col-xl-9 px-4 py-6 px-lg-7 border-top border-md-top-0"
-            style={{
-              backgroundColor: style === 'dark' ? '#2f363d' : '#fafbfc',
-            }}
+          </BorderBox>
+          <BorderBox
+            width={{ sm: 7 / 12, md: 8 / 12, lg: 9 / 12 }}
+            px={{ sm: 4, md: 4, lg: 7 }}
+            borderTop={{ sm: 1, md: 1, lg: 0 }}
+            bg={style === 'dark' ? 'gray.8' : 'gray.1'}
+            py={6}
           >
-            <div className="mx-auto" style={{ maxWidth: '900px' }}>
-              <div
-                className={`f4 ${style === 'dark' ? 'text-white' : ''} mb-6`}
+            <Box mx={'auto'} maxWidth={900}>
+              <Box
+                fontSize={4}
+                color={style === 'dark' ? 'white' : null}
+                mb={6}
               >
-                <div className={`f4 ${style === 'dark' && 'text-white'}`}>
-                  <p className="f5">
-                    <span
-                      className="d-flex flex-items-center"
-                      style={{ color: '#0366d6' }}
+                <Box fontSize={4} color={style === 'dark' ? 'white' : null}>
+                  <Text fontSize={5}>
+                    <Box
+                      as={'span'}
+                      display={'flex'}
+                      alignItems={'center'}
+                      color={'blue.5'}
                     >
                       <Link
+                        as={GatsbyLink}
                         to="/"
-                        className={`d-flex flex-items-center ${style ===
-                          'dark' && 'text-white'}`}
+                        display={'flex'}
+                        alignItems={'center'}
+                        color={style === 'dark' ? 'white' : null}
                       >
-                        <Octicon
+                        <StyledOcticon
                           icon={ChevronLeft}
                           size={16}
                           verticalAlign="middle"
                           ariaLabel="Home"
-                          className="mr-2"
+                          mr={2}
                         />
                         Home
                       </Link>
-                    </span>
-                  </p>
-                  <h1 className="f00-light lh-condensed">
+                    </Box>
+                  </Text>
+                  <Heading fontSize={40} fontWeight={300} lineHeight={1.25}>
                     {post.frontmatter.title}
-                  </h1>
+                  </Heading>
                   <Text
                     as={'p'}
                     mb={1}
@@ -157,15 +169,15 @@ export default ({ data }) => {
                   >
                     <small>{post.timeToRead} min read</small>
                   </Text>
-                  <div
+                  <Box
                     className={'markdown-body'}
                     dangerouslySetInnerHTML={{ __html: post.html }}
                   />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                </Box>
+              </Box>
+            </Box>
+          </BorderBox>
+        </BorderBox>
       )}
     </Layout>
   )

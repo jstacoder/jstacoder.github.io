@@ -1,19 +1,31 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 import Emoji from 'react-emoji-render'
-import Octicon, {
+import {
   CircuitBoard,
   Link,
   Location,
   Mail,
   MarkGithub,
   Organization,
-} from '@primer/octicons-react'
-import { StyledOcticon, Heading, Avatar, CircleBadge } from '@primer/components'
+} from '@githubprimer/octicons-react'
+import {
+  StyledOcticon,
+  Heading,
+  Avatar,
+  Box,
+  Link as PrimerLink,
+  BorderBox,
+  Text,
+} from '@primer/components'
 import Toggle from 'react-toggle'
 import useSiteMetadata from '../hooks/siteMetaData'
 import useThemeContext from '../hooks/themeContext'
-import styles from '../pages/index.module.scss'
+import styled from 'styled-components'
+
+const StyledHr = styled.hr`
+  ${props => props.color === 'dark' && 'border-top-color: whitesmoke;'}
+`
 
 function mastHead({ metaData }) {
   const { layout } = useSiteMetadata()
@@ -21,8 +33,6 @@ function mastHead({ metaData }) {
 
   function onThemeChange(e) {
     const newStyle = e.target.checked ? 'dark' : 'light'
-    //const newStyle = style === 'light' ? 'dark' : 'light'
-    console.log('changing: ', e, newStyle)
     setTheme(newStyle)
   }
 
@@ -57,10 +67,16 @@ function mastHead({ metaData }) {
       }
     `
   )
-  const metadata_styles =
-    layout === 'stacked'
-      ? 'd-md-inline-block mr-3'
-      : 'd-flex flex-items-center mb-3'
+  const StackedMeta = props => (
+    <Box {...props} display={[null, null, 'inline-block']} mr={3} />
+  )
+
+  const SideMeta = props => (
+    <Box {...props} display={'flex'} alignItems={'center'} mb={3} />
+  )
+
+  const MetaComponent = layout === 'stacked' ? StackedMeta : SideMeta
+
   const {
     websiteUrl,
     bio,
@@ -85,155 +101,162 @@ function mastHead({ metaData }) {
         borderRadius={'50%'}
         maxWidth={'150px'}
       />
-      <h1 className={style === 'dark' ? 'text-white' : 'mb-2 lh-condensed'}>
+      <Heading
+        color={style === 'dark' ? 'white' : undefined}
+        mb={2}
+        lineHeight={1.25}
+      >
         {name ? name : login}
-      </h1>
-      <div className="f4 mb-2">
+      </Heading>
+      <Box fontSize={6} mb={2}>
         {name && (
-          <div className={metadata_styles}>
-            <span style={{ color: theme.iconColor }}>
-              <Octicon
-                icon={MarkGithub}
-                size={20}
-                verticalAlign="middle"
-                className="mr-2"
-                ariaLabel="GitHub"
-              />
-            </span>
-            <a
-              href={`https://github.com/${login}`}
-              className={style === 'dark' ? 'text-white' : ''}
-            >
-              {login}
-            </a>
-          </div>
-        )}
-      </div>
-      <hr className={`${(style === 'dark' && styles.darkHr) || ''}`} />
-      {isDeveloperProgramMember && (
-        <div
-          className={`${metadata_styles} ` + (style === 'dark' && 'text-white')}
-        >
-          <span style={{ color: theme.iconColor }}>
-            <Octicon
-              icon={CircuitBoard}
+          <MetaComponent>
+            <StyledOcticon
+              color={theme.iconColor}
+              icon={MarkGithub}
               size={20}
               verticalAlign="middle"
-              className="mr-2"
-              ariaLabel="Location"
+              mr={2}
+              ariaLabel="GitHub"
             />
-          </span>
-          <span
-            title="Hire me"
-            className="d-inline-block f5 rounded-2 text-white bg-green py-1 px-2"
+            <PrimerLink
+              href={`https://github.com/${login}`}
+              color={style === 'dark' ? 'white' : undefined}
+            >
+              {login}
+            </PrimerLink>
+          </MetaComponent>
+        )}
+      </Box>
+      <StyledHr color={style} />
+      {isDeveloperProgramMember && (
+        <MetaComponent color={style === 'dark' ? 'white' : undefined}>
+          <StyledOcticon
+            color={theme.iconColor}
+            icon={CircuitBoard}
+            size={20}
+            verticalAlign="middle"
+            mr={2}
+            ariaLabel="Location"
+          />
+          <BorderBox
+            as={'span'}
+            fontSize={5}
+            border={0}
+            color={'white'}
+            bg={'green.5'}
+            py={1}
+            px={2}
+            title="Developer Program Member"
+            display={'inline-block'}
+            borderRadius={2}
           >
             Developer Program Member
-          </span>
-        </div>
+          </BorderBox>
+        </MetaComponent>
       )}
-      <p className={`mb-3 f4 ${style === 'dark' ? 'text-white' : 'text-gray'}`}>
+      <Text
+        as={'p'}
+        mb={3}
+        fontSize={4}
+        color={style === 'dark' ? 'white' : 'gray.5'}
+      >
         <Emoji text={bio || ''} />
-      </p>
-      <div className="f4 mb-6">
+      </Text>
+      <Box mb={6} fontSize={4}>
         {company && (
-          <div
-            className={
-              `${metadata_styles} ` + (style === 'dark' && 'text-white')
-            }
-          >
-            <span style={{ color: theme.iconColor }}>
-              <Octicon
-                icon={Organization}
-                size={20}
-                verticalAlign="middle"
-                className="mr-2"
-                ariaLabel="Location"
-              />
-            </span>
+          <MetaComponent color={style === 'dark' ? 'white' : undefined}>
+            <StyledOcticon
+              color={theme.iconColor}
+              icon={Organization}
+              size={20}
+              verticalAlign="middle"
+              mr={2}
+              ariaLabel="Location"
+            />
             {company}
-          </div>
+          </MetaComponent>
         )}
         {location && (
-          <div
-            className={
-              `${metadata_styles} ` + (style === 'dark' && 'text-white')
-            }
-          >
-            <span style={{ color: theme.iconColor }}>
-              <Octicon
-                icon={Location}
-                size={20}
-                verticalAlign="middle"
-                className="mr-2"
-                ariaLabel="Location"
-              />
-            </span>
+          <MetaComponent color={style === 'dark' ? 'white' : undefined}>
+            <StyledOcticon
+              color={theme.iconColor}
+              icon={Location}
+              size={20}
+              verticalAlign="middle"
+              mr={2}
+              ariaLabel="Location"
+            />
             {location}
-          </div>
+          </MetaComponent>
         )}
         {email && (
-          <div className={metadata_styles}>
-            <span style={{ color: theme.iconColor }}>
-              <Octicon
-                icon={Mail}
-                size={20}
-                verticalAlign="middle"
-                className="mr-2"
-                ariaLabel="email"
-              />
-            </span>
-            <a
+          <MetaComponent>
+            <StyledOcticon
+              color={theme.iconColor}
+              icon={Mail}
+              size={20}
+              verticalAlign="middle"
+              mr={2}
+              ariaLabel="email"
+            />
+            <PrimerLink
               href={`mailto:${email}`}
-              className={style === 'dark' ? 'text-white' : ''}
+              color={style === 'dark' ? 'white' : undefined}
             >
               {email}
-            </a>
-          </div>
+            </PrimerLink>
+          </MetaComponent>
         )}
         {websiteUrl && (
-          <div className={metadata_styles}>
-            <span style={{ color: theme.iconColor }}>
-              <Octicon
-                icon={Link}
-                size={20}
-                verticalAlign="middle"
-                className="mr-2"
-                ariaLabel="email"
-              />
-            </span>
-            <a
+          <MetaComponent>
+            <StyledOcticon
+              color={theme.iconColor}
+              icon={Link}
+              size={20}
+              verticalAlign="middle"
+              mr={2}
+              ariaLabel="email"
+            />
+            <PrimerLink
               href={websiteUrl}
-              className={style === 'dark' ? 'text-white' : ''}
+              color={style === 'dark' ? 'white' : undefined}
             >
               {websiteUrl}
-            </a>
-          </div>
+            </PrimerLink>
+          </MetaComponent>
         )}
         {isHireable && (
-          <span
+          <BorderBox
+            display={'inline-block'}
+            fontSize={5}
+            borderRadius={2}
+            bg={'green.5'}
+            py={1}
+            px={2}
             title="Hire me"
-            className="d-inline-block f5 rounded-2 text-white bg-green py-1 px-2"
+            border={0}
           >
             Available for hire
-          </span>
+          </BorderBox>
         )}
-        <hr className={`${(style === 'dark' && styles.darkHr) || ''}`} />
-        <div className={'mb-1'}>
+        <StyledHr color={style} />
+        <Box mb={1}>
           <Heading mb={2} fontSize={4} color={style === 'dark' && 'white'}>
             Organizations
           </Heading>
           {organizations &&
             organizations.nodes.map(({ avatarUrl }) => (
-              <a
+              <PrimerLink
                 className={'avatar-group-item'}
                 style={{ cursor: 'pointer' }}
                 key={avatarUrl}
               >
                 <Avatar size={35} mr={2} src={avatarUrl} />
-              </a>
+              </PrimerLink>
             ))}
-        </div>
-        <div style={{ marginTop: 16 }}>
+        </Box>
+        <Box mt={16}>
           <Toggle
             defaultChecked={style === 'dark'}
             onChange={onThemeChange}
@@ -254,8 +277,8 @@ function mastHead({ metaData }) {
               ),
             }}
           />
-        </div>
-      </div>
+        </Box>
+      </Box>
     </>
   )
 }

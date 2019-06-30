@@ -62,36 +62,34 @@ function IndexPage() {
       ) : (
         <BorderBox
           display={[null, null, 'flex']}
-          borderBottom={[0, null, style === 'dark' ? 1 : 0]}
+          border={0}
+          borderBottom={[null, null, style !== 'dark' ? 1 : 0]}
         >
-          <BoxCol
-            xs={12}
-            sm={12}
-            md={4}
-            lg={3}
+          <BorderBox
             alignSelf={'stretch'}
-            px={[2, 7, 6, 4]}
-            py={[6]}
-            bg={style === 'dark' ? theme.colors.darkGray : 'white'}
-            borderRight={[0, 0, 1]}
+            bg={style === 'dark' ? 'gray.9' : 'white'}
+            borderColor={style !== 'dark' ? 'gray.1' : ''}
+            borderRight={style !== 'dark' ? 1 : 0}
+            border={0}
+            px={[4, 4, 6, 7]}
+            py={6}
+            width={{ sm: 5 / 12, md: 4 / 12, lg: 3 / 12 }}
           >
             <MastHead metaData={true} />
-          </BoxCol>
-          <BorderTop
-            bg={style === 'dark' ? 'gray.9' : 'white'}
-            sm={12}
-            md={8}
-            lg={9}
-            px={[4, 6, 7]}
+          </BorderBox>
+          <BorderBox
+            width={{ sm: 7 / 12, md: 8 / 12, lg: 9 / 12 }}
+            px={{ sm: 4, md: 4, lg: 7 }}
+            borderTop={{ sm: 1, md: 1, lg: 0 }}
+            bg={style === 'dark' ? 'gray.8' : 'gray.1'}
             py={6}
-            themeStyle={style}
           >
-            <Box mx={'auto'} maxWidth={'900px'} className={style}>
+            <Box mx={'auto'} maxWidth={900}>
               <Projects />
               <Interests />
               <Thoughts />
             </Box>
-          </BorderTop>
+          </BorderBox>
         </BorderBox>
       )}
     </Layout>

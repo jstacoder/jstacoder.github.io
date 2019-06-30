@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
+import { graphql } from 'gatsby'
 
 import Layout from '../components/Layout'
 import Icon from '../components/Icon'
@@ -20,7 +21,10 @@ export default props => {
   const [repoState, updateRepoState] = useState()
   const {
     pageContext: { repo },
+    data,
   } = props
+
+  console.log(data)
   return (
     <Layout location={props.location}>
       <Masthead>
@@ -38,3 +42,66 @@ export default props => {
     </Layout>
   )
 }
+
+export const query = graphql`
+  query repoQuery($repoName: String!) {
+    github {
+      repository(name: $repoName, owner: "jstacoder") {
+        ref(qualifiedName: "master") {
+          prefix
+
+          target {
+            ... on Github_Tree {
+              entries {
+                type
+                object {
+                  ... on Github_Commit {
+                    history {
+                      nodes {
+                        tree {
+                          entries {
+                            name
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+            ... on Github_Commit {
+              id
+              history(first: 5) {
+                pageInfo {
+                  hasNextPage
+                }
+                edges {
+                  node {
+                    messageHeadline
+                    oid
+                    message
+                    additions
+                    deletions
+                    changedFiles
+                    committedDate
+                    tree {
+                      entries {
+                        name
+                      }
+                    }
+                    author {
+                      name
+                      email
+                      date
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`

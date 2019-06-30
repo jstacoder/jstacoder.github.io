@@ -15,6 +15,7 @@ const createGithubPage = (repo, createPage) => {
     component: require.resolve('./src/templates/github-page.js'),
     context: {
       repo,
+      repoName: repo.name,
     },
   })
 }

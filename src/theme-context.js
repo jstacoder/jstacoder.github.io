@@ -11,6 +11,18 @@ const customBreakpoints = {
   xl: 1200,
 }
 
+const fontSizes = {
+  6: 12,
+  5: 14,
+  4: 16,
+  3: 18,
+  2: 22,
+  1: 24,
+  0: 32,
+  7: 40,
+  8: 48,
+}
+
 export const mediaQuerys = generateMedia(customBreakpoints)
 
 const space = {
@@ -26,7 +38,9 @@ const space = {
 export const themes = {
   light: {
     ...primerTheme,
+    fontSizes,
     borders: [...primerTheme.borders, '1px solid lightgray'],
+    breakpoints: [...primerTheme.breakpoints],
     // space,
     mediaQuerys,
     background: '#ffffff',
@@ -35,12 +49,15 @@ export const themes = {
       grey: '#6a737d',
       white: '#fff',
       lightGray: '#eaecef',
+      ...primerTheme.colors,
     },
     border: '1px solid #dee2e6',
   },
   dark: {
     ...primerTheme,
+    fontSizes,
     borders: [...primerTheme.borders, '1px solid lightgray'],
+    breakpoints: [...primerTheme.breakpoints],
     // space,
     mediaQuerys,
     background: '#2f363d',
@@ -50,21 +67,22 @@ export const themes = {
       white: '#fff',
       lightGray: '#eaecef',
       darkGray: '#24292e',
+      ...primerTheme.colors,
     },
     boxShadow: '0 1px 1px rgba(27,31,35,0.1)',
-  },
-  breakpoints: {
-    xs: 0,
-    sm: 576,
-    md: 768,
-    lg: 992,
-    xl: 1200,
   },
 }
 
 Object.keys(themes).forEach(key => {
   const currentTheme = themes[key]
-  currentTheme.screenSize = themes.breakpoints
+  if (!currentTheme.breakpoints) {
+    currentTheme.breakpoints = Object.values(customBreakpoints)
+  }
+  console.log(currentTheme.breakpoints)
+  currentTheme.breakpoints.xs = currentTheme.breakpoints[0]
+  currentTheme.breakpoints.sm = currentTheme.breakpoints[1]
+  currentTheme.breakpoints.md = currentTheme.breakpoints[2]
+  currentTheme.breakpoints.lg = currentTheme.breakpoints[3]
 })
 
 const windowGlobal = typeof window !== 'undefined' && window
