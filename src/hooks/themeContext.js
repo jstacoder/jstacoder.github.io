@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useCallback } from 'react'
 import { ThemeContext } from '../theme-context'
 
 const useThemeContext = () => {
@@ -7,12 +7,12 @@ const useThemeContext = () => {
     dispatch,
   } = useContext(ThemeContext)
 
-  const setTheme = newTheme => {
+  const setTheme = useCallback(newTheme => {
     dispatch({
       type: 'CHANGE_THEME',
       value: newTheme,
     })
-  }
+  })
 
   return {
     theme,
