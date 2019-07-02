@@ -4,6 +4,7 @@ const fetch = require('node-fetch')
 const path = require('path')
 const dotenv = require('dotenv')
 
+//process.env.NODE_ENV === 'development' && dotenv.config()
 dotenv.config()
 
 module.exports = {
@@ -14,7 +15,7 @@ module.exports = {
     author: 'jstacoder',
     twitter: 'jstacoder',
     adsense: '',
-    style: `light`,
+    style: `dark`,
     layout: `sidebar`,
   },
   pathPrefix: process.env.PATH_PREFIX || '/',
@@ -29,43 +30,32 @@ module.exports = {
       // }
     },
     `gatsby-transformer-yaml`,
-    {
-      resolve: 'gatsby-source-unsplash',
-      options: {
-        UNSPLASH_API_KEY: process.env.UNSPLASH_API_KEY,
-      },
-    },
+    //{
+    //  resolve: 'gatsby-source-unsplash',
+    //  options: {
+    //    UNSPLASH_API_KEY: process.env.UNSPLASH_API_KEY,
+    //  },
+    //},
     {
       resolve: 'gatsby-source-graphql',
       options: {
         fieldName: 'github',
         typeName: 'Github',
-        createLink: () =>
-          createHttpLink({
-            uri: `https://api.github.com/graphql`,
-            headers: {
-              Authorization: `bearer ${process.env.GITHUB_API_KEY}`,
-            },
-            fetch,
-          }),
-        createSchema: async () => {
-          const json = require('./github.json') //JSON.parse(fs.readFileSync(`${__dirname}/github.json`))
-          return buildClientSchema(json.data)
+        url: `https://api.github.com/graphql`,
+        headers: {
+          Authorization: `bearer ${process.env.GITHUB_API_KEY}`,
         },
       },
+      // createSchema: async () => {
+      //   const json = require('./github.json') //JSON.parse(fs.readFileSync(`${__dirname}/github.json`))
+      //     return buildClientSchema(json.data)
+      // },
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/content/posts/`,
         name: 'posts',
-      },
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        path: `${__dirname}/.admin/`,
-        name: 'admin',
       },
     },
     {
@@ -115,6 +105,7 @@ module.exports = {
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
+          `gatsby-remark-codemirror`,
         ],
       },
     },
@@ -166,12 +157,6 @@ module.exports = {
     'gatsby-plugin-twitter',
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
-    //`gatsby-plugin-mdx`,
-    //     `gatsby-mdx`,
   ],
-  __experimentalThemes: [
-    'gatsby-theme-docz',
-    //  'gatsby-theme-basic-blog',
-    //    'gatsby-theme-mdx'
-  ],
+  __experimentalThemes: ['gatsby-theme-docz'],
 }

@@ -45,6 +45,7 @@
     "gatsby-plugin-styled-components": "^3.0.7",
     "gatsby-plugin-twitter": "2.0.13",
     "gatsby-react-router-scroll": "^2.0.7",
+    "gatsby-remark-codemirror": "^0.3.0",
     "gatsby-remark-copy-linked-files": "2.0.12",
     "gatsby-remark-emoji": "^0.0.2",
     "gatsby-remark-images": "3.0.11",
@@ -66,10 +67,13 @@
     "react-emoji-render": "^0.6.0",
     "react-flexa": "^0.9.0",
     "react-icons": "^3.7.0",
+    "react-live": "^2.1.2",
     "react-octicons": "^0.2.0",
     "react-toggle": "^4.0.2",
     "reactstrap": "^8.0.0",
     "remark-attr": "^0.8.3",
+    "remark-parse": "^6.0.3",
+    "remark-react": "^5.0.1",
     "sharp": "^0.22.1",
     "styled-bootstrap": "^0.1.10",
     "styled-bootstrap-components": "^4.0.0-alpha.0",
@@ -77,7 +81,8 @@
     "styled-components-spacing": "^3.1.1",
     "styled-flex-component": "^3.0.0",
     "styled-media-query": "^2.1.2",
-    "styled-system": "^5.0.6"
+    "styled-system": "^5.0.6",
+    "unified": "^8.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
