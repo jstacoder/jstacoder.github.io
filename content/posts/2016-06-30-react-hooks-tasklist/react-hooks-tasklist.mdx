@@ -16,8 +16,10 @@ categories:
   - dotnetcore
   - Python
 ---
-
+import Wrapper from './wrapper.jsx'
 import TaskList from './tasklist.jsx'
+
+export default Wrapper
 
 # How to code a task list using React
 
@@ -31,7 +33,7 @@ import TaskList from './tasklist.jsx'
 
 `type.js`
 
-```jsx harmony
+```js
 export const ADD_TASK = 'ADD_TASK'
 
 export const TOGGLE_COMPLETE = 'TOGGLE_COMPLETE'
@@ -43,7 +45,7 @@ export const TOGGLE_ARCHIVED = 'TOGGLE_ARCHIVED'
 
 `task-context.js`
 
-```jsx harmony
+```js
 import React, { createContext } from 'react'
 
 export const TaskContext = createContext({
@@ -68,7 +70,7 @@ functions that will update the state as needed.
 
 `task-reducer.js`
 
-```jsx harmony
+```js
 import uuid from 'uuid/v4'
 
 import { ADD_TASK, TOGGLE_ARCHIVED, TOGGLE_COMPLETE } from './types'
@@ -120,7 +122,7 @@ Which we will call `useTasks`
 
 `tasks.js`
 
-```jsx harmony
+```js
 import React, { useState, useReducer } from 'react'
 
 import { ADD_TASK, TOGGLE_COMPLETE, TOGGLE_ARCHIVED } from './types'
@@ -182,7 +184,7 @@ After defining this component we will have 2 new components to write:
 
 `tasklist.jsx`
 
-```jsx harmony
+```js
 import React from 'react'
 import { Flex, BorderBox } from '@primer/components'
 
@@ -234,7 +236,7 @@ Now we need a heading to display how many tasks are in the list for the user
 
 `task-heading.jsx`
 
-```
+```js
 import React, { useContext } from 'react'
 import { Box, CounterLabel, Heading, TextInput} from '@primer/components'
 
@@ -282,7 +284,7 @@ write: TaskListItem
 
 `tasklist-body.jsx`
 
-```jsx harmony
+```js
 import React, { useContext, Fragment } from 'react'
 import { Text } from '@primer/components'
 
@@ -319,7 +321,7 @@ to have unique behavior we will again need to define
 
 `tasklist-item.jsx`
 
-```jsx harmony
+```js
 import React, { useContext } from 'react'
 import { BorderBox, Flex, StyledOcticon } from '@primer/components'
 import { X as CloseIcon } from '@primer/octicons-react'
@@ -361,7 +363,7 @@ ok now for the last 2, which thankfully are very simple:
 
 `task-checkbox.jsx`
 
-```jsx harmony
+```js
 import React from 'react'
 import { BorderBox, StyledOcticon } from '@primer/components'
 import { Check } from '@primer/octicons-react'
@@ -385,7 +387,7 @@ and finally
 
 `task-text.jsx`
 
-```jsx harmony
+```js
 import React from 'react'
 import styled, {css} from 'styled-components'
 import { Text } from '@primer/components'
@@ -393,5 +395,5 @@ import { Text } from '@primer/components'
 export default styled(Text)`
   ${({completed})=> completed ? css`text-decoration: line-through` : ``};
   cursor: pointer;
-`]
+`
 ```

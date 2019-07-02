@@ -24,7 +24,7 @@ export default props => {
     data,
   } = props
 
-  console.log(data)
+  console.log(JSON.stringify(data))
   return (
     <Layout location={props.location}>
       <Masthead>

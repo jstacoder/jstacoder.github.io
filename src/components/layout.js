@@ -6,7 +6,7 @@
  */
 
 import React, { useContext, useEffect } from 'react'
-import { MDXProvider } from '@mdx-js/react'
+//import { MDXProvider } from '@mdx-js/react'
 import { ThemeContext } from '../theme-context'
 
 import './layout.scss'
@@ -18,14 +18,12 @@ export default function Layout({ children }) {
   useEffect(() => {
     document.body.style.backgroundColor = theme.background
   }, [theme.background])
-  const components = {
-    wrapper: ({ children }) => <React.Fragment>{children}</React.Fragment>,
-
-    li: props => <input type={'checkbox'} {...props} />,
-  }
+  // const components = {
+  //   wrapper: ({ children }) => <React.Fragment>{children}</React.Fragment>,
+  // }
   return (
-    <MDXProvider components={components}>
-      <main>{children}</main>
-    </MDXProvider>
+    //<MDXProvider components={components}>
+    <main>{children}</main>
+    // </MDXProvider>
   )
 }

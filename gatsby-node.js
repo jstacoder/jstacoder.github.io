@@ -84,7 +84,7 @@ exports.createPages = ({ graphql, actions }) => {
             github {
               viewer {
                 repositories(
-                  first: 100
+                  first: 40
                   orderBy: { field: STARGAZERS, direction: DESC }
                 ) {
                   totalCount
