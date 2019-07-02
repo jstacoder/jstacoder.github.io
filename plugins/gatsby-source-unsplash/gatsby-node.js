@@ -65,7 +65,7 @@ exports.sourceNodes = async (
 
   const { UNSPLASH_API_KEY } = configOptions
 
-  console.log(UNSPLASH_API_KEY)
+  // console.log(UNSPLASH_API_KEY)
   delete configOptions.plugins
 
   const processPhoto = photo => {
@@ -88,7 +88,7 @@ exports.sourceNodes = async (
 
   const apiOptions = queryString.stringify(configOptions)
   const apiUrl = `https://api.unsplash.com/photos?client_id=${UNSPLASH_API_KEY}`
-  console.log(apiOptions, apiUrl)
+  // console.log(apiOptions, apiUrl)
 
   return axios.get(apiUrl).then(async response => {
     response.data.forEach(async photo => {
@@ -110,7 +110,7 @@ exports.sourceNodes = async (
           createNodeId,
           ext: '.jpg',
         })
-        console.log(fileNode)
+        // console.log(fileNode)
       } catch (e) {}
     })
   })

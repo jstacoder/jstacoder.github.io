@@ -28,11 +28,11 @@ const createGithubPages = (repos, createPage) => {
 
 exports.onCreateNode = ({ actions, node, getNode }) => {
   const { createNodeField } = actions
-  console.log(node.internal.type)
+  // console.log(node.internal.type)
   if (node.internal.type === 'DoczEntries') {
-    console.log(Object.keys(node))
-    console.log(Object.keys(node.internal))
-    console.log(node.filepath)
+    // console.log(Object.keys(node))
+    // console.log(Object.keys(node.internal))
+    // console.log(node.filepath)
   }
   if (node.internal.type === 'MarkdownRemark') {
     const slug = createFilePath({ node, getNode, basePath: 'posts' })
@@ -150,7 +150,7 @@ exports.createPages = ({ graphql, actions }) => {
         `
       ).then(({ errors, data }) => {
         if (errors) {
-          console.log(errors)
+          // console.log(errors)
           reject(errors)
         }
         const {
