@@ -2,42 +2,396 @@
 title: My Second Post!
 date: '2015-05-06T23:46:37.121Z'
 layout: stacked
-path: "/my-second-post/"
+path: '/my-second-post/'
 category: FrontEnd
-description: Civil society; save lives pathway to a better life public-private partnerships
+description:
+  Civil society; save lives pathway to a better life public-private partnerships
   solution, tackle, protect UNHCR social movement Jane Addams sustainable campaign
   respond equality.
 addUnsplashImage: true
 published: false
 tags:
-- programming
+  - programming
 categories:
-- dotnetcore
-- Python
-
+  - dotnetcore
+  - Python
 ---
-Wow! I love blogging so much already.
 
-Did you know that "despite its name,
-salted duck eggs can also be made from
-chicken eggs, though the taste and texture
-will be somewhat different, and the egg
-yolk will be less rich."?
-([Wikipedia Link](http://en.wikipedia.org/wiki/Salted_duck_egg))
+import TaskList from './tasklist.jsx'
 
-Yeah, I didn't either.
+# How to code a task list using React
 
-- [x] ahhhhh
-- [ ] coool
-- [ ] a list
+<TaskList/>
 
-| First Header | Second Header |
-| ------------ | ------------- |
-| Content Cell | Content Cell  |
-| Content Cell | Content Cell  |
+## here is how to write a task list
 
-{class='table table-light'}
+### first we need to handle the tasks
 
-| ok |c | c| cool
+- we will start by creating some action type constants
 
----
+`type.js`
+
+```jsx harmony
+export const ADD_TASK = 'ADD_TASK'
+
+export const TOGGLE_COMPLETE = 'TOGGLE_COMPLETE'
+
+export const TOGGLE_ARCHIVED = 'TOGGLE_ARCHIVED'
+```
+
+- now lets create an empty react context, so the rest of our app can share the values
+
+`task-context.js`
+
+```jsx harmony
+import React, { createContext } from 'react'
+
+export const TaskContext = createContext({
+  tasks: [],
+  displayableTasks: [],
+  resetAddTaskInput: () => {},
+  addTask: () => {},
+  toggleComplete: () => {},
+  toggleArchived: () => {},
+  addTaskInput: '',
+  setAddTaskInput: () => {},
+})
+```
+
+The next step is to write a redux style reducer
+to update the state of our component
+
+Which we will use with `React.useReducer` hook soon
+
+The main things we do here, is map our action types to
+functions that will update the state as needed.
+
+`task-reducer.js`
+
+```jsx harmony
+import uuid from 'uuid/v4'
+
+import { ADD_TASK, TOGGLE_ARCHIVED, TOGGLE_COMPLETE } from './types'
+
+const addTask = text => ({
+  text,
+  date: new Date(),
+  id: uuid(),
+  complete: false,
+  archived: false,
+})
+
+const addTaskToTasks = (text, tasks) => [...tasks, addTask(text)]
+
+const toggleComplete = task => ({
+  ...task,
+  complete: !task.complete,
+})
+
+const completeTaskById = (taskId, tasks) =>
+  tasks.map(task => (task.id !== taskId ? task : toggleComplete(task)))
+
+const toggleArchived = task => ({
+  ...task,
+  archived: !task.archived,
+})
+
+const archiveTaskById = (taskId, tasks) =>
+  tasks.map(task => (task.id !== taskId ? task : toggleArchived(task)))
+
+export default (state, { type, value } = {}) => {
+  const returnValues = {
+    [ADD_TASK]: addTaskToTasks,
+    [TOGGLE_COMPLETE]: completeTaskById,
+    [TOGGLE_ARCHIVED]: archiveTaskById,
+  }
+
+  if (type in returnValues) {
+    return returnValues[type](value, state)
+  }
+
+  return state
+}
+```
+
+Now we need to tie all of that logic up into our own hook
+
+Which we will call `useTasks`
+
+`tasks.js`
+
+```jsx harmony
+import React, { useState, useReducer } from 'react'
+
+import { ADD_TASK, TOGGLE_COMPLETE, TOGGLE_ARCHIVED } from './types'
+import taskReducer from './task-reducer'
+
+const useTasks = (initialTasks = []) => {
+  const [tasks, dispatch] = useReducer(taskReducer, initialTasks)
+  const [addTaskInput, setAddTaskInput] = useState('')
+
+  const resetAddTaskInput = () => {
+    setAddTaskInput('')
+  }
+
+  const addTask = text => {
+    dispatch({
+      type: ADD_TASK,
+      value: text,
+    })
+    resetAddTaskInput()
+  }
+
+  const toggleComplete = taskId => {
+    dispatch({
+      type: TOGGLE_COMPLETE,
+      value: taskId,
+    })
+  }
+
+  const toggleArchived = taskId => {
+    dispatch({
+      type: TOGGLE_ARCHIVED,
+      value: taskId,
+    })
+  }
+
+  return {
+    tasks,
+    resetAddTaskInput,
+    addTask,
+    toggleComplete,
+    toggleArchived,
+    addTaskInput,
+    setAddTaskInput,
+  }
+}
+
+export default useTasks
+```
+
+Now in we can start creating our component.
+
+We will start by plugging our task stuff from
+our `useTasks` hook into our custom context.
+
+After defining this component we will have 2 new components to write:
+
+1. TaskHeading - for our task list header
+2. TaskListBody - to actually display our tasks
+
+`tasklist.jsx`
+
+```jsx harmony
+import React from 'react'
+import { Flex, BorderBox } from '@primer/components'
+
+import { TaskContext } from './task-context'
+import TaskHeading from './task-heading'
+import TaskListBody from './tasklist-body'
+import useTasks from './tasks'
+
+const TaskList = () => {
+  const {
+    toggleComplete,
+    toggleArchived,
+    tasks,
+    addTaskInput,
+    setAddTaskInput,
+    addTask,
+  } = useTasks()
+
+  const displayableTasks = tasks.filter(task => !task.archived)
+
+  const value = {
+    tasks,
+    displayableTasks,
+    toggleComplete,
+    toggleArchived,
+    addTask,
+    addTaskInput,
+    setAddTaskInput,
+  }
+
+  return (
+    <TaskContext.Provider value={value}>
+      <BorderBox p={2} m={3}>
+        <TaskHeading />
+        <BorderBox border={0} borderBottom={1} m={1} p={1}>
+          <Flex p={2} m={2} flexDirection={'column'}>
+            <TaskListBody />
+          </Flex>
+        </BorderBox>
+      </BorderBox>
+    </TaskContext.Provider>
+  )
+}
+
+export default TaskList
+```
+
+Now we need a heading to display how many tasks are in the list for the user
+
+`task-heading.jsx`
+
+```
+import React, { useContext } from 'react'
+import { Box, CounterLabel, Heading, TextInput} from '@primer/components'
+
+import { TaskContext } from './task-context'
+
+const TaskHeading = () =>{
+  const {
+    addTask,
+    addTaskInput,
+    tasks,
+    setAddTaskInput,
+  } = useContext(TaskContext)
+
+  const onChange = e =>{
+    setAddTaskInput(e.target.value)
+  }
+
+  const onSubmit = e =>{
+    e.preventDefault()
+    addTask(addTaskInput)
+  }
+
+  const displayableTasks = tasks.filter(task=> !task.archived)
+
+  return (
+    <React.Fragment>
+     <Heading ml={2}>
+        <CounterLabel mr={2}>{displayableTasks.length}</CounterLabel> Tasks
+      </Heading>
+      <Box m={2}>
+        <form onSubmit={onSubmit}>
+          <TextInput value={addTaskInput} placeholder={'add new task'} onChange={onChange}/>
+        </form>
+      </Box>
+    </React.Fragment>
+  )
+}
+
+export default TaskHeading
+```
+
+now we need to write our TaskListBody component,
+which will leave us with another component to
+write: TaskListItem
+
+`tasklist-body.jsx`
+
+```jsx harmony
+import React, { useContext, Fragment } from 'react'
+import { Text } from '@primer/components'
+
+import { TaskContext } from './task-context'
+
+import TaskListItem from './tasklist-item'
+
+const TaskListBody = () => {
+  const { displayableTasks } = useContext(TaskContext)
+  console.log(displayableTasks)
+  return (
+    <Fragment>
+      {displayableTasks.length !== 0 ? (
+        displayableTasks.map(task => <TaskListItem key={task.id} task={task} />)
+      ) : (
+        <Text p={2} m={3}>
+          No Tasks Currently
+        </Text>
+      )}
+    </Fragment>
+  )
+}
+
+export default TaskListBody
+```
+
+now we define our task list item,
+but because we want parts of the item
+to have unique behavior we will again need to define
+2 new components when we finish:
+
+1. Checkbox - so we dont have to rely on ugly html checkboxs
+2. TaskText - to handle crossing out our text when we complete an item
+
+`tasklist-item.jsx`
+
+```jsx harmony
+import React, { useContext } from 'react'
+import { BorderBox, Flex, StyledOcticon } from '@primer/components'
+import { X as CloseIcon } from '@primer/octicons-react'
+
+import Checkbox from './task-checkbox'
+import TaskText from './task-text'
+import { TaskContext } from './task-context'
+
+export default ({ task }) => {
+  const { complete, text, id: taskId } = task
+
+  const { toggleComplete, toggleArchived } = useContext(TaskContext)
+  return (
+    <BorderBox
+      style={{ flexDirection: 'row' }}
+      display={'flex'}
+      p={2}
+      mb={2}
+      border={0}
+      borderBottom={1}
+    >
+      <Flex flexDirection={'row'} flexBasis={1}>
+        <Flex.Item flex={1} onClick={() => toggleComplete(taskId)}>
+          <Checkbox checked={complete} />
+        </Flex.Item>
+        <Flex.Item flex={10} onClick={() => toggleComplete(taskId)}>
+          <TaskText completed={complete}>{text}</TaskText>
+        </Flex.Item>
+        <Flex.Item onClick={() => toggleArchived(taskId)} flex={0}>
+          <StyledOcticon icon={CloseIcon} size={15} color={'red.6'} />
+        </Flex.Item>
+      </Flex>
+    </BorderBox>
+  )
+}
+```
+
+ok now for the last 2, which thankfully are very simple:
+
+`task-checkbox.jsx`
+
+```jsx harmony
+import React from 'react'
+import { BorderBox, StyledOcticon } from '@primer/components'
+import { Check } from '@primer/octicons-react'
+
+export default ({ checked }) => (
+  <BorderBox textAlign={'center'} size={20} mr={2}>
+    {checked ? (
+      <StyledOcticon
+        color={'green.6'}
+        ml={1}
+        verticalAlign={'text-top'}
+        icon={Check}
+        size={15}
+      />
+    ) : null}
+  </BorderBox>
+)
+```
+
+and finally
+
+`task-text.jsx`
+
+```jsx harmony
+import React from 'react'
+import styled, {css} from 'styled-components'
+import { Text } from '@primer/components'
+
+export default styled(Text)`
+  ${({completed})=> completed ? css`text-decoration: line-through` : ``};
+  cursor: pointer;
+`]
+```

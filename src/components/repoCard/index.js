@@ -12,23 +12,39 @@ import {
   Flex,
   Link as PrimerLink,
 } from '@primer/components'
-import styles from './repoCard.module.scss'
+import styles from '../layout.scss'
+import styled, { css } from 'styled-components'
+
+const repoColorBallStyle = css`
+  border-radius: 50%;
+  display: inline-block;
+  height: 12px;
+  position: relative;
+  top: 1px;
+  width: 12px;
+`
+
+const repoTextStyle = css`
+  color: ${({ theme }) => theme.colors.gray[6]};
+`
+
+const RepoTextBox = styled(Box)`
+  ${repoTextStyle}
+`
+
+const RepoColorBall = styled(Box)`
+  ${repoColorBallStyle};
+  background-color: ${props => props.color};
+`
 
 const RepoLanguageText = ({ name }) => (
-  <Box as={'span'} mr={2} className={styles.repoText}>
+  <RepoTextBox as={'span'} mr={2}>
     {name}
-  </Box>
+  </RepoTextBox>
 )
 
 const RepoColor = ({ color, ...props }) => (
-  <Box
-    {...props}
-    as={'span'}
-    bg={color}
-    mr={2}
-    mt={1}
-    className={`${styles.repoColorBall} ${color}`}
-  />
+  <RepoColorBall {...props} as={'span'} bg={color} mr={2} mt={1} />
 )
 
 function RepoCard({ repository }) {
@@ -45,6 +61,7 @@ function RepoCard({ repository }) {
       borderColor={style === 'light' ? 'gray.1' : null}
       boxShadow={theme.boxShadow && theme.boxShadow}
       px={3}
+      mx={2}
     >
       <Flex
         height={'100%'}

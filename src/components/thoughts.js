@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import PostCard from './postCard'
+import { Heading, Flex, Text } from '@primer/components'
 import { ThemeContext } from '../theme-context'
 
-function Thoughts() {
+const Thoughts = () => {
   const {
     state: { style },
   } = useContext(ThemeContext)
@@ -34,20 +35,30 @@ function Thoughts() {
   )
   return edges.length > 0 ? (
     <>
-      <h2 className={style === 'dark' ? 'text-white' : ''}>My Thoughts</h2>
-      <p className={`f4 mb-4 ${style === 'dark' ? 'text-white' : 'text-gray'}`}>
+      <Heading as={'h2'} color={style === 'dark' ? 'white' : null}>
+        My Thoughts
+      </Heading>
+      <Text
+        as={'p'}
+        fontSize={4}
+        mb={4}
+        color={style === 'dark' ? 'white' : 'gray.4'}
+      >
         Articles I've written.
-      </p>
-      <div className="d-sm-flex flex-wrap gutter-condensed mb-4">
+      </Text>
+      <Flex
+        display={[null, 'flex']}
+        mb={4}
+        ml={'-8px'}
+        mr={'-8px'}
+        flexWrap={'wrap'}
+      >
         {edges.map((edge, index) => (
-          <div
-            key={index}
-            className="col-sm-6 col-md-12 col-lg-6 col-xl-4 mb-3"
-          >
+          <Flex.Item mx={2} mb={3} flex={1} key={index}>
             <PostCard post={edge.node} />
-          </div>
+          </Flex.Item>
         ))}
-      </div>
+      </Flex>
     </>
   ) : null
 }

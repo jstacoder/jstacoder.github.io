@@ -1,6 +1,5 @@
 import React from 'react'
-import { Col, Row } from 'reactstrap'
-import { Text } from '@primer/components'
+import { Text, Box, Flex, Heading } from '@primer/components'
 import { ThemeContext } from '../../theme-context'
 import RepoCard from 'components/repoCard'
 // import styled from 'styled-components'
@@ -12,24 +11,32 @@ const ProjectGrid = ({ projects, title, subtitle }) => {
 
   return (
     <>
-      <h2 className={style === 'dark' ? 'text-white' : ''}>{title}</h2>
+      <Heading as={'h2'} color={style === 'dark' ? 'white' : null}>
+        {title}
+      </Heading>
       <Text
         as={'p'}
         fontSize={14}
         ml={[0, 4, 0]}
         mb={4}
         textAlign={['center', 'left']}
-        color={style === 'dark' ? 'white' : 'gray'}
+        color={style === 'dark' ? 'white' : 'gray.4'}
       >
         {subtitle}
       </Text>
-      <div className="d-sm-flex flex-wrap gutter-condensed mb-4">
+      <Flex
+        display={[null, 'flex']}
+        flexWrap={'wrap'}
+        mr={'-8px'}
+        ml={'-8px'}
+        mb={4}
+      >
         {projects.nodes.map((repository, i) => (
-          <Col sm={6} md={12} lg={6} xl={4} className={'mb-3'} key={i}>
+          <Flex.Item width={[12 / 12, 6 / 12, null, 4 / 12]} mb={3} key={i}>
             <RepoCard repository={repository} />
-          </Col>
+          </Flex.Item>
         ))}
-      </div>
+      </Flex>
     </>
   )
 }

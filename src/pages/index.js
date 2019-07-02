@@ -80,7 +80,8 @@ function IndexPage() {
           <BorderBox
             width={{ sm: 7 / 12, md: 8 / 12, lg: 9 / 12 }}
             px={{ sm: 4, md: 4, lg: 7 }}
-            borderTop={{ sm: 1, md: 1, lg: 0 }}
+            border={0}
+            borderTop={[1, 1, 0, 0]}
             bg={style === 'dark' ? 'gray.8' : 'gray.1'}
             py={6}
           >
