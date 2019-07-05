@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import {
   BorderBox,
-  StyledOcticon
+  StyledOcticon,
+  Box,
 } from '@primer/components'
 import PropTypes from 'prop-types'
 
@@ -23,7 +24,7 @@ export const exampleIconProps = props =>({
   color: 'blue.5',
   verticalAlign: 'text-top',
   icon: Star,
-  size: .95*props.size
+  size: .85*props.size
 })
 
 export const CustomCheckbox = ({
@@ -61,8 +62,6 @@ export const CustomCheckbox = ({
   )
 }
 
-export default CustomCheckbox
-
 CustomCheckbox.propTypes = {
   /** pass for controlled component */
   checked: PropTypes.boolean,
@@ -73,7 +72,7 @@ CustomCheckbox.propTypes = {
   /** pass to change size */
   size: PropTypes.number,
   /** pass to change default icon */
-  icon: PropTypes.Component,
+  icon: PropTypes.node,
   /** function to return props to pass icon */
   provideIconProps: PropTypes.func,
 }
@@ -83,3 +82,18 @@ CustomCheckbox.defaultProps = {
   icon: DefaultIcon,
   provideIconProps: defaultIconProps,
 }
+
+
+export const CheckboxList = ({items}) =>{
+  return (
+    <Box p={3} m={3} display={'grid'}>
+      {items.map(item=> (
+        <Box display={'inline-flex'}>
+          <CustomCheckbox />
+          {item}
+        </Box>
+      ))}
+    </Box>
+  )
+}
+

@@ -1,13 +1,23 @@
 ---
   name: CustomCheckbox
+  menu: blogs
 ---
 import { Playground, Props } from 'docz'
 
-import CustomCheckbox, { ExampleIcon, exampleIconProps } from '../components/CustomCheckbox/index.jsx'
+import { CustomCheckbox, ExampleIcon, exampleIconProps } from './'
+import { ControlledExample, ListExample } from './examples'  
+import { Box } from '@primer/components'
+
+
+
+
+
 
 ## custom checkbox!!!
 
+
 <Props of={CustomCheckbox}/>
+
 
 ## now look
 
@@ -20,10 +30,20 @@ import CustomCheckbox, { ExampleIcon, exampleIconProps } from '../components/Cus
 ## custom sizes
 
 ### 50px
-
+<Playground>
 <CustomCheckbox size={50}/>
+</Playground>
 
 ## custom icons
-
+<Box m={2} p={3}>
 <CustomCheckbox icon={ExampleIcon} provideIconProps={exampleIconProps}/>
+</Box>   
 
+## controlled example
+
+<ControlledExample/>
+
+
+## list example
+
+<ListExample/>

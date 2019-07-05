@@ -37,6 +37,7 @@ const RoundDiv = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   padding: 16px;
   border-radius: 3px;
+  min-width: 250px;
 `
 
 function PostCard({ post }) {
@@ -47,7 +48,9 @@ function PostCard({ post }) {
     <RoundDiv theme={theme}>
       <FlexMb justifyBetween itemsStart>
         <SmallH1>
-          <Link to={post.fields.slug}>{post.frontmatter.title}</Link>
+          <Link to={post.fields.slug}>
+            {post.frontmatter.title || post.frontmatter.name}
+          </Link>
         </SmallH1>
       </FlexMb>
       <GrayText theme={theme}>{`${''}`}</GrayText>

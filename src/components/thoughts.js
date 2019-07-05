@@ -9,10 +9,26 @@ const Thoughts = () => {
     state: { style },
   } = useContext(ThemeContext)
   const {
+    allMdx: { posts },
     allMarkdownRemark: { edges },
   } = useStaticQuery(
     graphql`
       query {
+        allMdx(filter: { frontmatter: { title: { ne: "" } } }) {
+          posts: edges {
+            post: node {
+              id
+              excerpt
+              frontmatter {
+                title
+                name
+              }
+              fields {
+                slug
+              }
+            }
+          }
+        }
         allMarkdownRemark(
           limit: 6
           filter: { frontmatter: { published: { eq: true } } }
@@ -53,9 +69,14 @@ const Thoughts = () => {
         mr={'-8px'}
         flexWrap={'wrap'}
       >
-        {edges.map((edge, index) => (
+        {/* {edges.map((edge, index) => (
           <Flex.Item mx={2} mb={3} flex={1} key={index}>
             <PostCard post={edge.node} />
+          </Flex.Item>
+        ))} */}
+        {posts.map(({ post }, index) => (
+          <Flex.Item mx={2} mb={3} flex={1} key={index}>
+            <PostCard post={post} />
           </Flex.Item>
         ))}
       </Flex>

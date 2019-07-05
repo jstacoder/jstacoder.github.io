@@ -45,7 +45,9 @@ export const themes = {
     mediaQuerys,
     background: '#ffffff',
     iconColor: '#24292e',
+    fontColor: '#24292e',
     colors: {
+      primary: primerTheme.colors.blue[3],
       grey: '#6a737d',
       white: '#fff',
       lightGray: '#eaecef',
@@ -62,7 +64,9 @@ export const themes = {
     mediaQuerys,
     background: '#2f363d',
     iconColor: '#ffffff',
+    fontColor: '#fff',
     colors: {
+      primary: primerTheme.colors.blue[6],
       grey: '#586069',
       white: '#fff',
       lightGray: '#eaecef',

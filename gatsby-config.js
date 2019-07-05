@@ -75,6 +75,13 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
+        path: `${__dirname}/src/components/`,
+        name: 'docs',
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
         path: `${__dirname}/src/data/`,
         name: 'yaml',
       },
@@ -157,6 +164,7 @@ module.exports = {
     'gatsby-plugin-twitter',
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
+    //    'gatsby-plugin-mdx',
   ],
   __experimentalThemes: ['gatsby-theme-docz'],
 }

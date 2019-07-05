@@ -1,10 +1,12 @@
 import React from 'react'
-import { BorderBox, Box } from '@primer/components'
+import { BorderBox, Box, Text, StyledOcticon, Link, Heading  } from '@primer/components'
+import { ChevronLeft } from '@primer/octicons-react'
+import { Link as GatsbyLink } from 'gatsby'
 import MastHead from './mastHead'
 
 import useThemeContext from '../hooks/themeContext'
 
-const Layout = ({children})=>{
+export const GithubLayout = ({children, timeToRead, title})=>{
   const { style } = useThemeContext()
   return (
       <BorderBox
@@ -33,11 +35,55 @@ const Layout = ({children})=>{
             py={6}
           >
             <Box mx={'auto'} maxWidth={900}>
+            <Box
+                fontSize={4}
+                color={style === 'dark' ? 'white' : null}
+                mb={6}
+              >
+                <Box fontSize={4} color={style === 'dark' ? 'white' : null}>
+                  <Text fontSize={5}>
+                    <Box
+                      as={'span'}
+                      display={'flex'}
+                      alignItems={'center'}
+                      color={'blue.5'}
+                    >
+                      <Link
+                        as={'a'}
+                        href="/"
+                        display={'flex'}
+                        alignItems={'center'}
+                        color={style === 'dark' ? 'white' : null}
+                      >
+                        <StyledOcticon
+                          icon={ChevronLeft}
+                          size={16}
+                          verticalAlign="middle"
+                          ariaLabel="Home"
+                          mr={2}
+                        />
+                        Home
+                      </Link>
+                    </Box>
+                  </Text>    
+                  <Heading fontSize={40} fontWeight={300} lineHeight={1.25}>
+                    {title}
+                  </Heading>                  
+                  <Text
+                    as={'p'}
+                    mb={5}
+                    color={`${style === 'dark' ? 'white' : 'gray'}`}
+                  >
+                    <small>{timeToRead} min read</small>
+                  </Text>              
+                  <Box
+                    className={'markdown-body'}>
               {children}
+              </Box>
+            </Box>
+            </Box>
             </Box>
           </BorderBox>
         </BorderBox>
   )
 }
-
-export default Layout

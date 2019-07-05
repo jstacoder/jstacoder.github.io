@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import '../components/Toggle.css'
 
 import Layout from '../components/layout'
@@ -9,40 +9,16 @@ import Interests from '../components/interests'
 import Thoughts from '../components/thoughts'
 import SEO from '../components/seo'
 import useSiteMetadata from '../hooks/siteMetaData'
-import { mediaQuerys } from '../theme-context'
-import { border, color, space, flex } from 'styled-system'
-import { px } from 'styled-components-spacing'
 import { Box, BorderBox } from '@primer/components'
-import styled from 'styled-components'
-
-import { Col } from 'react-flexa'
-
-const BoxCol = styled(Col)`
-  ${color};
-  ${space};
-  ${border};
-  ${flex};
-`
-
-const BorderTop = styled(Col)`
-  ${color};
-  ${space};
-  border: ${props => props.theme.border};
-  ${mediaQuerys.greaterThan('sm')`
-    border-top: 0px;
-  `}
-
-  ${mediaQuerys.greaterThan('md')`
-      ${px(7)};
-   `}
-`
+import { useDocs, useMenus } from 'docz'
 
 function IndexPage() {
-  const { style, theme } = useThemeContext()
+  const { style } = useThemeContext()
   const { layout } = useSiteMetadata()
-  const {
-    colors: { grayDark, white },
-  } = theme
+  const docs = useDocs()
+  const menus = useMenus()
+
+  console.log(menus)
   return (
     <Layout>
       <SEO />

@@ -28,12 +28,23 @@ const createGithubPages = (repos, createPage) => {
 
 exports.onCreateNode = ({ actions, node, getNode }) => {
   const { createNodeField } = actions
-  // console.log(node.internal.type)
-  if (node.internal.type === 'DoczEntries') {
-    // console.log(Object.keys(node))
-    // console.log(Object.keys(node.internal))
-    // console.log(node.filepath)
+
+  // mdx nodes
+  if (node.internal.type === 'Mdx') {
+    const value = createFilePath({ node, getNode })
+    const prefix = `/${
+      node.frontmatter.menu && node.frontmatter.menu.toLowerCase() !== 'none'
+        ? node.frontmatter.menu.toLowerCase()
+        : 'blog'
+    }`
+    createNodeField({
+      name: 'slug',
+      node,
+      value: `${prefix}${value}`,
+    })
   }
+
+  // markdown nodes
   if (node.internal.type === 'MarkdownRemark') {
     const slug = createFilePath({ node, getNode, basePath: 'posts' })
     const [postYear, postMonth, postDay, ...filenames] = slug
@@ -81,6 +92,16 @@ exports.createPages = ({ graphql, actions }) => {
       graphql(
         `
           {
+            allMdx {
+              edges {
+                node {
+                  id
+                  fields {
+                    slug
+                  }
+                }
+              }
+            }
             github {
               viewer {
                 repositories(
@@ -154,6 +175,7 @@ exports.createPages = ({ graphql, actions }) => {
           reject(errors)
         }
         const {
+          allMdx: { edges: mdxPosts },
           allPosts: { posts },
           github: {
             viewer: { repositories, repositoriesContributedTo },
@@ -169,12 +191,24 @@ exports.createPages = ({ graphql, actions }) => {
           },
         })
         createGithubPages(repositories, createPage)
+
+        each(mdxPosts, ({ node }) => {
+          console.log(node.fields.slug)
+          createPage({
+            path: node.fields.slug,
+            component: path.resolve('./src/components/mdx-layout.js'),
+            context: {
+              id: node.id,
+            },
+          })
+        })
+
         // Create blog posts & pages.
         each(posts, ({ post: node }) => {
           if (node === undefined) return
           const name = node.frontmatter.title
 
-          const PageTemplate = require.resolve('./src/templates/PostTemplate')
+          const PageTemplate = require.resolve('./src/templates/postTemplate')
           createPage({
             path: node.fields.slug,
             component: PageTemplate,
