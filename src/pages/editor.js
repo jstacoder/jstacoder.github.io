@@ -13,7 +13,7 @@ import {
 
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
 
-export default props => {
+export default ({ children, ...props }) => {
   const globals = {
     Box,
     BorderBox,
@@ -37,7 +37,7 @@ export default props => {
       mt={9}
       borderWidth={2}
     >
-      <LiveProvider code="<div><p>hi</p></div>" scope={globals}>
+      <LiveProvider code={children} scope={globals}>
         <Flex flexWrap={'wrap'} justifyContent={'space-between'}>
           <Flex flexWrap={'wrap'}>
             <BorderBox minWidth={'100%'}>

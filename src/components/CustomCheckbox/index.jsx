@@ -15,7 +15,7 @@ const defaultIconProps = props => ({
   ml:1,
   verticalAlign:'text-top',
   icon:Check,
-  size:.75*props.size
+  size:.85*props.size
 })
 
 export const ExampleIcon = StyledOcticon
@@ -47,12 +47,15 @@ export const CustomCheckbox = ({
   const onChangeValue = onChange !== undefined ? onChange : innerChangeValue
   
   const iconProps = provideIconProps({...props, size})
+
   return (
   <BorderBox
+    borderColor={'blackfade20'}
     {...props}
     onClick={onChangeValue}
     textAlign={'center'}
-    size={size}
+    height={size}
+    width={size}
     mr={2}>
     {value ?
      <IconComponent {...iconProps}/>:

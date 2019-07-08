@@ -1,0 +1,51 @@
+---
+  title: Base Page Layout
+  menu: Layouts
+  parent: Projects
+---
+
+import { Playground } from 'docz'
+import { BorderBox } from '@primer/components'
+import { BaseLayout } from './base'
+
+import * as Base from './base'
+
+
+### BaseLayout
+
+<BaseLayout>
+<p>No Frills</p>
+</BaseLayout>
+
+
+<BaseLayout BoxComponent={BorderBox}>
+    <p>No Frills</p>
+    <p>But has borderrs, to debug....</p>
+</BaseLayout>
+
+
+
+<Playground>
+    <Base.Column>
+        <Base.Row>
+            <Base.RedBox></Base.RedBox>
+            <Base.BlueBox></Base.BlueBox>
+            <Base.RedBox></Base.RedBox>
+        </Base.Row>
+        <Base.Row>
+            <Base.RedBox></Base.RedBox>
+            <Base.BlueBox></Base.BlueBox>
+            <Base.RedBox></Base.RedBox>
+        </Base.Row>
+        <Base.Row>
+            <Base.BlueBox></Base.BlueBox>
+            <Base.RedBox></Base.RedBox>
+        </Base.Row>
+    </Base.Column>
+</Playground>
+
+
+
+### Column Layout 
+
+<Base.ColumnLayout />

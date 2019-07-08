@@ -2,13 +2,15 @@
 import React, { useContext } from 'react'
 import { ThemeContextProvider, ThemeContext } from './src/theme-context'
 import { BaseStyles, Text, Heading, Box, BorderBox } from '@primer/components'
-import { useComponents } from 'docz'
+import { GitBranch, Star } from '@primer/octicons-react'
+import { useComponents, Playground, Props } from 'docz'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import { utilities } from '@primer/components/css'
 import styled, { createGlobalStyle } from 'styled-components'
 import { MDXProvider } from '@mdx-js/react'
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
 
+import { Alert } from './src/components/alert/alert'
 import { BlocksProvider } from 'mdx-blocks'
 import { future } from 'mdx-blocks/themes'
 
@@ -54,16 +56,26 @@ const Table = ({ className, ...props }) => (
   <StyledTable className={`table table-bordered ${className}`} {...props} />
 )
 
+const getLive = children =>
+  children && typeof children !== String ? children.props.live : false
+
 const getChildren = children =>
   children && typeof children !== String ? children.props.children : children
+const Code = ({ children, className, ...props }) => {
+  const live = getLive(children)
+  console.log(live)
 
-const Code = ({ children, className, live }) => {
   // const language = className.replace(/language-/, '')
   const code = getChildren(children)
   if (live) {
+    const scope = {
+      Alert,
+      GitBranch,
+      Star,
+    }
     return (
       <BorderBox m={3} mb={4} p={2} borderWidth={2}>
-        <LiveProvider code={code}>
+        <LiveProvider code={code} scope={scope}>
           <LivePreview />
           <LiveEditor />
           <LiveError />
@@ -93,7 +105,12 @@ const Wrapper = ({ children }) => {
     state: { theme, style },
   } = useContext(ThemeContext)
   const components = {
-    pre: Code,
+    props: Props,
+    playground: Playground,
+    pre: props => {
+      console.log(props)
+      return <Code {...props} />
+    },
     ul: props => <Ul {...props} color={theme.fontColor} />,
     ol: props => <Ol {...props} color={theme.fontColor} />,
     table: Table,

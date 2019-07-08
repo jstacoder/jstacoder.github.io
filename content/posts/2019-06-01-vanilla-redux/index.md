@@ -1,5 +1,7 @@
 ---
 title: "Vanilla Redux \U0001F4DD"
+name: Vanilla Redux
+menu: Blog
 date: '2015-05-28T22:40:32.169Z'
 layout: stacked
 path: '/markdown/'
@@ -10,6 +12,10 @@ tags:
   - Emoji
   - graphql
 ---
+
+import Wrapper from '../../../src/components/wrapper'
+
+export default Wrapper
 
 # Vanilla Redux
 

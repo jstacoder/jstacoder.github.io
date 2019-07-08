@@ -35,6 +35,20 @@ const space = {
   6: '16px',
 }
 
+const styles = {
+  dark: 7,
+  light: 3,
+}
+
+const getColor = color => (colors, style) => colors[color][styles[style]]
+
+const getPrimary = getColor('blue')
+const getSuccess = getColor('green')
+const getDanger = getColor('orange')
+const getWarning = getColor('yellow')
+const getInfo = getColor('blue')
+const getError = getColor('red')
+
 export const themes = {
   light: {
     ...primerTheme,
@@ -47,7 +61,14 @@ export const themes = {
     iconColor: '#24292e',
     fontColor: '#24292e',
     colors: {
+      fontColor: '#24292e',
       primary: primerTheme.colors.blue[3],
+      success: getSuccess(primerTheme.colors, 'light'),
+      info: getInfo(primerTheme.colors, 'light'),
+      danger: getDanger(primerTheme.colors, 'light'),
+      warning: getWarning(primerTheme.colors, 'light'),
+      success: getSuccess(primerTheme.colors, 'light'),
+      error: getError(primerTheme.colors, 'light'),
       grey: '#6a737d',
       white: '#fff',
       lightGray: '#eaecef',
@@ -66,7 +87,14 @@ export const themes = {
     iconColor: '#ffffff',
     fontColor: '#fff',
     colors: {
+      fontColor: '#fff',
       primary: primerTheme.colors.blue[6],
+      success: getSuccess(primerTheme.colors, 'dark'),
+      info: getInfo(primerTheme.colors, 'dark'),
+      danger: getDanger(primerTheme.colors, 'dark'),
+      warning: getWarning(primerTheme.colors, 'dark'),
+      success: getSuccess(primerTheme.colors, 'dark'),
+      error: getError(primerTheme.colors, 'dark'),
       grey: '#586069',
       white: '#fff',
       lightGray: '#eaecef',

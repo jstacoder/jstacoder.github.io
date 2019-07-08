@@ -7,7 +7,7 @@ import MastHead from '../components/mastHead'
 import Projects from '../components/projects'
 import Interests from '../components/interests'
 import Thoughts from '../components/thoughts'
-import SEO from '../components/seo'
+// import SEO from '../components/seo'
 import useSiteMetadata from '../hooks/siteMetaData'
 import { Box, BorderBox } from '@primer/components'
 import { useDocs, useMenus } from 'docz'
@@ -21,7 +21,7 @@ function IndexPage() {
   console.log(menus)
   return (
     <Layout>
-      <SEO />
+      {/* <SEO /> */}
       {layout === 'stacked' ? (
         <div className="container-lg py-6 p-responsive text-center">
           <MastHead metaData={true} />
