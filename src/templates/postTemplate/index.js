@@ -20,6 +20,7 @@ import { space } from 'styled-system'
 import { p, py, mt, mr, mb, px } from 'styled-components-spacing'
 import styled, { createGlobalStyle } from 'styled-components'
 import 'scss/prisim-dark.scss'
+import './postTemplate.scss'
 import useThemeContext from '../../hooks/themeContext'
 
 // language=STYLED_COMPONENTS

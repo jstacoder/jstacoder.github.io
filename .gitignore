@@ -10,3 +10,7 @@ public
 .idea/
 schema.graphql
 *.log
+x.css
+x.styl
+yarn.lock
+yarn.lock

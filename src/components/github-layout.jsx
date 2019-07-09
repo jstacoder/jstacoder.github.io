@@ -40,7 +40,7 @@ export const GithubLayout = ({children, timeToRead, title})=>{
                 color={style === 'dark' ? 'white' : null}
                 mb={6}
               >
-                <Box fontSize={4} color={style === 'dark' ? 'white' : null}>
+                <Box ml={[2,2,null]} fontSize={4} color={style === 'dark' ? 'white' : null}>
                   <Text fontSize={5}>
                     <Box
                       as={'span'}
@@ -66,10 +66,11 @@ export const GithubLayout = ({children, timeToRead, title})=>{
                       </Link>
                     </Box>
                   </Text>    
-                  <Heading fontSize={40} fontWeight={300} lineHeight={1.25}>
+                  <Heading ml={[2,2,null]} fontSize={40} fontWeight={300} lineHeight={1.25}>
                     {title}
                   </Heading>                  
                   <Text
+                    ml={[2,2,null]}
                     as={'p'}
                     mb={5}
                     color={`${style === 'dark' ? 'white' : 'gray'}`}

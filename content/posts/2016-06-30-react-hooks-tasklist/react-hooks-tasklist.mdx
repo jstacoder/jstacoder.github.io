@@ -29,7 +29,7 @@ export default props => <Box><Wrapper {...props} /></Box>
 
 # How to code a task list using React
 
-<Box p={0} m={0} bg='gray.2'>
+<Box p={0} m={0} bg="gray.3">
   <TaskList/>
 </Box>
 
@@ -39,19 +39,17 @@ export default props => <Box><Wrapper {...props} /></Box>
 
 1. we will start by creating some action type constants
 
-`type.js`
 
-```js
+```js filename=type.js
 export const ADD_TASK = 'ADD_TASK'
 export const TOGGLE_COMPLETE = 'TOGGLE_COMPLETE'
 export const TOGGLE_ARCHIVED = 'TOGGLE_ARCHIVED'
 ```
 
-2. now lets create an empty react context, so the rest of our app can share the values
+1. now lets create an empty react context, so the rest of our app can share the values
 
-`task-context.js`
 
-```js
+```js filename=task-context.js
 import React, { createContext } from 'react'
 
 export const TaskContext = createContext({
@@ -74,9 +72,8 @@ Which we will use with the `React.useReducer` hook soon
 The main things we do here, is map our action types to
 functions that will update the state as needed.
 
-`task-reducer.js`
 
-```js
+```js filename=task-reducer.js
 import uuid from 'uuid/v4'
 
 import { ADD_TASK, TOGGLE_ARCHIVED, TOGGLE_COMPLETE } from './types'
@@ -126,9 +123,8 @@ Now we need to tie all of that logic up into our own hook
 
 Which we will call `useTasks`
 
-`tasks.js`
 
-```js
+```js filename=tasks.js
 import React, { useState, useReducer } from 'react'
 
 import { ADD_TASK, TOGGLE_COMPLETE, TOGGLE_ARCHIVED } from './types'
@@ -188,9 +184,8 @@ After defining this component we will have 2 new components to write:
 1. TaskHeading - for our task list header
 2. TaskListBody - to actually display our tasks
 
-`tasklist.jsx`
 
-```js
+```jsx filename=tasklist.jsx
 import React from 'react'
 import { Flex, BorderBox } from '@primer/components'
 
@@ -240,9 +235,8 @@ export default TaskList
 
 Now we need a heading to display how many tasks are in the list for the user
 
-`task-heading.jsx`
 
-```js
+```jsx filename=task-heading.jsx
 import React, { useContext } from 'react'
 import { Box, CounterLabel, Heading, TextInput} from '@primer/components'
 
@@ -288,9 +282,8 @@ now we need to write our TaskListBody component,
 which will leave us with another component to
 write: `TaskListItem`
 
-`tasklist-body.jsx`
 
-```js
+```jsx filename=tasklist-body.jsx
 import React, { useContext, Fragment } from 'react'
 import { Text } from '@primer/components'
 
@@ -325,9 +318,8 @@ to have unique behavior we will again need to define
 1. Checkbox - so we dont have to rely on ugly html checkboxs
 2. TaskText - to handle crossing out our text when we complete an item
 
-`tasklist-item.jsx`
 
-```js
+```jsx filename=tasklist-item.jsx
 import React, { useContext } from 'react'
 import { BorderBox, Flex, StyledOcticon } from '@primer/components'
 import { X as CloseIcon } from '@primer/octicons-react'
@@ -367,9 +359,8 @@ export default ({ task }) => {
 
 ok now for the last 2, which thankfully are very simple:
 
-`task-checkbox.jsx`
 
-```js
+```jsx filename=task-checkbox.jsx
 import React from 'react'
 import { BorderBox, StyledOcticon } from '@primer/components'
 import { Check } from '@primer/octicons-react'
@@ -391,9 +382,8 @@ export default ({ checked }) => (
 
 and finally
 
-`task-text.jsx`
 
-```js
+```jsx filename=task-text.jsx
 import React from 'react'
 import styled, {css} from 'styled-components'
 import { Text } from '@primer/components'

@@ -9,15 +9,16 @@ pre[class*="language-"] {
     color: #3d4040!important;
     background: none!important;
     //text-shadow: 0 -.1em .2em black;
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace!important;
+    font-family: 'Lato', monospace, sans-serif;
+    font-size: 1em;
+    word-spacing: 5px;
+    letter-spacing: 2px;
     text-align: left!important;
     white-space: pre!important;
-    word-spacing: normal!important;
     word-break: normal!important;
     word-wrap: normal!important;
-    line-height: 1.5!important;
+    line-height: 1.3!important;
     -moz-tab-size: 4!important;
-    -o-tab-size: 4!important;
     tab-size: 4!important;
     -webkit-hyphens: none!important;
     -moz-hyphens: none!important;
@@ -42,8 +43,8 @@ pre[class*="language-"] {
     padding: 1em!important;
     margin: .5em 0!important;
     overflow: auto!important;
-    border: 2px solid hsl(180, 2%, 34%)!important;
-    border-radius: .5em!important;
+    //border: 2px solid hsl(180, 2%, 34%)!important;
+    border-radius: 0!important;
     //box-shadow: 1px 1px .5em black inset;
 }
 
@@ -61,7 +62,8 @@ pre[class*="language-"] {
 .token.doctype,
 .token.plain,
 .token.cdata {
-    color: hsla(82, 24%, 32%, 0.93)!important;
+    color: rgba(14, 12, 98, 0.85)!important;
+    font-family: 'Lato', monospace, Sans-Serif!important;
 }
 
 .token.punctuation {

@@ -59,10 +59,10 @@ So now lets think about what we want our app to do.
 
 a task list needs to be able to:
 
-- add a new task with text, and incomplete state
-- list existing tasks
-- set an incomplete task to complete
-- delete a task
+1. add a new task with text, and incomplete state
+2. list existing tasks
+3. set an incomplete task to complete
+4. delete a task
 
 Now lets define what a task looks like
 
@@ -175,9 +175,9 @@ const saveState = ({ tasks }) => {
 
 Now to tie redux up and have it ready we need to create our "`store`" using the aptly named redux function createStore, which takes 3 arguments:
 
-- your root reducer (the combination of any reducers you have)
-- any needed initial state
-- an "enhancer" which i wont use or go into further here.
+1. Your root reducer (the combination of any reducers you have)
+2. Any needed initial state
+3. An "enhancer" which i wont use or go into further here.
 
 since we want to load our tasks from a file, we need to tie that into creating our store:
 
@@ -190,15 +190,18 @@ const loadStore = () => {
     )
   })
 }
-```
+```  
+
 
 now that we have a store, that gives us the `dispatch` function we can use to execute our actions, so lets write some helper functions to do that for us.
 
 we need functions to:
 
-- add a task
-- mark a task complete
-- display tasks
+1. Add a task
+2. Mark a task complete
+3. Display tasks  
+
+
 
 ```js
 const addTask = ({ dispatch }, text) => {
