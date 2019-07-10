@@ -1,8 +1,8 @@
 // @flow
 import React, { useContext } from 'react'
 import { ThemeContextProvider, ThemeContext } from './src/theme-context'
-import { BaseStyles, Text, Heading, Box, BorderBox } from '@primer/components'
-import { GitBranch, Star } from '@primer/octicons-react'
+import { StyledOcticon, BaseStyles, Text, Heading, Box, BorderBox } from '@primer/components'
+import { GitBranch, Star, Clippy } from '@primer/octicons-react'
 import { useComponents, Playground, Props } from 'docz'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import { utilities } from '@primer/components/css'
@@ -26,6 +26,7 @@ const Ol = styled.ol`
       font-weight: bold;
       font-size: 0.5em;
       margin-right: 5px;
+      color: white;
     }
   }
   margin-left: 5px;
@@ -48,11 +49,17 @@ const Ul = styled.ul`
   margin-left: 5px;
 `
 
+const LiText = styled(Text).attrs({
+  as: 'li'
+})`
+ &&& {
+   font-family: 'Handlee', cursive;
+ }
+`
 
 const StyledText = styled(Text)`
   font-family:  'Neucha', cursive;
   line-height: 1.3;
-  font-size: 18px;
 `
 
 const StyledTable = styled.table`
@@ -64,7 +71,55 @@ const StyledTable = styled.table`
 
 const FilenameBox = styled(Box)`
   margin-bottom: -7px;
+  border-bottom: 1px solid snow;
+  font-family: 'Lato', monospace, Sans-Serif;
 `
+
+const FontHeading = styled(Heading)`
+  font-family: 'Lato', monospace, Sans-Serif;
+`
+
+
+const Blockquote = styled.blockquote`
+  padding: 10px 30px 10px 30px;
+  margin: 30px 0;
+  border-radius: 3px;
+  border-left: 4px solid ${p => p.theme.colors.danger};
+  background: ${p => p.theme.colors.gray[2]};
+  
+  p{
+    color: ${p => p.theme.colors.darkText};
+    font-size: 18px;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 22px;
+    margin: 15px 0;
+  }
+  p {
+    margin: 5px 0 10px;
+  }
+`
+const CopyIcon = styled(StyledOcticon).attrs({
+  color: 'lightText',
+  size: 25,
+  mr: 3,
+})`
+  cursor: pointer;
+  padding: 2px;
+  :hover {
+    background-color: white;
+    border-radius: 5px;
+    color: ${props=> props.theme.colors.darkText};
+  }
+`
+
+const HeadingWrapper = props => <Box mb={3}><FontHeading {...props} /></Box>
+
 
 const Table = ({ className, ...props }) => (
   <StyledTable className={`table table-bordered ${className}`} {...props} />
@@ -89,15 +144,18 @@ const Code = ({ children }) => {
     props =>
     {
       return (
-        <Box ml={'-5px'}>
+        <Box>
         <FilenameBox
           bg='secondaryBackground'
           color='lightText'
-          opacity='0.8'
-          pb={2} pt={2} pl={3} ml={[null, null, 1]}>
-          <Text opacity='1'>
+          opacity='0.8' display={'flex'}
+          pb={2} pt={2} pl={3}>
+          <Text opacity='1' style={{flex: 1}}>
             {filename}
           </Text>
+          <Box display={['none', 'none', 'none', 'block']}>
+            <CopyIcon icon={Clippy} />
+          </Box>
         </FilenameBox>
         {props.children}
       </Box>
@@ -106,7 +164,7 @@ const Code = ({ children }) => {
     props =>
     {
       return (
-        <Box ml={'-5px'}>
+        <Box>
           {props.children}
         </Box>
       )
@@ -172,17 +230,20 @@ const Wrapper = ({ children }) => {
     table: Table,
     p: props => (
       <StyledText
+        fontSize={[4,3,2]}
         as={'p'}
         color={theme.fontColor}
         {...props}
       />
     ),
-    h1: props => <Heading pl={'15px'} as={'h1'} color={theme.fontColor} {...props} />,
-    h2: props => <Heading pl={'15px'} as={'h2'} color={theme.fontColor} {...props} />,
-    h3: props => <Heading pl={'15px'} as={'h3'} color={theme.fontColor} {...props} />,
-    h4: props => <Heading pl={'15px'} as={'h4'} color={theme.fontColor} {...props} />,
-    h5: props => <Heading pl={'15px'} as={'h5'} color={theme.fontColor} {...props} />,
-    h6: props => <Heading pl={'15px'} as={'h6'} color={theme.fontColor} {...props} />,
+    h1: props => <HeadingWrapper pl={'15px'} as={'h1'} color={theme.fontColor} {...props} />,
+    h2: props => <HeadingWrapper pl={'15px'} as={'h2'} color={theme.fontColor} {...props} />,
+    h3: props => <HeadingWrapper pl={'15px'} as={'h3'} color={theme.fontColor} {...props} />,
+    h4: props => <HeadingWrapper pl={'15px'} as={'h4'} color={theme.fontColor} {...props} />,
+    h5: props => <HeadingWrapper pl={'15px'} as={'h5'} color={theme.fontColor} {...props} />,
+    h6: props => <HeadingWrapper pl={'15px'} as={'h6'} color={theme.fontColor} {...props} />,
+    li: props => <LiText fontSize={[4,3,2]} {...props} />,
+    blockquote: Blockquote,
   }
 
   return (
@@ -195,6 +256,7 @@ const Wrapper = ({ children }) => {
 export const wrapRootElement = ({ element }) => {
   const PrimerStyle = createGlobalStyle`${utilities}`
   return (
+    <AuthContextProvider>
     <ThemeContextProvider>
       <Wrapper>
         <BaseStyles>
@@ -203,5 +265,6 @@ export const wrapRootElement = ({ element }) => {
         </BaseStyles>
       </Wrapper>
     </ThemeContextProvider>
+   </AuthContextProvider>
   )
 }

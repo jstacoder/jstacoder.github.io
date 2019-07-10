@@ -33,11 +33,11 @@ export default props => <Box><Wrapper {...props} /></Box>
   <TaskList/>
 </Box>
 
-## here is how to write a task list
+## Here is how to write a task list
 
-### first we handle the tasks
+### First we handle the tasks
 
-1. we will start by creating some action type constants
+1. We will start by creating some action type constants
 
 
 ```js filename=type.js
@@ -46,7 +46,8 @@ export const TOGGLE_COMPLETE = 'TOGGLE_COMPLETE'
 export const TOGGLE_ARCHIVED = 'TOGGLE_ARCHIVED'
 ```
 
-1. now lets create an empty react context, so the rest of our app can share the values
+1. Now lets create an empty react context, 
+so the rest of our app can share the values
 
 
 ```js filename=task-context.js
@@ -55,11 +56,11 @@ import React, { createContext } from 'react'
 export const TaskContext = createContext({
   tasks: [],
   displayableTasks: [],
+  addTaskInput: '',
   resetAddTaskInput: () => {},
   addTask: () => {},
   toggleComplete: () => {},
   toggleArchived: () => {},
-  addTaskInput: '',
   setAddTaskInput: () => {},
 })
 ```
@@ -233,7 +234,8 @@ const TaskList = () => {
 export default TaskList
 ```
 
-Now we need a heading to display how many tasks are in the list for the user
+Now we need a heading to display how 
+many tasks are in the list for the user
 
 
 ```jsx filename=task-heading.jsx
@@ -278,7 +280,7 @@ const TaskHeading = () =>{
 export default TaskHeading
 ```
 
-now we need to write our TaskListBody component,
+Now we need to write our TaskListBody component,
 which will leave us with another component to
 write: `TaskListItem`
 
@@ -310,7 +312,7 @@ const TaskListBody = () => {
 export default TaskListBody
 ```
 
-now we define our task list item,
+Now we define our task list item,
 but because we want parts of the item
 to have unique behavior we will again need to define
 2 new components when we finish:
@@ -357,7 +359,7 @@ export default ({ task }) => {
 }
 ```
 
-ok now for the last 2, which thankfully are very simple:
+Ok now for the last 2, which thankfully are very simple:
 
 
 ```jsx filename=task-checkbox.jsx
@@ -380,7 +382,7 @@ export default ({ checked }) => (
 )
 ```
 
-and finally
+And finally
 
 
 ```jsx filename=task-text.jsx

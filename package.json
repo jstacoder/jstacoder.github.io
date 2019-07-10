@@ -142,6 +142,8 @@
   "scripts": {
     "build": "gatsby build --prefix-paths",
     "serve": "gatsby serve",
+    "docker-deploy":"yarn run docker-build && yarn run gh-pages",
+    "docker-build":"docker-compose run app build",
     "gh-pages": "gh-pages -d public -b master",
     "deploy": "yarn build && yarn run gh-pages",
     "develop": "gatsby develop",

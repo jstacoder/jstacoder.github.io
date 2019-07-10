@@ -19,10 +19,7 @@ function IndexPage() {
   const docs = useDocs()
   const menus = useMenus()
   
-  const { isLoggedIn,logUserOut, getCurrentUser, handleLogin } = useAuth()
-  
-  const doLogin = () => handleLogin({username: 'admin', password: 'admin'})
-  
+  console.log(docs, menus)
   return (
     <Layout>
       
@@ -54,13 +51,13 @@ function IndexPage() {
             border={0}
             px={[4, 4, 6, 7]}
             py={6}
-            width={{ sm: 5 / 12, md: 4 / 12, lg: 3 / 12 }}
+            width={[null,null,5/12,4/12,3/12]}
           >
             <MastHead metaData={true} />
           </BorderBox>
           <BorderBox
-            width={{ sm: 7 / 12, md: 8 / 12, lg: 9 / 12 }}
-            px={{ sm: 4, md: 4, lg: 7 }}
+            width={[null, null, 7/12, 8/12, 9/12]}
+            px={[null,4,4,7]}
             border={0}
             borderTop={[1, 1, 0, 0]}
             bg={style === 'dark' ? 'gray.8' : 'gray.1'}

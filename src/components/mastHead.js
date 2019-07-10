@@ -27,7 +27,7 @@ const StyledHr = styled.hr`
   ${props => props.color === 'dark' && 'border-top-color: whitesmoke;'}
 `
 
-function mastHead({ metaData }) {
+function mastHead() {
   const { layout } = useSiteMetadata()
   const { style, theme, setTheme } = useThemeContext()
 
