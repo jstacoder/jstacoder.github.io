@@ -21,7 +21,12 @@ export default Wrapper
 
 ## Why Just Redux?
 
-Many people find it difficult to learn react-redux, because they may know react, but if they have not yet run into redux it can be very confusing. So i found it useful to start out learning how to use redux by itself, then when you need to connect it to react you will have a much better idea of what is needed.
+Many people have told me they find it difficult to learn react-redux.  
+I think it is because even though they may know react, 
+if they have not yet run into redux it can be very confusing.  
+So i found it useful to start out learning how to use redux by itself (**without react**).  
+After that when you need to connect your store to a react app 
+you will have a much better idea of what is needed.
 
 So what does that mean? We can make a small command line task list app as an example.
 
@@ -34,7 +39,7 @@ yarn init -y
 yarn add redux uuid prompt
 ```
 
-once that finishes we can start by looking at what it means to use redux.
+Once that finishes we can start by looking at what it means to use redux.
 
 It calls itself
 
@@ -57,12 +62,12 @@ So lets look at some concrete examples, but first lets go over what we need to d
 
 So now lets think about what we want our app to do.
 
-a task list needs to be able to:
+A task list needs to be able to:
 
-1. add a new task with text, and incomplete state
-2. list existing tasks
-3. set an incomplete task to complete
-4. delete a task
+1. Add a new task with text, and incomplete state
+2. List existing tasks
+3. Set an incomplete task to complete
+4. Delete a task
 
 Now lets define what a task looks like
 
@@ -76,7 +81,7 @@ type Task {
 
 At some point we should add a due date but for now all we really need is an object with a text property and a property to store its state, ill just call it complete and default it to false.
 
-first we need to import the stuff we want to use
+First we need to import the stuff we want to use
 
 ```js
 const uuid = require('uuid')
@@ -85,7 +90,8 @@ const prompt = require('prompt')
 const { createStore, combineReducers } = require('redux')
 ```
 
-now we will define our action types, in redux an action is an object, with a type and sometimes a payload of data. An action creator is a function that returns an action.
+Now we will define our action types, in redux an action is an object, with a type and sometimes a payload of data.  
+An action creator is a function that returns an action.
 
 ```js
 // action type constants
@@ -179,7 +185,7 @@ Now to tie redux up and have it ready we need to create our "`store`" using the 
 2. Any needed initial state
 3. An "enhancer" which i wont use or go into further here.
 
-since we want to load our tasks from a file, we need to tie that into creating our store:
+Since we want to load our tasks from a file, we need to tie that into creating our store:
 
 ```js
 const loadStore = () => {
@@ -193,9 +199,9 @@ const loadStore = () => {
 ```  
 
 
-now that we have a store, that gives us the `dispatch` function we can use to execute our actions, so lets write some helper functions to do that for us.
+Now that we have a store, that gives us the `dispatch` function we can use to execute our actions, so lets write some helper functions to do that for us.
 
-we need functions to:
+We need functions to:
 
 1. Add a task
 2. Mark a task complete
@@ -219,7 +225,7 @@ const displayTasks = tasks => {
 }
 ```
 
-to get our user input, we will use the `prompt` libtrary. which takes an object config, namely `name` which is how the data is returned, and `description` which is the question to ask the user.
+To get our user input, we will use the `prompt` libtrary. which takes an object config, namely `name` which is how the data is returned, and `description` which is the question to ask the user.
 
 ```js
 const askWhatToDo = [
@@ -245,9 +251,9 @@ const askWhatTaskToComplete = [
 ]
 ```
 
-now lets tie the questions to our functions
+Now lets tie the questions to our functions
 
-when they want to add a task we need to ask what the task is
+When they want to add a task we need to ask what the task is
 
 ```js
 const doAddTask = store => {
@@ -258,7 +264,7 @@ const doAddTask = store => {
 }
 ```
 
-to complete a task we need to know which one to mark complete
+To complete a task we need to know which one to mark complete
 
 ```js
 const doCompleteTask = store => {
@@ -271,7 +277,7 @@ const doCompleteTask = store => {
 }
 ```
 
-listing is easy, no questions needed
+Listing the tasks is easy, no questions needed
 
 ```js
 const doListTasks = store => {
@@ -280,7 +286,7 @@ const doListTasks = store => {
 }
 ```
 
-now lets tie it all together along with a question to find out what the user wants to do.
+Now lets tie it all together along with a question to find out what the user wants to do.
 
 ```js
 loadStore().then(store => {

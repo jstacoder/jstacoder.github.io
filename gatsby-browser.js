@@ -1,13 +1,22 @@
 // @flow
 import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 import { ThemeContextProvider, ThemeContext } from './src/theme-context'
-import { StyledOcticon, BaseStyles, Text, Heading, Box, BorderBox } from '@primer/components'
+import { 
+  Tooltip as ToolTip, 
+  StyledOcticon, 
+  BaseStyles, 
+  Text, 
+  Heading, 
+  Flex,
+  Box, 
+  BorderBox 
+} from '@primer/components'
 import { GitBranch, Star, Clippy } from '@primer/octicons-react'
 import { useComponents, Playground, Props } from 'docz'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import { utilities } from '@primer/components/css'
 import styled, { createGlobalStyle } from 'styled-components'
-import { MDXProvider } from '@mdx-js/react'
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
 import { AuthContextProvider } from './src/hooks/authContext'
 
@@ -104,11 +113,13 @@ const Blockquote = styled.blockquote`
     margin: 5px 0 10px;
   }
 `
-const CopyIcon = styled(StyledOcticon).attrs({
-  color: 'lightText',
+
+
+const CopyIcon = styled(StyledOcticon).attrs((props)=>({
+  color: props.color,
   size: 25,
   mr: 3,
-})`
+}))`
   cursor: pointer;
   padding: 2px;
   :hover {
@@ -117,6 +128,15 @@ const CopyIcon = styled(StyledOcticon).attrs({
     color: ${props=> props.theme.colors.darkText};
   }
 `
+
+CopyIcon.propTypes = {
+  color: PropTypes.String,
+}
+
+CopyIcon.defaultProps = {
+  color: 'lightText'
+}
+
 
 const HeadingWrapper = props => <Box mb={3}><FontHeading {...props} /></Box>
 
@@ -135,10 +155,46 @@ const getChildren = children =>
 const getFilename = children =>
   (children && typeof children !== String && children.props && children.props.filename) ? children.props.filename : 'no name'
 
+
+
+const ClipBoardHelper = ({tooltipText, onClick, color, ...props}) =>{
+  return (
+    <ToolTip text={tooltipText}>
+      <Box {...props} onClick={onClick} display={['none', 'none', 'none', 'block']}>
+        <CopyIcon icon={Clippy} color={color} />
+      </Box>
+  </ToolTip>
+  )
+}
+
+
 const Code = ({ children }) => {
+  const [tooltipText, setTooltipText] = React.useState('Click to copy code')
+
+  const toggleTootipText = () =>{
+    setTooltipText('Code copied to clipboard')
+
+    setTimeout(()=>{
+      setTooltipText('Click to copy code')
+    }, 5000)
+  }
+
   const live = getLive(children)
   const filename = getFilename(children)
   const code = getChildren(children)
+
+
+  const setClipboardText = text => {
+    toggleTootipText()
+    window && 
+    window.navigator && 
+    window.navigator.clipboard.writeText(text)
+  }
+  
+  const onClickClipboard = e => {
+    e.preventDefault()
+    setClipboardText(code)
+  }
   
   const Wrapper = filename !== 'no name' ?
     props =>
@@ -153,9 +209,7 @@ const Code = ({ children }) => {
           <Text opacity='1' style={{flex: 1}}>
             {filename}
           </Text>
-          <Box display={['none', 'none', 'none', 'block']}>
-            <CopyIcon icon={Clippy} />
-          </Box>
+          <ClipBoardHelper tooltipText={tooltipText} onClick={onClickClipboard} />
         </FilenameBox>
         {props.children}
       </Box>
@@ -164,9 +218,12 @@ const Code = ({ children }) => {
     props =>
     {
       return (
-        <Box>
+        <Flex flexDirection='column'>
+          <Flex mb={-40} alignSelf='flex-end'>
+            <ClipBoardHelper tooltipText={tooltipText} color='black' onClick={onClickClipboard} opacity={0.8} />
+          </Flex>
           {props.children}
-        </Box>
+        </Flex>
       )
     }
   
