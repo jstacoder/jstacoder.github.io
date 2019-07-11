@@ -18,7 +18,9 @@ const Wrapper = ({ children }) => {
 
   const componentsMap = {
     props: Props,
+    Props,
     playground: Playground,
+    Playground,
     pre: components.Code,
     ul: components.Ul,
     ol: components.Ol,

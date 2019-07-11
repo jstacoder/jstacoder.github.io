@@ -20,6 +20,37 @@ module.exports = {
   },
   pathPrefix: process.env.PATH_PREFIX || '/',
   plugins: [
+    // {
+    //   resolve: `gatsby-plugin-prefetch-google-fonts`,
+    //   options: {
+    //     fonts: [
+    //       {
+    //         family: `Cantarell`,
+    //         variants: [`400`, `700`]
+    //       },
+    //       {
+    //         family: `Comforta`,
+    //         variants: [`300`,`500`, `700`]
+    //       },
+    //       {
+    //         family: `Handlee`
+    //       },
+    //       {
+    //         family: `Lato`,
+    //         variants: [`400i`]
+    //       },
+    //       {
+    //         family: `Marck+Script`,
+    //       },
+    //       {
+    //         family: `Neucha`
+    //       },
+    //       {
+    //         family:`Satisfy`
+    //       }
+    //     ],
+    //   },
+    // },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-sass`,

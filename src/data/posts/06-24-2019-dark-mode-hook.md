@@ -3,17 +3,21 @@ date_added: 2019-06-24T14:50:42.000+00:00
 date_modified: 2019-06-24T14:50:42.000+00:00
 layout: stacked
 tags:
-- graphql
-- react
-- react-hooks
-- useReducer
-- useContext
+  - graphql
+  - react
+  - react-hooks
+  - useReducer
+  - useContext
 title: Dark mode hook
 published: false
 categories:
-- Programming
-
+  - Programming
 ---
+
+import Wrapper from '../../components/wrapper'
+
+export default Wrapper
+
 ## Dark Mode:
 
 ### The react hooks way

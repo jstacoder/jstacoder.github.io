@@ -9,6 +9,8 @@ import ClipBoardHelper from './click-to-copy/clipboard-helper'
 import {FilenameBox} from '../shared/filename-box'
 import {LiveEditor, LiveError, LivePreview, LiveProvider} from 'react-live'
 
+import { Center, SpaceBetween, SpaceAround, SpaceEvenly, FlexStart, FlexEnd, BlockGroup, FlexBlock } from '../flex-docs/justify-content.jsx'
+
 
 const getLive = children =>
   children && typeof children !== String ? children.props.live : false
@@ -44,7 +46,7 @@ const CodeWrapper = ({children, filename, code}) =>{
     </Box>
   ) : (
     <Flex flexDirection='column'>
-      <Flex mb={-40} alignSelf={'flex-end'}>
+      <Flex mb={[null,null,null,-40]} alignSelf={'flex-end'}>
         <ClipBoardHelper copyText={code} opacity={'0.8'} color={'black'} />
       </Flex>
       {children}
@@ -67,6 +69,14 @@ export const Code = ({children}) =>{
     Alert,
     GitBranch,
     Star,
+    Center, 
+    SpaceBetween,
+    SpaceAround, 
+    SpaceEvenly, 
+    FlexStart, 
+    FlexEnd, 
+    BlockGroup, 
+    FlexBlock
   }
   
   return liveEditorRequested ? (
