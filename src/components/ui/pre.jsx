@@ -1,7 +1,8 @@
 import React from 'react'
 import {BorderBox, Box, Flex, Text} from '@primer/components'
 import { GitBranch, Star } from '@primer/octicons-react'
-import Highlight, { DefaultProps } from 'prism-react-renderer'
+import Highlight, { defaultProps } from 'prism-react-renderer'
+import Prisim from 'prism-react-renderer/prism'
 
 import { Alert } from '../alert/alert'
 import ClipBoardHelper from './click-to-copy/clipboard-helper'
@@ -16,8 +17,8 @@ const getChildren = children =>
   children && typeof children !== String ? children.props.children : children
 
 const getFilename = children =>
-  (children && typeof children !== String && children.props && children.props.filename) ? children.props.filename : 'no name'
-
+  (children && typeof children !== String && children.props && children.props.filename) 
+  ? children.props.filename : undefined
 
 const getClassName = children =>
   (children && typeof children !== String && children.props) ? children.props.className : ''
@@ -84,7 +85,7 @@ export const Code = ({children}) =>{
         </BorderBox>
   ) : (
     <CodeWrapper filename={filename} code={code}>
-      <Highlight {...DefaultProps} code={code} language={language}>
+      <Highlight {...defaultProps} prisim={Prisim} code={code} language={language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={{ ...style, padding: '20px' }}>
             {tokens.map((line, i) => (

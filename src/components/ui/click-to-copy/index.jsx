@@ -19,7 +19,7 @@ const BaseCopyIcon = styled(StyledOcticon).attrs((props)=>({
   }
 `
 
-const CopyIcon = props =>{
+export const CopyIcon = props =>{
   return (
     <BaseCopyIcon {...props} />
   )
@@ -27,12 +27,8 @@ const CopyIcon = props =>{
 
 CopyIcon.propTypes = {
   color: PropTypes.string,
-  icon: PropTypes.node,
 }
 
 CopyIcon.defaultProps = {
   color: 'lightText'
 }
-
-
-export default CopyIcon

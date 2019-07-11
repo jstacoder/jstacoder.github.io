@@ -1,10 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
-import { Tooltip } from '@primer/components'
+import { Tooltip, Box } from '@primer/components'
+import { Clippy } from '@primer/octicons-react'
+import PropTypes from 'prop-types'
+
 
 import { CopyIcon } from './'
 
-const ClipBoardHelper = ({color, onClick, copyText, ...props})  => {
+const ClipBoardHelper = ({color, onClick, copyText, ...props} = {})  => {
   const tooltipMessages = {
     PRE_CLICK: 'Click to copy code to clipboard',
     POST_CLICK: 'Code copied to clipboard'
@@ -40,11 +43,22 @@ const ClipBoardHelper = ({color, onClick, copyText, ...props})  => {
   
   return (
     <Tooltip text={tooltipText}>
-      <Box {...props} onClick={onClickClipboard} display={['none', 'none', 'none', 'block']}>
-        <CopyIcon color={color}/>
+      <Box 
+          {...props} 
+          onClick={onClickClipboard} 
+          display={['none', 'none', 'none', 'block']}>
+        <CopyIcon icon={Clippy} color={color}/>
       </Box>
     </Tooltip>
   )
+}
+
+ClipBoardHelper.PropTypes = {
+  onClick: PropTypes.function, 
+}
+
+ClipBoardHelper.defaultProps = {
+  onClick: ()=>{}
 }
 
 export default ClipBoardHelper

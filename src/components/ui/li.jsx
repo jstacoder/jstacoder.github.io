@@ -7,7 +7,12 @@ const LiText = styled(Text).attrs({
 })`
   &&& {
     font-family: 'Lato', monospace, Sans-Serif;
+
+    ::before {
+      content: "-- "
+    }
   }
+
 `
 
 export const Li = props =>{
