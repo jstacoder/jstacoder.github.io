@@ -13,7 +13,7 @@ import { future } from 'mdx-blocks/themes'
 
 import * as components from './src/components/ui'
 
-const Wrapper = ({ children }) => {
+const Wrapper = ({ children, ...props }) => {
   const { theme } = useThemeContext()
 
   const componentsMap = {
@@ -37,7 +37,12 @@ const Wrapper = ({ children }) => {
   }
 
   return (
-    <BlocksProvider {...future} components={componentsMap} theme={theme}>
+    <BlocksProvider
+      {...props}
+      {...future}
+      components={componentsMap}
+      theme={theme}
+    >
       {children}
     </BlocksProvider>
   )
@@ -48,10 +53,10 @@ export const wrapRootElement = ({ element }) => {
   return (
     <AuthContextProvider>
       <ThemeContextProvider>
-        <BaseStyles>
+        <Wrapper>
           <PrimerStyle />
-          <Wrapper>{element}</Wrapper>
-        </BaseStyles>
+          {element}
+        </Wrapper>
       </ThemeContextProvider>
     </AuthContextProvider>
   )

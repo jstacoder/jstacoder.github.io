@@ -40,11 +40,11 @@ pre[class*="language-"],
 
 /* Code blocks */
 pre[class*="language-"] {
-    padding: 1em!important;
-    margin: .5em 0!important;
-    overflow: auto!important;
+    padding: 15px 0 0 15px;
+    margin: .5em 0;
+    overflow: auto;
     //border: 2px solid hsl(180, 2%, 34%)!important;
-    border-radius: 0!important;
+    border-radius: 0;
     //box-shadow: 1px 1px .5em black inset;
 }
 

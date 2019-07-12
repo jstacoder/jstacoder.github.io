@@ -21,7 +21,7 @@ const BaseCopyIcon = styled(StyledOcticon).attrs((props)=>({
 
 export const CopyIcon = props =>{
   return (
-    <BaseCopyIcon {...props} />
+    <BaseCopyIcon icon={Clippy} {...props} />
   )
 }
 

@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useState, useMemo, useCallback } from 'react'
 import {BorderBox, Box, Flex, Text} from '@primer/components'
 import { GitBranch, Star } from '@primer/octicons-react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
-import Prisim from 'prism-react-renderer/prism'
+// import Prisim from 'prism-react-renderer/prism'
 
 import { Alert } from '../alert/alert'
 import ClipBoardHelper from './click-to-copy/clipboard-helper'
@@ -10,13 +10,14 @@ import {FilenameBox} from '../shared/filename-box'
 import {LiveEditor, LiveError, LivePreview, LiveProvider} from 'react-live'
 
 import { Center, SpaceBetween, SpaceAround, SpaceEvenly, FlexStart, FlexEnd, BlockGroup, FlexBlock } from '../flex-docs/justify-content.jsx'
-
+import FlexComponent from '../flex'
 
 const getLive = children =>
   children && typeof children !== String ? children.props.live : false
 
 const getChildren = children =>
-  children && typeof children !== String ? children.props.children : children
+  children && typeof children !== String ? React.Children.toArray(children.props.children).join('\n') :
+    children
 
 const getFilename = children =>
   (children && typeof children !== String && children.props && children.props.filename) 
@@ -28,7 +29,7 @@ const getClassName = children =>
 
 const CodeWrapper = ({children, filename, code}) =>{
   return filename  !== undefined ? (
-    <Box>
+    <Box mt={3}>
       <FilenameBox
         bg='secondaryBackground'
         color='lightText'
@@ -45,7 +46,7 @@ const CodeWrapper = ({children, filename, code}) =>{
       {children}
     </Box>
   ) : (
-    <Flex flexDirection='column'>
+    <Flex mt={3} flexDirection='column'>
       <Flex mb={[null,null,null,-40]} alignSelf={'flex-end'}>
         <ClipBoardHelper copyText={code} opacity={'0.8'} color={'black'} />
       </Flex>
@@ -55,11 +56,23 @@ const CodeWrapper = ({children, filename, code}) =>{
 }
 
 
-export const Code = ({children}) =>{
+export const Code = ({onChange, children}) =>{
+  
   const liveEditorRequested = getLive(children)
   const filename = getFilename(children)
-  const code = getChildren(children)
   const codeClassName = getClassName(children)
+  
+  const initialCode = useMemo(()=> getChildren(children), [children])
+  const [code, setCode] = useState(initialCode)
+  
+  const handleChange = useCallback(
+    (code)=>{
+      console.log(code)
+        onChange && onChange(code)
+        setCode(code)
+    },
+    [code]
+  )
   
   console.log(code, filename, liveEditorRequested)
   
@@ -68,6 +81,7 @@ export const Code = ({children}) =>{
   const scope = {
     Alert,
     GitBranch,
+    FlexComponent,
     Star,
     Center, 
     SpaceBetween,
@@ -89,15 +103,15 @@ export const Code = ({children}) =>{
         bg='lightBackground'>
         <LiveProvider code={code} scope={scope}>
           <LivePreview/>
-          <LiveEditor/>
+          <LiveEditor onChange={handleChange}/>
           <LiveError/>
         </LiveProvider>
         </BorderBox>
   ) : (
     <CodeWrapper filename={filename} code={code}>
-      <Highlight {...defaultProps} prisim={Prisim} code={code} language={language}>
+      <Highlight {...defaultProps} code={code} language={language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={className} style={{ ...style, padding: '20px' }}>
+          <pre className={className} style={{ ...style }}>
             {tokens.map((line, i) => (
               <div key={i} {...getLineProps({ line, key: i })}>
                 {line.map((token, key) => (

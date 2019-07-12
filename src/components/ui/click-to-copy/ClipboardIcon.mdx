@@ -1,0 +1,45 @@
+
+---
+  title: ClipboardIcon
+  menu: Blog
+---
+
+import { Box } from 'mdx-blocks'
+
+import ClipBoardHelper from './clipboard-helper'
+import { CopyIcon } from './'
+
+
+import Wrapper from '../../Wrapper'
+
+export default Wrapper
+
+
+## CopyIcon
+
+By itself the `CopyIcon` doesnt really do much beyond
+looking nice.
+
+<Box>
+   <CopyIcon/>
+</Box>
+
+As you can see it gives the user visual feedback via
+a hover color, but that is really all
+
+To make real use of it, use its companion `ClipBoardHelper`
+
+The helpers job is to handle clicks, which will call a click 
+callback and it provides a popover and updates its text. 
+
+
+<Box mb={3}>
+  <ClipBoardHelper  copyText="testing 1 2 3"/>
+</Box>
+
+
+```jsx 
+<ClipBoardHelper  textToCopy="testing 1 2 3"/>
+``` 
+
+

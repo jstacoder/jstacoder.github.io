@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
 import { Tooltip, Box } from '@primer/components'
-import { Clippy } from '@primer/octicons-react'
 import PropTypes from 'prop-types'
 
 
@@ -35,7 +34,6 @@ const ClipBoardHelper = ({color, onClick, copyText, ...props} = {})  => {
   const onClickClipboard = e =>{
     e.preventDefault()
     setClipboardText(copyText)
-    
     onClick()
   }
   
@@ -47,14 +45,15 @@ const ClipBoardHelper = ({color, onClick, copyText, ...props} = {})  => {
           {...props} 
           onClick={onClickClipboard} 
           display={['none', 'none', 'none', 'block']}>
-        <CopyIcon icon={Clippy} color={color}/>
+        <CopyIcon color={color}/>
       </Box>
     </Tooltip>
   )
 }
 
-ClipBoardHelper.PropTypes = {
-  onClick: PropTypes.function, 
+ClipBoardHelper.propTypes = {
+  onClick: PropTypes.func,
+  copyText: PropTypes.string.isRequired,
 }
 
 ClipBoardHelper.defaultProps = {
