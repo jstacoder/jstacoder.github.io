@@ -105,7 +105,7 @@ export const themes = {
       lightText: '#eaecef',
       darkText: '#586069',
       secondaryBackground: '#586069',
-      lightBackground: '#d1d4cf',
+      lightBackground: '#d5d7d6',
       ...primerTheme.colors,
     },
     boxShadow: '0 1px 1px rgba(27,31,35,0.1)',
