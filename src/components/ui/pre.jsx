@@ -12,6 +12,84 @@ import {LiveEditor, LiveError, LivePreview, LiveProvider} from 'react-live'
 import { Center, SpaceBetween, SpaceAround, SpaceEvenly, FlexStart, FlexEnd, BlockGroup, FlexBlock } from '../flex-docs/justify-content.jsx'
 import FlexComponent from '../flex'
 
+
+const GithubTheme = {
+  plain: {
+    color: "#393A34",
+    backgroundColor: "#f6f8fa"
+  },
+  styles: [
+    {
+      types: ["comment", "prolog", "doctype", "cdata"],
+      style: {
+        color: "#999988",
+        fontStyle: "italic"
+      }
+    },
+    {
+      types: ["namespace"],
+      style: {
+        opacity: 0.7
+      }
+    },
+    {
+      types: ["string", "attr-value"],
+      style: {
+        color: "#e3116c"
+      }
+    },
+    {
+      types: ["punctuation", "operator"],
+      style: {
+        color: "#393A34"
+      }
+    },
+    {
+      types: [
+        "entity",
+        "url",
+        "symbol",
+        "number",
+        "boolean",
+        "variable",
+        "constant",
+        "property",
+        "regex",
+        "inserted"
+      ],
+      style: {
+        color: "#36acaa"
+      }
+    },
+    {
+      types: ["atrule", "keyword", "attr-name", "selector"],
+      style: {
+        color: "#00a4db"
+      }
+    },
+    {
+      types: ["function", "deleted", "tag"],
+      style: {
+        color: "#d73a49"
+      }
+    },
+    {
+      types: ["function-variable"],
+      style: {
+        color: "#6f42c1"
+      }
+    },
+    {
+      types: ["tag", "selector", "keyword"],
+      style: {
+        color: "#00009f"
+      }
+    }
+  ]
+}
+
+
+
 const getLive = children =>
   children && typeof children !== String ? children.props.live : false
 
@@ -101,7 +179,7 @@ export const Code = ({onChange, children}) =>{
         borderRight={0} borderLeft={0}
         borderRadius={0}
         bg='lightBackground'>
-        <LiveProvider code={code} scope={scope}>
+        <LiveProvider code={code} theme={GithubTheme} scope={scope}>
           <LivePreview/>
           <LiveEditor onChange={handleChange}/>
           <LiveError/>
@@ -109,7 +187,7 @@ export const Code = ({onChange, children}) =>{
         </BorderBox>
   ) : (
     <CodeWrapper filename={filename} code={code}>
-      <Highlight {...defaultProps} code={code} language={language}>
+      <Highlight {...defaultProps} code={code} theme={GithubTheme} language={language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={{ ...style }}>
             {tokens.map((line, i) => (
