@@ -134,10 +134,22 @@ const CodeWrapper = ({children, filename, code}) =>{
 }
 
 
-export const Code = ({onChange, children}) =>{
-  
+export const Code = ({children, onChange}) =>{
   const liveEditorRequested = getLive(children)
   const filename = getFilename(children)
+
+  const initialCode = React.useMemo(()=> getChildren(children), [children])
+
+  const [code, setCode] = React.useState(initialCode)
+
+  const handleChange = React.useCallback(
+    (code)=>{
+        onChange && onChange(code)
+        setCode(code)
+    },[code]
+  )
+
+  // const code = getChildren(children)
   const codeClassName = getClassName(children)
   
   const initialCode = useMemo(()=> getChildren(children), [children])
