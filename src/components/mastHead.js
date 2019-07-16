@@ -144,7 +144,7 @@ function mastHead() {
             fontSize={5}
             border={0}
             color={'white'}
-            bg={'green.5'}
+            bg={'success'}
             py={1}
             px={2}
             title="Developer Program Member"

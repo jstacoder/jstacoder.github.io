@@ -1,7 +1,11 @@
+/** @jsx jsx */
+
 import React, {useState, useMemo, useCallback } from 'react'
 import {BorderBox, Box, Flex, Text} from '@primer/components'
 import { GitBranch, Star } from '@primer/octicons-react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
+import { jsx, Styled } from 'theme-ui'
+import { css } from 'styled-components'
 // import Prisim from 'prism-react-renderer/prism'
 
 import { Alert } from '../alert/alert'
@@ -67,7 +71,7 @@ export const Code = ({onChange, children}) =>{
   
   const handleChange = useCallback(
     (code)=>{
-      console.log(code)
+      console.log('changing',code)
         onChange && onChange(code)
         setCode(code)
     },
@@ -93,6 +97,13 @@ export const Code = ({onChange, children}) =>{
     FlexBlock
   }
   
+  const transformCode = code =>{
+    if(code.startsWith('()')||code.startsWith('class')){
+      return code
+    }
+    return `<React.Fragment>${code}</React.Fragment>`
+  }
+  
   return liveEditorRequested ? (
       <BorderBox
         border={0}
@@ -101,8 +112,8 @@ export const Code = ({onChange, children}) =>{
         borderRight={0} borderLeft={0}
         borderRadius={0}
         bg='lightBackground'>
-        <LiveProvider code={code} scope={scope}>
-          <LivePreview/>
+        <LiveProvider code={code} scope={scope} transformCode={transformCode}>
+          <LivePreview />
           <LiveEditor onChange={handleChange}/>
           <LiveError/>
         </LiveProvider>
@@ -111,11 +122,15 @@ export const Code = ({onChange, children}) =>{
     <CodeWrapper filename={filename} code={code}>
       <Highlight {...defaultProps} code={code} language={language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={className} style={{ ...style }}>
+          <pre className={`${codeClassName} ${className}`} style={{ ...style }}>
             {tokens.map((line, i) => (
               <div key={i} {...getLineProps({ line, key: i })}>
                 {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({ token, key })} />
+                  <span
+                    key={key}
+                    {...getTokenProps({ token, key })}
+                    style={{display:'inline-block'}}
+                  />
                 ))}
               </div>
             ))}

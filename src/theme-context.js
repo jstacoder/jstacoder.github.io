@@ -37,7 +37,7 @@ const space = {
 
 const styles = {
   dark: 7,
-  light: 3,
+  light: 4,
 }
 
 const getColor = color => (colors, style) => colors[color][styles[style]]
@@ -73,7 +73,6 @@ export const themes = {
       lightGray: '#eaecef',
       darkGray: '#586069',
       lightText: '#fff',
-      darkText: '#6a737d',
       secondaryBackground: 'darkslategray',
       lightBackground: '#c5c8c3',
       ...primerTheme.colors,
@@ -111,6 +110,9 @@ export const themes = {
     boxShadow: '0 1px 1px rgba(27,31,35,0.1)',
   },
 }
+
+themes.light.colors.blockquote = themes.light.colors.primary
+themes.dark.colors.blockquote = themes.dark.colors.danger
 
 Object.keys(themes).forEach(key => {
   const currentTheme = themes[key]

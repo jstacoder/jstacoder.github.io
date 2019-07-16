@@ -5,7 +5,7 @@ export const Blockquote = styled.blockquote`
   padding: 10px 30px 10px 30px;
   margin: 30px 0;
   border-radius: 3px;
-  border-left: 4px solid ${p => p.theme.colors.danger};
+  border-left: 4px solid ${p => p.theme.colors.blockquote};
   background: ${p => p.theme.colors.gray[2]};
   
   p{
