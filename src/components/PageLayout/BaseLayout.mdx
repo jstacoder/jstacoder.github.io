@@ -5,11 +5,13 @@
 ---
 
 import { Playground } from 'docz'
-import { BorderBox } from '@primer/components'
+import { Columns } from 'mdx-blocks'
 import { BaseLayout } from './base'
 
 import * as Base from './base'
 
+
+export default Columns
 
 ### BaseLayout
 
@@ -18,13 +20,16 @@ import * as Base from './base'
 </BaseLayout>
 
 
+
+
+
 <BaseLayout BoxComponent={BorderBox}>
     <p>No Frills</p>
     <p>But has borderrs, to debug....</p>
 </BaseLayout>
 
 
-
+<!-- 
 <Playground>
     <Base.Column>
         <Base.Row>
@@ -43,7 +48,7 @@ import * as Base from './base'
         </Base.Row>
     </Base.Column>
 </Playground>
-
+ -->
 
 
 ### Column Layout 

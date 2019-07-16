@@ -53,7 +53,7 @@ const RedBlock = props => <FlexBlock {...props} bg={'red'}/>
 
 export const BlockGroup = ({justifyContent}) =>{
   return (
-    <BorderBox m={2} p={2} bg={'gray.3'}>
+    <BorderBox m={2} p={2} bg={'gray.7'}>
       <Flex minWidth={'100%'} justifyContent={justifyContent}>
         <BlueBlock/>
         <GreenBlock/>
