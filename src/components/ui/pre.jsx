@@ -152,18 +152,6 @@ export const Code = ({children, onChange}) =>{
   // const code = getChildren(children)
   const codeClassName = getClassName(children)
   
-  const initialCode = useMemo(()=> getChildren(children), [children])
-  const [code, setCode] = useState(initialCode)
-  
-  const handleChange = useCallback(
-    (code)=>{
-      console.log(code)
-        onChange && onChange(code)
-        setCode(code)
-    },
-    [code]
-  )
-  
   console.log(code, filename, liveEditorRequested)
   
   const language = codeClassName.replace(/language-/, '')
