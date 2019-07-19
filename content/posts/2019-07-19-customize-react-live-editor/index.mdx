@@ -1,0 +1,106 @@
+---
+  title: Customize React-Live Editor
+  name: Customize React-Live Editor
+  menu: Blog
+  published: false
+---
+
+import { BorderBox, Text } from '@primer/components'
+import Wrapper from '../../../src/components/Wrapper'
+import { Bar } from 'mdx-blocks'
+
+
+
+export default props =>(
+    <Wrapper>
+        <Bar {...props}/>
+    </Wrapper>
+)
+
+
+
+## Why do i want to replace the react-live Editor?
+
+Because I like using react-live for these cool live code examples.
+
+```jsx live=true
+<BorderBox bg='blue.2' p={2} m={3}>
+    <Text color='bodytext' m={2}>
+        cool huh?
+    </Text>
+</BorderBox>
+```
+
+But i realized that i wasnt a fan of the editor they were using. 
+Im not going to point any fingers... or name any names, but i felt 
+the editing experience could have been a little smoother. 
+
+So i decided to try and see if I could use react-ace instead. 
+
+## Investigation
+
+First thing is I need to see how react-live has implemented its default editor to see 
+how easy it may or may not be to customize the editor. 
+
+Luckily the `LiveEditor` component is already a seperate piece of the api, so i can just define a
+custom `LiveEditor` that uses react-ace. Also i noticed that react-live is using the React context
+api to provide data from the editor to the previewer, so this may be eaiser than i had thought. 
+
+
+## Start coding
+
+Now that we know what to do lets start by redefining the editor to use Ace. 
+
+
+```jsx filename=editor.jsx
+export const CodeEditor = ({code, disabled, language, onChange, style, theme})=>{
+
+    const getCode = useMemo(()=> code, [code])
+
+    const [editorCode, setEditorCode] = useState(getCode)
+
+    const updateContent = useCallback(
+        code =>{
+            setEditorCode(code)
+            onChange(code)
+        }, [editorCode]
+    )
+    return (
+        <AceEditor
+            width={'100%'}
+            value={editorCode}
+            onChange={updateContent}
+            style={style}
+            name="blah"
+            mode={'jsx'}
+            theme="monokai"
+            height="10vh"
+            showGutter={true}/>
+    )
+}
+```
+
+we just need to be sure that it has the same interface (ie: props) as the one
+from react-live, that means:
+1. code - the code to edit
+2. disabled - self explanitory
+3. language - what language should be used to define highlighting
+4. onChange - callback for managing a controlled component
+5. style - self explanitory
+6. theme - we wont use this
+
+
+So if you notice all we are really doing here is wrapping the `AceEditor` component to keep the state of the code, 
+making sure we rerender if it changes. 
+
+Now lets redefine the `LiveEditor` component that mangages the live context and passes it to our editor.
+
+
+```jsx 
+
+```
+
+
+```jsx
+<div>lets see</div>
+```

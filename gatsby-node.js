@@ -88,11 +88,12 @@ exports.createPages = ({ graphql, actions }) => {
     component: require.resolve('./src/templates/no-data.js'),
   })
   return new Promise((resolve, reject) => {
+    // language=GraphQL
     resolve(
       graphql(
         `
           {
-            allMdx {
+            allMdx(filter: { frontmatter: { published: { eq: true } } }) {
               edges {
                 node {
                   id

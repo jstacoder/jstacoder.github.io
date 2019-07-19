@@ -865,7 +865,7 @@
     "@babel/helper-regex" "^7.4.4"
     regexpu-core "^4.5.4"
 
-"@babel/polyfill@7.4.4", "@babel/polyfill@^7.0.0":
+"@babel/polyfill@7.4.4", "@babel/polyfill@^7.0.0", "@babel/polyfill@^7.4.4":
   version "7.4.4"
   resolved "https://registry.yarnpkg.com/@babel/polyfill/-/polyfill-7.4.4.tgz#78801cf3dbe657844eeabf31c1cae3828051e893"
   integrity sha512-WlthFLfhQQhh+A2Gn5NSFl0Huxz36x86Jn+E9OW7ibK8edKPq+KLy4apM1yDpQ8kJOVi1OVjpP4vSDLdrI04dg==
@@ -4518,6 +4518,11 @@ brace-expansion@^1.0.0, brace-expansion@^1.1.7:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
 
+brace@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/brace/-/brace-0.11.1.tgz#4896fcc9d544eef45f4bb7660db320d3b379fe58"
+  integrity sha1-SJb8ydVE7vRfS7dmDbMg07N5/lg=
+
 braces@^2.3.1, braces@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/braces/-/braces-2.3.2.tgz#5979fd3f14cd531565e5fa2df1abfff1dfaee729"
@@ -6710,6 +6715,11 @@ devcert-san@^0.3.3:
     mkdirp "^0.5.1"
     tmp "^0.0.31"
     tslib "^1.6.0"
+
+diff-match-patch@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/diff-match-patch/-/diff-match-patch-1.0.4.tgz#6ac4b55237463761c4daf0dc603eb869124744b1"
+  integrity sha512-Uv3SW8bmH9nAtHKaKSanOQmj2DnlH65fUpcrMdfdaOxUG02QQ4YGZ8AE7kKOMisF7UqvOlGKVYWRvezdncW9lg==
 
 diff@^3.3.0:
   version "3.5.0"
@@ -12425,6 +12435,11 @@ lodash.has@^4.0:
   resolved "https://registry.yarnpkg.com/lodash.has/-/lodash.has-4.5.2.tgz#d19f4dc1095058cccbe2b0cdf4ee0fe4aa37c862"
   integrity sha1-0Z9NwQlQWMzL4rDN9O4P5Ko3yGI=
 
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
+
 lodash.isfunction@^3.0.9:
   version "3.0.9"
   resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.9.tgz#06de25df4db327ac931981d1bdb067e5af68d051"
@@ -14770,9 +14785,9 @@ path-type@^3.0.0:
   dependencies:
     pify "^3.0.0"
 
-"path@git://github.com/component/path.git#7b4f23c38833a5232cd5e3d50ccb8cd13dbcd2f4":
+"path@git://github.com/component/path#7b4f23c38833a5232cd5e3d50ccb8cd13dbcd2f4":
   version "1.0.0"
-  resolved "git://github.com/component/path.git#7b4f23c38833a5232cd5e3d50ccb8cd13dbcd2f4"
+  resolved "git://github.com/component/path#7b4f23c38833a5232cd5e3d50ccb8cd13dbcd2f4"
 
 pbkdf2@^3.0.3:
   version "3.0.17"
@@ -15925,6 +15940,18 @@ re-resizable@^4.11.0:
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/re-resizable/-/re-resizable-4.11.0.tgz#d5df10bda445c4ec0945751a223bf195afb61890"
   integrity sha512-dye+7rERqNf/6mDT1iwps+4Gf42420xuZgygF33uX178DxffqcyeuHbBuJ382FIcB5iP6mMZOhfW7kI0uXwb/Q==
+
+react-ace@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/react-ace/-/react-ace-7.0.2.tgz#bbb6ec12b97c9928a0696484bf4820f8b94f8114"
+  integrity sha512-+TFuO1nO6dme/q+qEHjb7iOuWI8jRDzeALs9JyH8HoyHb9+A2bC8WHuJyNU3pmPo8623bytgAgzEJAzDMkzjlw==
+  dependencies:
+    "@babel/polyfill" "^7.4.4"
+    brace "^0.11.1"
+    diff-match-patch "^1.0.4"
+    lodash.get "^4.4.2"
+    lodash.isequal "^4.5.0"
+    prop-types "^15.7.2"
 
 react-addons-create-fragment@^15.6.2:
   version "15.6.2"

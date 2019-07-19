@@ -1,23 +1,22 @@
-/** @jsx jsx */
-
 import React, {useState, useMemo, useCallback } from 'react'
 import {BorderBox, Box, Flex, Text} from '@primer/components'
 import { GitBranch, Star } from '@primer/octicons-react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
-import { jsx, Styled } from 'theme-ui'
-import { css } from 'styled-components'
 // import Prisim from 'prism-react-renderer/prism'
 
 import { Alert } from '../alert/alert'
 import ClipBoardHelper from './click-to-copy/clipboard-helper'
 import {FilenameBox} from '../shared/filename-box'
-import {LiveEditor, LiveError, LivePreview, LiveProvider} from 'react-live'
+import {LiveError, LivePreview, LiveProvider} from 'react-live'
+
+import { LiveEditor } from './editor'
+import 'brace/theme/monokai'
 
 import { Center, SpaceBetween, SpaceAround, SpaceEvenly, FlexStart, FlexEnd, BlockGroup, FlexBlock } from '../flex-docs/justify-content.jsx'
 import FlexComponent from '../flex'
 
 
-const GithubTheme = {
+const GithubTheme = () =>({
   plain: {
     color: "#393A34",
     backgroundColor: "#f6f8fa"
@@ -90,7 +89,7 @@ const GithubTheme = {
       }
     }
   ]
-}
+})
 
 
 
@@ -146,27 +145,14 @@ export const Code = ({children, onChange}) =>{
 
   const [code, setCode] = React.useState(initialCode)
 
-  const handleChange = React.useCallback(
-    (code)=>{
-        onChange && onChange(code)
-        setCode(code)
-    },[code]
-  )
-
   // const code = getChildren(children)
   const codeClassName = getClassName(children)
   
-  const initialCode = useMemo(()=> getChildren(children), [children])
-  const [code, setCode] = useState(initialCode)
-  
-  const handleChange = useCallback(
-    (code)=>{
+  const handleChange = useCallback((code)=>{
       console.log('changing',code)
         onChange && onChange(code)
         setCode(code)
-    },
-    [code]
-  )
+  },[code])
   
   console.log(code, filename, liveEditorRequested)
   
@@ -202,7 +188,7 @@ export const Code = ({children, onChange}) =>{
         borderRight={0} borderLeft={0}
         borderRadius={0}
         bg='lightBackground'>
-        <LiveProvider code={code} theme={GithubTheme} scope={scope} transformCode={transformCode}>
+        <LiveProvider code={code} scope={scope} transformCode={transformCode}>
           <LivePreview/>
           <LiveEditor onChange={handleChange}/>
           <LiveError/>
@@ -210,7 +196,7 @@ export const Code = ({children, onChange}) =>{
         </BorderBox>
   ) : (
     <CodeWrapper filename={filename} code={code}>
-      <Highlight {...defaultProps} code={code} theme={GithubTheme} language={language}>
+      <Highlight {...defaultProps} code={code} language={language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={`${codeClassName} ${className}`} style={{ ...style }}>
             {tokens.map((line, i) => (
