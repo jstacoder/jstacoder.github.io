@@ -11,12 +11,7 @@ import { Bar } from 'mdx-blocks'
 
 
 
-export default props =>(
-    <Wrapper>
-        <Bar {...props}/>
-    </Wrapper>
-)
-
+export default Wrapper
 
 
 ## Why do i want to replace the react-live Editor?
@@ -65,6 +60,7 @@ export const CodeEditor = ({code, disabled, language, onChange, style, theme})=>
             onChange(code)
         }, [editorCode]
     )
+    
     return (
         <AceEditor
             width={'100%'}

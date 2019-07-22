@@ -10,10 +10,11 @@ export default function PageTemplate({
       code: { body },
     },
   },
+  ...props
 }) {
   return (
     <div>
-      <MDXRenderer title={title} timeToRead={timeToRead}>
+      <MDXRenderer {...props} title={title} timeToRead={timeToRead}>
         {body}
       </MDXRenderer>
     </div>
