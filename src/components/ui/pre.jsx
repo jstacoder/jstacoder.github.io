@@ -14,6 +14,7 @@ import 'brace/theme/monokai'
 
 import { Center, SpaceBetween, SpaceAround, SpaceEvenly, FlexStart, FlexEnd, BlockGroup, FlexBlock } from '../flex-docs/justify-content.jsx'
 import FlexComponent from '../flex'
+import Slider from '../slider'
 
 
 const GithubTheme = () =>({
@@ -41,7 +42,7 @@ const GithubTheme = () =>({
         color: "#e3116c"
       }
     },
-    {
+      {
       types: ["punctuation", "operator"],
       style: {
         color: "#393A34"
@@ -170,7 +171,12 @@ export const Code = ({children, onChange}) =>{
     FlexStart, 
     FlexEnd, 
     BlockGroup, 
-    FlexBlock
+    FlexBlock,
+    Slider,
+    Flex,
+    BorderBox,
+    Box,
+    Text,
   }
   
   const transformCode = code =>{
@@ -190,7 +196,7 @@ export const Code = ({children, onChange}) =>{
         bg='lightBackground'>
         <LiveProvider code={code} scope={scope} transformCode={transformCode}>
           <LivePreview/>
-          <LiveEditor onChange={handleChange}/>
+          <LiveEditor style={{fontSize: '16px'}} onChange={handleChange}/>
           <LiveError/>
         </LiveProvider>
         </BorderBox>
