@@ -1,13 +1,9 @@
 ---
   title: Customize React-Live Editor
-  name: Customize React-Live Editor
-  menu: Blog
-  published: false
 ---
 
 import { BorderBox, Text } from '@primer/components'
-import Wrapper from '../../../src/components/Wrapper'
-import { Bar } from 'mdx-blocks'
+import Wrapper from '~components/wrapper.jsx'
 
 
 
@@ -77,13 +73,15 @@ export const CodeEditor = ({code, disabled, language, onChange, style, theme})=>
 ```
 
 we just need to be sure that it has the same interface (ie: props) as the one
-from react-live, that means:
-1. code - the code to edit
-2. disabled - self explanitory
-3. language - what language should be used to define highlighting
-4. onChange - callback for managing a controlled component
-5. style - self explanitory
-6. theme - we wont use this
+from react-live, that means:  
+
+
+1. code - the code to edit  
+2. disabled - self explanitory  
+3. language - what language should be used to define highlighting  
+4. onChange - callback for managing a controlled component  
+5. style - self explanitory  
+6. theme - we wont use this  
 
 
 So if you notice all we are really doing here is wrapping the `AceEditor` component to keep the state of the code, 
@@ -92,11 +90,43 @@ making sure we rerender if it changes.
 Now lets redefine the `LiveEditor` component that mangages the live context and passes it to our editor.
 
 
-```jsx 
+```jsx filename=live-editor.jsx
+import React, { useContext } from 'react'
+import { LiveContext } from 'react-live'
+import CodeEditor from './editor.jsx'
 
+export const LiveEditor = props =>{
+    const {
+        code, language, theme, disabled, onChange
+    } = useContext(LiveContext)
+
+    return (
+        <CodeEditor 
+            {...props} 
+            theme={theme} 
+            code={code} 
+            language={language} 
+            disabled={disabled} 
+            onChange={onChange}/>
+    )
+}
 ```
 
+So here we are just extracting the context provided by react-live and 
+passing it to our component. 
 
-```jsx
-<div>lets see</div>
+now we can just use it like this:
+
+```jsx filename=pre.jsx
+import {LiveError, LivePreview, LiveProvider} from 'react-live'
+
+import { LiveEditor } from './editor'
+
+export default ({code})=>(
+<LiveProvider code={code}>
+    <LivePreview/>
+    <LiveEditor/>
+    <LiveError/>
+</LiveProvider>
+)
 ```

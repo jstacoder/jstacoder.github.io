@@ -1,24 +1,68 @@
 ---
- name: Slider component
+ title: Slider component
  menu: Components
 ---
 
 import Slider from './'
-import { SliderWithStartAndEndHandler } from './examples.jsx'
-import { Props } from 'docz'
+import { SliderWithStartAndEndHandler, VerticalExample } from './examples.jsx'
+import ComponentProps from '../component-props'
+
+import Wrapper from '~components/wrapper.jsx'
+
+export default Wrapper
 
 
 
 ### Slider Component
 
-<Props of={Slider}/>
+## Props
+<ComponentProps component={Slider}/>
 
 
-```jsx
-<Slider/>
+## Usage
+
+### Default values
+         
+```jsx live=true        
+<Slider defaultValue={50} />
 ```
+
+### Clickable icons
+
+```jsx live=true
+<Slider defaultValue={10}  addIcons/>
+```
+
+### Vertical 
+
+```jsx live=true
+<Slider defaultValue={50} vertical/>
+```
+
+### Controlled Component
+
+```jsx live=true
+()=>{
+    const [val, setVal] = React.useState(50)
+
+    return (
+        <BorderBox p={3} m={2}>
+           <BorderBox p={2} m={2} style={{textAlign:'center'}} width={'100px'} mx={'auto'} color="black"> {val}</BorderBox>
+            <Slider value={val} onChange={setVal}/>
+        </BorderBox>
+    )
+}
+
+```
+
+
+## Examples
+
+### Vertical Example
+
+<VerticalExample />
+
+### startSlide and endSlide props 
 
 <SliderWithStartAndEndHandler/>
 
-         
-<Slider defaultValue={50} />

@@ -17,14 +17,12 @@ const Thoughts = () => {
         allMdx(filter: { frontmatter: { title: { ne: "" } } }) {
           posts: edges {
             post: node {
-              id
-              excerpt
+              fields {
+                slug
+              }
               frontmatter {
                 title
                 name
-              }
-              fields {
-                slug
               }
             }
           }
@@ -49,6 +47,7 @@ const Thoughts = () => {
       }
     `
   )
+  console.log(posts)
   return edges.length > 0 ? (
     <>
       <Heading as={'h2'} color={style === 'dark' ? 'white' : null}>

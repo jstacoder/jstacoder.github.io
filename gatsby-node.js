@@ -42,6 +42,7 @@ exports.onCreateNode = ({ actions, node, getNode }) => {
       node,
       value: `${prefix}${value}`,
     })
+    console.log(node.fields)
   }
 
   // markdown nodes
@@ -93,7 +94,7 @@ exports.createPages = ({ graphql, actions }) => {
       graphql(
         `
           {
-            allMdx(filter: { frontmatter: { published: { eq: true } } }) {
+            allMdx(filter: { frontmatter: { title: { ne: "" } } }) {
               edges {
                 node {
                   id
@@ -237,6 +238,9 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         components: path.resolve(__dirname, 'src/components'),
         templates: path.resolve(__dirname, 'src/templates'),
         scss: path.resolve(__dirname, 'src/scss'),
+        '~components': path.resolve(__dirname, 'src/components'),
+        '~templates': path.resolve(__dirname, 'src/templates'),
+        '~scss': path.resolve(__dirname, 'src/scss'),
       },
     },
   })

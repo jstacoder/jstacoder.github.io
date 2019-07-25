@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { TextInput, Box, BorderBox, StyledOcticon } from '@primer/components'
-import { PrimitiveDot } from '@primer/octicons-react'
+import { TextInput, Flex, Box, BorderBox, StyledOcticon, CircleOcticon } from '@primer/components'
+import { PrimitiveDot, DiffAdded, DiffRemoved } from '@primer/octicons-react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -13,9 +13,9 @@ const StyledSlider = styled.input.attrs(props=>({
     max: props.max || 100,
     step: props.step || 5,
 }))`
-    appearance: slider-horizontal;
+    appearance: ${props=> props.vertical ? 'slider-vertical' :'slider-horizontal'};
     width: 100%;
-    height: 5px;
+    height: ${props=> props.height || '5px'};
     background-color: #d3d3d3;
     outline: none;
     opacity: 0.7;
@@ -48,11 +48,16 @@ const StyledSlider = styled.input.attrs(props=>({
 `
 
 
-const Slider = ({min, max, step, value, defaultValue, onChange, onStartSlide, onEndSlide}) =>{
+const Slider = ({
+    min, max, step, 
+    value, defaultValue, 
+    onChange, onStartSlide, 
+    onEndSlide, addIcons, vertical}) =>{
     const [elementValue, setElementValue] = useState(value || defaultValue)
     const [focused, setFocused] = useState(false)
 
     const prevValueRef = useRef(null)
+    const startSlideRef = useRef(null)
 
     useEffect(()=>{
         prevValueRef.current = elementValue
@@ -63,29 +68,51 @@ const Slider = ({min, max, step, value, defaultValue, onChange, onStartSlide, on
 
     const isControlledComponent = defaultValue === undefined
 
+    let oldVal = prevValueRef.current
+
+    const handleMouseDown = () =>{
+        onStartSlide(oldVal)     
+        startSlideRef.current = oldVal
+    }
+
+    const handleMouseUp = () =>{
+        onEndSlide(startSlideRef.current, elementValue)
+    }
+
     const handleChange = e =>{
-        const oldValue = prevValueRef.current || elementValue
-        onStartSlide(elementValue)
+        const oldValue = prevValueRef.current
         setElementValue(e.target.value)
         onChange(e.target.value)
-        onEndSlide(oldValue, elementValue)
     }
 
-    const focus = () =>{
-        console.log('focusing')
-        setFocused(true)
+    const increment = () =>{
+        const value = elementValue + step
+        handleChange({target: { value }})
     }
 
-    const toggleFocused = () =>{
-        setFocused(prevFocused=> !prevFocused)
+    const decrement = () =>{
+        const value = elementValue - step
+        console.log('decrement', value)
+        if(value >= min){
+            handleChange({target: {value}})
+        }
     }
 
     return (
-        <Box>
-            {elementValue}
-            <p>{focused ? `${'    '}` : `not`} Focused</p>
-            <Box onClick={()=> toggleFocused()}>
+        <Box p={2} m={3}>
+            <Flex>
+                {addIcons ? <Box onClick={()=>decrement()} mt={'-5px'}>
+                    <StyledOcticon 
+                        mt={'-15px'} 
+                        mr={2} 
+                        icon={DiffRemoved} 
+                        size={30}/>
+                </Box> : null}
                 <StyledSlider 
+                    vertical={vertical}
+                    height={vertical ? '100px' : null}
+                    onMouseDown={handleMouseDown} 
+                    onMouseUp={handleMouseUp}
                     ref={inputRef} 
                     focused={focused} 
                     min={min} 
@@ -93,7 +120,14 @@ const Slider = ({min, max, step, value, defaultValue, onChange, onStartSlide, on
                     step={step} 
                     value={elementValue} 
                     onChange={handleChange} /> 
-            </Box>
+                {addIcons ? <Box onClick={()=>increment()} mt={'-5px'}>
+                    <StyledOcticon 
+                        mt={'-15px'} 
+                        ml={2} 
+                        icon={DiffAdded} 
+                        size={30} />
+                </Box> : null}
+            </Flex>
         </Box>
     )
 }
@@ -115,9 +149,14 @@ Slider.propTypes = {
     max: PropTypes.number,
     /** Movement on slider will increment/decrment by this amount */
     step: PropTypes.number,
+    /** if true show plus and minus icons */
+    addIcons: PropTypes.boolean,
+    /** Should be vertical */
+    vertical: PropTypes.boolean,
 }
 
 Slider.defaultProps = {
+    addIcons: false,
     min: 10,
     max: 100,
     step: 5,

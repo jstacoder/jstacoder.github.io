@@ -28,7 +28,7 @@ const toggleArchived = task => ({
 const archiveTaskById = (taskId, tasks) =>
   tasks.map(task => (task.id !== taskId ? task : toggleArchived(task)))
 
-export default (state, { type, value } = {}) => {
+const taskReducer = (state, { type, value } = {}) => {
   const returnValues = {
     [ADD_TASK]: addTaskToTasks,
     [TOGGLE_COMPLETE]: completeTaskById,
@@ -41,3 +41,5 @@ export default (state, { type, value } = {}) => {
 
   return state
 }
+
+export default taskReducer

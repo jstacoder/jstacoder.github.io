@@ -19,11 +19,10 @@ const CodeEditor = ({code, disabled, language, onChange, style, theme})=>{
             width={'100%'}
             value={editorCode}
             onChange={updateContent}
-            style={style}
+            style={{...style, minHeight: '100px', height:'100%'}}
             name="blah"
             mode={'jsx'}
             theme="monokai"
-            height="10vh"
             showGutter={true}/>
     )
 }

@@ -14,7 +14,7 @@ categories:
   - Programming
 ---
 
-import Wrapper from '../../components/wrapper'
+import Wrapper from '~components/wrapper.jsx'
 
 export default Wrapper
 
@@ -23,3 +23,11 @@ export default Wrapper
 ### The react hooks way
 
 Here I will show how to use reacts new `useContext` and `useReducer` hooks by adding a dark mode toggle to a react app
+
+aaa
+
+| foo | bar |
+| --- | --- |
+| baz | bim |
+
+aaaa

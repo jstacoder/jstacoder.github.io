@@ -8,15 +8,17 @@ import { createGlobalStyle } from 'styled-components'
 
 import useThemeContext from './src/hooks/themeContext'
 import { AuthContextProvider } from './src/hooks/authContext'
+import Wrapper from './src/components/wrapper'
 import { BlocksProvider } from 'mdx-blocks'
 import { future } from 'mdx-blocks/themes'
 
 import * as components from './src/components/ui'
 
-const Wrapper = ({ children, ...props }) => {
+const ComponentWrapper = ({ children, ...props }) => {
   const { theme } = useThemeContext()
 
   const componentsMap = {
+    wrapper: Wrapper,
     props: Props,
     Props,
     playground: Playground,
@@ -34,6 +36,7 @@ const Wrapper = ({ children, ...props }) => {
     h6: components.H6,
     li: components.Li,
     blockquote: components.Blockquote,
+    page: Wrapper,
   }
 
   return (
@@ -53,10 +56,10 @@ export const wrapRootElement = ({ element }) => {
   return (
     <AuthContextProvider>
       <ThemeContextProvider>
-        <Wrapper>
+        <ComponentWrapper>
           <PrimerStyle />
           {element}
-        </Wrapper>
+        </ComponentWrapper>
       </ThemeContextProvider>
     </AuthContextProvider>
   )

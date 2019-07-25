@@ -51,6 +51,7 @@ module.exports = {
     //     ],
     //   },
     // },
+    `gatsby-transformer-react-docgen`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-sass`,
