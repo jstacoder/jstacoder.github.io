@@ -11,34 +11,34 @@ import useThemeContext from '../hooks/themeContext'
 const ComponentProps = ({component})=>{
 
     const { theme } = useThemeContext()
-    const query = graphql`
+    const query = graphql `
     {
-allComponentMetadata {
-edges {
-node {
-component:displayName
-description {
-  text
-}
-props {
-  name
-  description{
-    text
-  }
-  type {
-    value
-    raw
-    name
-  }
-  required
-  defaultValue{
-      value
-  }      
-}
-}
-}
-}
-}
+      allComponentMetadata {
+        edges {
+          node {
+            component: displayName
+            description {
+              text
+            }
+            props {
+              name
+              description {
+                text
+              }
+              type {
+                value
+                raw
+                name
+              }
+              required
+              defaultValue {
+                value
+              }
+            }
+          }
+        }
+      }
+    }
 `
     const data = useStaticQuery(query)
     console.log(data)
@@ -52,7 +52,9 @@ props {
     <PropsTable css={css`td { color:${theme.colors.fontColor}; }`} props={props.reduce((prev, curr)=>{
 
         prev[curr.name] = curr
-        prev[curr.name].description = prev[curr.name].description.text
+        if(prev[curr.name].description !== undefined){
+          prev[curr.name].description = prev[curr.name].description.text
+        }
         return prev
     } ,{})}/>
     </Box>

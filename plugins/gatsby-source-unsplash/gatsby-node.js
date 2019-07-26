@@ -63,10 +63,8 @@ exports.sourceNodes = async (
   // createTypes(typeDefs)
   const { createNode, touchNode } = actions
 
-  const { UNSPLASH_API_KEY } = configOptions
-
   // console.log(UNSPLASH_API_KEY)
-  delete configOptions.plugins
+  const { UNSPLASH_API_KEY, plugins, ...unsplashOptions } = configOptions
 
   const processPhoto = photo => {
     const nodeId = createNodeId(`unsplash-photo-${photo.id}`)
@@ -86,7 +84,7 @@ exports.sourceNodes = async (
     return nodeData
   }
 
-  const apiOptions = queryString.stringify(configOptions)
+  const apiOptions = queryString.stringify(unsplashOptions)
   const apiUrl = `https://api.unsplash.com/photos?client_id=${UNSPLASH_API_KEY}`
   // console.log(apiOptions, apiUrl)
 
