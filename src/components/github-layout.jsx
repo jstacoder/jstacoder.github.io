@@ -30,7 +30,7 @@ export const GithubLayout = ({children, timeToRead, title})=>{
             width={[null, 7/12, 8/12, 9/12 ]}
             px={[null, 4, 4, 7]}
             border={0}
-            borderTop={[1, 1, 0, 0]}
+            borderTop={[1, 1, 0]}
             bg={style === 'dark' ? 'gray.8' : 'gray.1'}
             py={6}
           >
@@ -40,7 +40,7 @@ export const GithubLayout = ({children, timeToRead, title})=>{
                 color={style === 'dark' ? 'white' : null}
                 mb={6}
               >
-                <Box ml={[2,2,null]} fontSize={4} color={style === 'dark' ? 'white' : null}>
+                <Box mx={[2,2,null]} fontSize={4} color={style === 'dark' ? 'white' : null}>
                   <Text fontSize={5}>
                     <Box
                       as={'span'}
@@ -70,7 +70,7 @@ export const GithubLayout = ({children, timeToRead, title})=>{
                     {title}
                   </Heading>                  
                   <Text
-                    ml={[2,2,null]}
+                    mx={[2,2,null]}
                     as={'p'}
                     mb={5}
                     color={`${style === 'dark' ? 'white' : 'gray'}`}

@@ -42,13 +42,17 @@ const ComponentProps = ({component})=>{
 `
     const data = useStaticQuery(query)
     console.log(data)
-    const props = data.allComponentMetadata.edges.filter(({node})=> {
+    const propsResult = data.allComponentMetadata.edges.filter(({node})=> {
         console.log(component.name, node.component)//,component._filemeta.name)
         return node.component === component.name
-    })[0].node.props
+    })
+    let props
+    if(propsResult && propsResult.length){
+      props = propsResult[0].node.props
+    }
     console.log(props)
-    return( 
-        <Box p={2} m={3}>
+    return props ? ( 
+        <Box p={1} m={0}>
     <PropsTable css={css`td { color:${theme.colors.fontColor}; }`} props={props.reduce((prev, curr)=>{
 
         prev[curr.name] = curr
@@ -58,7 +62,7 @@ const ComponentProps = ({component})=>{
         return prev
     } ,{})}/>
     </Box>
-    )
+    ) : null
 }
 
 export default ComponentProps

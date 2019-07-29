@@ -13,11 +13,11 @@ export default function PageTemplate({
   ...props
 }) {
   return (
-    <div>
+    <React.Fragment>
       <MDXRenderer {...props} title={title} timeToRead={timeToRead}>
         {body}
       </MDXRenderer>
-    </div>
+    </React.Fragment>
   )
 }
 
