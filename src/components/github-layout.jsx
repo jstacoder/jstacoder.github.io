@@ -3,8 +3,15 @@ import { BorderBox, Box, Text, StyledOcticon, Link, Heading  } from '@primer/com
 import { ChevronLeft } from '@primer/octicons-react'
 import { Link as GatsbyLink } from 'gatsby'
 import MastHead from './mastHead'
+import { css } from 'styled-components'
 
 import useThemeContext from '../hooks/themeContext'
+
+const pStyle = css`
+  div {
+    margin: 0;
+  }
+`
 
 export const GithubLayout = ({children, timeToRead, title})=>{
   const { style } = useThemeContext()
@@ -49,8 +56,8 @@ export const GithubLayout = ({children, timeToRead, title})=>{
                       color={'blue.5'}
                     >
                       <Link
-                        as={'a'}
-                        href="/"
+                        as={GatsbyLink}
+                        to="/"
                         display={'flex'}
                         alignItems={'center'}
                         color={style === 'dark' ? 'white' : null}
@@ -66,7 +73,7 @@ export const GithubLayout = ({children, timeToRead, title})=>{
                       </Link>
                     </Box>
                   </Text>    
-                  <Heading ml={[2,2,null]} fontSize={40} fontWeight={300} lineHeight={1.25}>
+                  <Heading pl={[2,2,null]} fontSize={40} fontWeight={300} lineHeight={1.25}>
                     {title}
                   </Heading>                  
                   <Text
@@ -78,6 +85,8 @@ export const GithubLayout = ({children, timeToRead, title})=>{
                     <small>{timeToRead} min read</small>
                   </Text>              
                   <Box
+                                       
+                    px={[2,1,null]}
                     className={'markdown-body'}>
               {children}
               </Box>

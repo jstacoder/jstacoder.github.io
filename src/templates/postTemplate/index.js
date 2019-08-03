@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link as GatsbyLink, graphql } from 'gatsby'
-import Octicon, { ChevronLeft } from '@githubprimer/octicons-react'
+import Octicon, { ChevronLeft } from '@primer/octicons-react'
 import Layout from 'components/layout'
 import MastHead from 'components/mastHead'
 import {
@@ -110,13 +110,13 @@ export default ({ data }) => {
             border={0}
             px={[4, 4, 6, 7]}
             py={6}
-            width={[null,5/12,4/12,3/12]}
+            width={[null, 5 / 12, 4 / 12, 3 / 12]}
           >
             <MastHead metaData={true} />
           </BorderBox>
           <BorderBox
-            width={[null, 7/12, 8/12, 9/12]}
-            px={[null, 4, 4, 7 ]}
+            width={[null, 7 / 12, 8 / 12, 9 / 12]}
+            px={[null, 4, 4, 7]}
             borderTop={[null, 1, 1, 0]}
             bg={style === 'dark' ? 'gray.8' : 'gray.1'}
             py={6}

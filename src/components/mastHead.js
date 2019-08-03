@@ -8,7 +8,7 @@ import {
   Mail,
   MarkGithub,
   Organization,
-} from '@githubprimer/octicons-react'
+} from '@primer/octicons-react'
 import {
   StyledOcticon,
   Heading,

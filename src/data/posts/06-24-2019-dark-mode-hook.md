@@ -24,10 +24,35 @@ export default Wrapper
 
 Here I will show how to use reacts new `useContext` and `useReducer` hooks by adding a dark mode toggle to a react app
 
-aaa
+To start out we will need three things:
 
-| foo | bar |
-| --- | --- |
-| baz | bim |
+1. A light colored theme object
+2. A dark colored theme object
+3. A way to provide the theme to your components
 
-aaaa
+For the themes i prefer to combine them into a single `themes` object
+
+```js filename=themes.js
+import { dark } from './themes/dark'
+import { light } from './themes/light'
+
+export const themes = {
+  dark,
+  light,
+}
+```
+
+And for the themes i like to define general names for colors to use
+
+```js filename=themes/light.js
+export const light = {
+  colors: {
+    lightText: '',
+    darkText: '',
+    lightBackground: '',
+    darkBackground: '',
+    primary: '',
+    secondary: '',
+  },
+}
+```

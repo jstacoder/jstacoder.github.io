@@ -2,6 +2,8 @@ import React, {useState, useMemo, useCallback } from 'react'
 import {BorderBox, Box, Flex, Text} from '@primer/components'
 import { GitBranch, Star } from '@primer/octicons-react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
+import { typography } from '@styled-system/typography'
+import styled from 'styled-components'
 // import Prisim from 'prism-react-renderer/prism'
 
 import { Alert } from '../alert/alert'
@@ -9,13 +11,17 @@ import ClipBoardHelper from './click-to-copy/clipboard-helper'
 import {FilenameBox} from '../shared/filename-box'
 import {LiveError, LivePreview, LiveProvider} from 'react-live'
 
-import { LiveEditor } from './editor'
+import { LiveEditor as BaseEditor } from './editor'
 import 'brace/theme/monokai'
 
 import { Center, SpaceBetween, SpaceAround, SpaceEvenly, FlexStart, FlexEnd, BlockGroup, FlexBlock } from '../flex-docs/justify-content.jsx'
 import FlexComponent from '../flex'
 import Slider from '../slider'
 
+
+const LiveEditor = styled(BaseEditor)`
+  ${typography}
+`
 
 const GithubTheme = () =>({
   plain: {
@@ -196,7 +202,7 @@ export const Code = ({children, onChange}) =>{
         bg='lightBackground'>
         <LiveProvider code={code} scope={scope} transformCode={transformCode}>
           <LivePreview/>
-          <LiveEditor style={{fontSize: '16px'}} onChange={handleChange}/>
+          <LiveEditor fontSize={['2px']} onChange={handleChange}/>
           <LiveError/>
         </LiveProvider>
         </BorderBox>

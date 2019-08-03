@@ -24,7 +24,7 @@ const ComponentWrapper = ({ children, ...props }) => {
     playground: Playground,
     Playground,
     pre: components.Code,
-    ul: components.Ul,
+    // ul: components.Ul,
     ol: components.Ol,
     table: components.Table,
     p: components.P,

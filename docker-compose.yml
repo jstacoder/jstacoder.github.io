@@ -8,6 +8,11 @@ volumes:
 services: 
   
   app: 
+    environment: 
+      - npm_config_fetch_retries=5
+      - npm_config_fetch_retry_factor=5
+      - npm_config_fetch_retry_mintimeout=50000
+      - npm_config_fetch_retry_maxtimeout=250000
     build:
         context: ./
         dockerfile: ./app/Dockerfile

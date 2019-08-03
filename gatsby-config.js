@@ -62,12 +62,15 @@ module.exports = {
       // }
     },
     `gatsby-transformer-yaml`,
-    //{
+    // {
     //  resolve: 'gatsby-source-unsplash',
     //  options: {
     //    UNSPLASH_API_KEY: process.env.UNSPLASH_API_KEY,
+    //    random: true,
+    //    query:'mountains',
+    //    count:5,
     //  },
-    //},
+    // },
     {
       resolve: 'gatsby-source-graphql',
       options: {
@@ -78,10 +81,6 @@ module.exports = {
           Authorization: `bearer ${process.env.GITHUB_API_KEY}`,
         },
       },
-      // createSchema: async () => {
-      //   const json = require('./github.json') //JSON.parse(fs.readFileSync(`${__dirname}/github.json`))
-      //     return buildClientSchema(json.data)
-      // },
     },
     {
       resolve: 'gatsby-source-filesystem',
@@ -196,6 +195,7 @@ module.exports = {
     'gatsby-plugin-twitter',
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
+    'gatsby-plugin-theme-ui',
     //    'gatsby-plugin-mdx',
   ],
   __experimentalThemes: ['gatsby-theme-docz'],

@@ -53,6 +53,7 @@ export const themes = {
   light: {
     ...primerTheme,
     fontSizes,
+    maxWidths: { ...(primerTheme.maxWidths || {}), container: 'unset' },
     borders: [...primerTheme.borders, '1px solid lightgray'],
     breakpoints: [...primerTheme.breakpoints],
     // space,

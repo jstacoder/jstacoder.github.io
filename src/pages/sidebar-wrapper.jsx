@@ -42,7 +42,7 @@ export default props =>{
                     </Flex>
                 </BorderBox>
     ) : (
-        <Box p={2} onClick={clickIcon}>
+        <Box p={2} style={{position: 'absolute'}} onClick={clickIcon}>
             <StyledOcticon size={30} icon={ThreeBars}/> 
         </Box>
     )}

@@ -16,7 +16,9 @@ import { Box } from '@primer/components'
 export const Table = ({className, ...props})=>{
   return (
     <Box m={2} p={3}>
-    <StyledTable className={`table table-bordered ${className}`} {...props}/>
+      <StyledTable 
+        {...props}
+        className={`table table-bordered ${className}`} />
     </Box>
   )
 }

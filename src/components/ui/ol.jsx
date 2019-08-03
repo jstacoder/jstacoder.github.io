@@ -3,23 +3,24 @@ import styled from 'styled-components'
 
 import useThemeContext from '../../hooks/themeContext'
 
-const BaseOl = styled.ol`
+const BaseOl = styled.div`
   color: ${props=> props.color};
   list-style-type: none;
   
-  &li {
-    max-width: 80%;
+  & li {
+    /* max-width: 80%; */
     font-family: 'Lato', monospace, Sans-Serif;
     
+    
     ::before {
-      content: '-- ';
+    /*  content: '- -';
       font-weight: bold;
       font-size: 0.5em;
       margin-right: 5px;
-      color: white;
+      color: white;*/
     }
   }
-  margin-left: 5px;
+  /* margin-left: 5px; */
 `
 
 export
