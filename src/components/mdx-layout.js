@@ -1,13 +1,13 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import MDXRenderer from 'gatsby-mdx/mdx-renderer'
+import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer'
 
 export default function PageTemplate({
   data: {
     mdx: {
       frontmatter: { title },
       timeToRead,
-      code: { body },
+      body,
     },
   },
   ...props
@@ -29,9 +29,7 @@ export const pageQuery = graphql`
         title
       }
       timeToRead
-      code {
-        body
-      }
+      body
     }
   }
 `

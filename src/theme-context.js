@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useLayoutEffect } from 'react'
+import React, { useReducer, createContext } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { generateMedia } from 'styled-media-query'
 import { theme as primerTheme } from '@primer/components'
@@ -54,7 +54,6 @@ export const themes = {
     ...primerTheme,
     fontSizes,
     maxWidths: { ...(primerTheme.maxWidths || {}), container: 'unset' },
-    borders: [...primerTheme.borders, '1px solid lightgray'],
     breakpoints: [...primerTheme.breakpoints],
     // space,
     mediaQuerys,
@@ -64,6 +63,7 @@ export const themes = {
     colors: {
       ...primerTheme.colors,
       fontColor: '#24292e',
+      text: '#24292e',
       primary: primerTheme.colors.blue[3],
       info: getInfo(primerTheme.colors, 'light'),
       danger: getDanger(primerTheme.colors, 'light'),
@@ -74,7 +74,7 @@ export const themes = {
       white: '#fff',
       lightGray: '#eaecef',
       darkGray: '#586069',
-      lightText: '#fff',
+      lightText: 'skyblue',
       secondaryBackground: 'darkslategray',
       lightBackground: '#d5d7d6',
     },
@@ -94,6 +94,7 @@ export const themes = {
     colors: {
       ...primerTheme.colors,
       fontColor: '#fff',
+      text: '#fff',
       primary: primerTheme.colors.blue[6],
       info: getInfo(primerTheme.colors, 'dark'),
       danger: getDanger(primerTheme.colors, 'dark'),
@@ -104,7 +105,7 @@ export const themes = {
       white: '#fff',
       lightGray: '#eaecef',
       darkGray: '#24292e',
-      lightText: '#eaecef',
+      lightText: 'lightcyan',
       darkText: '#586069',
       secondaryBackground: '#586069',
       lightBackground: '#c5c8c3',
@@ -121,11 +122,13 @@ Object.keys(themes).forEach(key => {
   if (!currentTheme.breakpoints) {
     currentTheme.breakpoints = Object.values(customBreakpoints)
   }
-  console.log(currentTheme.breakpoints)
+
   currentTheme.breakpoints.xs = currentTheme.breakpoints[0]
   currentTheme.breakpoints.sm = currentTheme.breakpoints[1]
   currentTheme.breakpoints.md = currentTheme.breakpoints[2]
   currentTheme.breakpoints.lg = currentTheme.breakpoints[3]
+
+  console.log(currentTheme.breakpoints)
 })
 
 const windowGlobal = typeof window !== 'undefined' && window
@@ -157,12 +160,12 @@ const reducer = (state, { value, type }) => {
   }
 }
 
-const ThemeContext = createContext({
+export const ThemeContext = createContext({
   state: initialState,
   dispatch: () => {},
 })
 
-function ThemeContextProvider({ children }) {
+export const ThemeContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const value = { state, dispatch }
   return (
@@ -171,5 +174,3 @@ function ThemeContextProvider({ children }) {
     </ThemeContext.Provider>
   )
 }
-
-export { ThemeContext, ThemeContextProvider }

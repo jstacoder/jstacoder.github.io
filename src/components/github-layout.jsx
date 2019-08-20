@@ -5,6 +5,7 @@ import { Link as GatsbyLink } from 'gatsby'
 import MastHead from './mastHead'
 import { css } from 'styled-components'
 
+import { HomeLink } from '../components/home-link'
 import useThemeContext from '../hooks/themeContext'
 
 const pStyle = css`
@@ -48,34 +49,10 @@ export const GithubLayout = ({children, timeToRead, title})=>{
                 mb={6}
               >
                 <Box mx={[2,2,null]} fontSize={4} color={style === 'dark' ? 'white' : null}>
-                  <Text fontSize={5}>
-                    <Box
-                      as={'span'}
-                      display={'flex'}
-                      alignItems={'center'}
-                      color={'blue.5'}
-                    >
-                      <Link
-                        as={GatsbyLink}
-                        to="/"
-                        display={'flex'}
-                        alignItems={'center'}
-                        color={style === 'dark' ? 'white' : null}
-                      >
-                        <StyledOcticon
-                          icon={ChevronLeft}
-                          size={16}
-                          verticalAlign="middle"
-                          ariaLabel="Home"
-                          mr={2}
-                        />
-                        Home
-                      </Link>
-                    </Box>
-                  </Text>    
+                  <HomeLink/>
                   <Heading pl={[2,2,null]} fontSize={40} fontWeight={300} lineHeight={1.25}>
                     {title}
-                  </Heading>                  
+                  </Heading>
                   <Text
                     mx={[2,2,null]}
                     as={'p'}
@@ -83,14 +60,15 @@ export const GithubLayout = ({children, timeToRead, title})=>{
                     color={`${style === 'dark' ? 'white' : 'gray'}`}
                   >
                     <small>{timeToRead} min read</small>
-                  </Text>              
+                  </Text>
                   <Box
-                                       
+
                     px={[2,1,null]}
                     className={'markdown-body'}>
               {children}
               </Box>
             </Box>
+              <HomeLink/>
             </Box>
             </Box>
           </BorderBox>

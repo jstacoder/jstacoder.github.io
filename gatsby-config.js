@@ -195,8 +195,14 @@ module.exports = {
     'gatsby-plugin-twitter',
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
-    'gatsby-plugin-theme-ui',
+    `gatsby-theme-docz`,
+    `gatsby-theme-mdx`,
+    // {
+    //   resolve: `gatsby-plugin-mdx`,
+    //   options: {
+    //     extensions: ['.mdx', '.md']
+    //   }},
+    // 'gatsby-plugin-theme-ui',
     //    'gatsby-plugin-mdx',
   ],
-  __experimentalThemes: ['gatsby-theme-docz'],
 }
