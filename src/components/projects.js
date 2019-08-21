@@ -53,11 +53,7 @@ function Projects() {
   )
   return (
     <>
-      <Heading
-        as={'h2'}
-        color={style === 'dark' ? 'white' : undefined}
-        textAlign={['center', null, 'left']}
-      >
+      <Heading as={'h2'} color={'text'} textAlign={['center', null, 'left']}>
         My Github Projects
       </Heading>
 

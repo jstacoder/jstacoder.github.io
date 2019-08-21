@@ -99,7 +99,7 @@ function mastHead() {
         mb={3}
         size={150}
         borderRadius={'50%'}
-        maxWidth={'150px'}
+        maxWidth={'180px'}
       />
       <Heading
         color={style === 'dark' ? 'white' : undefined}

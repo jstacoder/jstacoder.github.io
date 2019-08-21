@@ -2,12 +2,10 @@ import React, { useContext } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import TopicCard from './topicCard'
 import { Heading, Text, Flex } from '@primer/components'
-import { ThemeContext } from '../theme-context'
+import useThemeContext from '../hooks/themeContext'
 
 function Topics() {
-  const {
-    state: { style },
-  } = useContext(ThemeContext)
+  const { style } = useThemeContext()
   const {
     allDataYaml: { edges },
   } = useStaticQuery(
@@ -30,20 +28,10 @@ function Topics() {
   const topics = edges.filter(edge => edge.node.topics)[0].node.topics
   return (
     <>
-      <Heading
-        as={'h2'}
-        ml={[3, 2, null]}
-        color={style === 'dark' ? 'white' : null}
-      >
+      <Heading as={'h2'} ml={[3, 2, null]} color={'text'}>
         My Interests
       </Heading>
-      <Text
-        as={'p'}
-        fontSize={4}
-        mb={4}
-        ml={[3, 2, null]}
-        color={style === 'dark' ? 'white' : 'gray.4'}
-      >
+      <Text as={'p'} fontSize={4} mb={4} ml={[3, 2, null]} color={'subText'}>
         Topics that I am currently working to learn more about.
       </Text>
       <Flex

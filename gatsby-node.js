@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const each = require('lodash/each')
 const Promise = require('bluebird')
 const path = require('path')
@@ -94,7 +95,7 @@ exports.createPages = ({ graphql, actions }) => {
       graphql(
         `
           {
-            allMdx(filter: { frontmatter: { title: { ne: "" } } }) {
+            allMdx(filter: { frontmatter: { draft: { eq: false } } }) {
               edges {
                 node {
                   id
@@ -138,7 +139,7 @@ exports.createPages = ({ graphql, actions }) => {
                   }
                 }
                 repositoriesContributedTo(
-                  first: 100
+                  first: 20
                   orderBy: { field: STARGAZERS, direction: DESC }
                 ) {
                   totalCount
