@@ -2,12 +2,10 @@ import React, { useContext } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import PostCard from './postCard'
 import { Heading, Flex, Text } from '@primer/components'
-import { ThemeContext } from '../theme-context'
+import useThemeContext from '../hooks/themeContext'
 
 const Thoughts = () => {
-  const {
-    state: { style },
-  } = useContext(ThemeContext)
+  const { style } = useThemeContext()
   const {
     allMdx: { posts },
     allMarkdownRemark: { edges },
@@ -50,24 +48,13 @@ const Thoughts = () => {
   console.log(posts)
   return edges.length > 0 ? (
     <>
-      <Heading as={'h2'} color={style === 'dark' ? 'white' : null}>
+      <Heading as={'h2'} color={'text'}>
         My Thoughts
       </Heading>
-      <Text
-        as={'p'}
-        fontSize={4}
-        mb={4}
-        color={style === 'dark' ? 'white' : 'gray.4'}
-      >
+      <Text as={'p'} fontSize={4} mb={4} color={'darkText'}>
         Articles I've written.
       </Text>
-      <Flex
-        display={[null, 'flex']}
-        mb={4}
-        ml={'-8px'}
-        mr={'-8px'}
-        flexWrap={'wrap'}
-      >
+      <Flex display={[null, 'flex']} mb={4} my={'-8px'} flexWrap={'wrap'}>
         {/* {edges.map((edge, index) => (
           <Flex.Item mx={2} mb={3} flex={1} key={index}>
             <PostCard post={edge.node} />

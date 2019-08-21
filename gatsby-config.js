@@ -55,7 +55,9 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-sass`,
-      // options: {
+      options: {
+        implementation: require('sass'),
+      },
       //   // importLoaders: 1,
       //   // modules: true,
       //   localIdentName: '[name]__[local]'

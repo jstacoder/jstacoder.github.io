@@ -138,7 +138,7 @@ exports.createPages = ({ graphql, actions }) => {
                   }
                 }
                 repositoriesContributedTo(
-                  first: 100
+                  first: 20
                   orderBy: { field: STARGAZERS, direction: DESC }
                 ) {
                   totalCount

@@ -12,6 +12,8 @@ const customBreakpoints = {
 }
 
 const fontSizes = {
+  7: 40,
+  8: 48,
   6: 12,
   5: 14,
   4: 16,
@@ -19,8 +21,6 @@ const fontSizes = {
   2: 22,
   1: 24,
   0: 32,
-  7: 40,
-  8: 48,
 }
 
 export const mediaQuerys = generateMedia(customBreakpoints)
@@ -74,9 +74,13 @@ export const themes = {
       white: '#fff',
       lightGray: '#eaecef',
       darkGray: '#586069',
-      lightText: 'skyblue',
+      text: '#495057',
+      lightText: '#fff',
+      darkText: primerTheme.colors.gray[4],
       secondaryBackground: 'darkslategray',
       lightBackground: '#d5d7d6',
+      background: '#fff',
+      darkBackground: primerTheme.colors.gray[1],
     },
     border: '1px solid #dee2e6',
     borders: [...primerTheme.borders, '1px solid black', '1px solid lightgray'],
@@ -103,12 +107,15 @@ export const themes = {
       error: getError(primerTheme.colors, 'dark'),
       grey: '#586069',
       white: '#fff',
+      text: 'white',
       lightGray: '#eaecef',
       darkGray: '#24292e',
-      lightText: 'lightcyan',
-      darkText: '#586069',
+      lightText: '#eaecef',
+      darkText: 'white',
       secondaryBackground: '#586069',
       lightBackground: '#c5c8c3',
+      background: primerTheme.colors.gray[9],
+      darkBackground: primerTheme.colors.gray[8],
     },
     boxShadow: '0 1px 1px rgba(27,31,35,0.1)',
   },
