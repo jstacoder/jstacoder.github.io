@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useContext } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import PostCard from './postCard'
@@ -12,7 +13,7 @@ const Thoughts = () => {
   } = useStaticQuery(
     graphql`
       query {
-        allMdx(filter: { frontmatter: { title: { ne: "" } } }) {
+        allMdx(filter: { frontmatter: { draft: { eq: false } } }) {
           posts: edges {
             post: node {
               fields {
@@ -51,7 +52,7 @@ const Thoughts = () => {
       <Heading as={'h2'} color={'text'}>
         My Thoughts
       </Heading>
-      <Text as={'p'} fontSize={4} mb={4} color={'darkText'}>
+      <Text as={'p'} fontSize={4} mb={4} color={'subText'}>
         Articles I've written.
       </Text>
       <Flex display={[null, 'flex']} mb={4} my={'-8px'} flexWrap={'wrap'}>

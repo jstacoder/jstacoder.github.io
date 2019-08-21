@@ -58,7 +58,7 @@ function RepoCard({ repository }) {
       borderRadius={3}
       p={3}
       border={theme.border && theme.border}
-      borderColor={style === 'light' ? 'gray.1' : null}
+      borderColor={'lightBorder'}
       boxShadow={theme.boxShadow && theme.boxShadow}
       px={3}
       mx={2}
@@ -89,7 +89,7 @@ function RepoCard({ repository }) {
           color={`gray`}
           mb={'2'}
           fontSize={4}
-          className="ws-normal"
+          whiteSpace="normal"
         >
           <Emoji text={repository.description || ''} />
         </Flex.Item>

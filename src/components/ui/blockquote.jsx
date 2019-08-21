@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react'
 import styled from 'styled-components'
 
@@ -6,8 +7,7 @@ export const Blockquote = styled.blockquote`
   margin: 30px 0;
   border-radius: 3px;
   border-left: 4px solid ${p => p.theme.colors.blockquote};
-  background: ${p => p.theme.colors.gray[2]};
-  
+  background: ${p => p.theme.colors.gray[2]};  
   p{
     color: ${p => p.theme.colors.darkText};
     font-size: 18px;

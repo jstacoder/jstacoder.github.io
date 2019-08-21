@@ -9,6 +9,7 @@ title: GraphQL schema definition 101
 published: true
 categories:
   - Programming
+draft: true
 ---
 
 import Wrapper from '~components/wrapper.jsx'

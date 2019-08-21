@@ -31,7 +31,7 @@ function Topics() {
       <Heading as={'h2'} ml={[3, 2, null]} color={'text'}>
         My Interests
       </Heading>
-      <Text as={'p'} fontSize={4} mb={4} ml={[3, 2, null]} color={'darkText'}>
+      <Text as={'p'} fontSize={4} mb={4} ml={[3, 2, null]} color={'subText'}>
         Topics that I am currently working to learn more about.
       </Text>
       <Flex

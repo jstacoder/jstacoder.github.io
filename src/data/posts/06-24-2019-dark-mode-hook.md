@@ -12,6 +12,7 @@ title: Dark mode hook
 published: false
 categories:
   - Programming
+draft: true
 ---
 
 import Wrapper from '~components/wrapper.jsx'
