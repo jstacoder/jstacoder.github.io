@@ -126,6 +126,7 @@ module.exports = {
             resolve: 'gatsby-remark-emoji',
             options: {},
           },
+          `gatsby-remark-unwrap-images`,
           {
             resolve: 'gatsby-remark-images',
             options: {
@@ -189,14 +190,24 @@ module.exports = {
     },
     'gatsby-plugin-catch-links',
     'gatsby-plugin-offline',
-    'gatsby-plugin-react-next',
     'gatsby-plugin-sharp',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-twitter',
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
     `gatsby-theme-docz`,
-    `gatsby-theme-mdx`,
+    {
+      resolve: `gatsby-theme-mdx`,
+      options: {
+        //   remarkPlugins: [{
+        //     resolve: `gatsby-remark-unwrap-images`,
+        //   options: {
+        //     maxWidth: 1035,
+        //     sizeByPixelDensity: true,
+        //   }
+        // }]
+      },
+    },
     // {
     //   resolve: `gatsby-plugin-mdx`,
     //   options: {

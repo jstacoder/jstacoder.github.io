@@ -21,8 +21,13 @@
 
 import TaskList from './tasklist.jsx'
 import { BorderBox, Box } from '@primer/components'
- 
+import PhotoCredit from './photo-credit.mdx'
+import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
 
+
+
+![](/img/tasklist.jpg)
 
 
 # How to code a task list using React
@@ -392,7 +397,6 @@ export default styled(Text)`
   ${({completed})=> completed ? css`text-decoration: line-through` : ``};
   cursor: pointer;
 `
-
 ```
 
 
