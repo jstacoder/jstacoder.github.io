@@ -196,23 +196,24 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
     `gatsby-theme-docz`,
+    // {
+    //   resolve: `gatsby-theme-mdx`,
+    //   options: {
+    //     //   remarkPlugins: [{
+    //     //     resolve: `gatsby-remark-unwrap-images`,
+    //     //   options: {
+    //     //     maxWidth: 1035,
+    //     //     sizeByPixelDensity: true,
+    //     //   }
+    //     // }]
+    //   }
+    // },
     {
-      resolve: `gatsby-theme-mdx`,
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        //   remarkPlugins: [{
-        //     resolve: `gatsby-remark-unwrap-images`,
-        //   options: {
-        //     maxWidth: 1035,
-        //     sizeByPixelDensity: true,
-        //   }
-        // }]
+        extensions: ['.mdx', '.md'],
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-mdx`,
-    //   options: {
-    //     extensions: ['.mdx', '.md']
-    //   }},
     // 'gatsby-plugin-theme-ui',
     //    'gatsby-plugin-mdx',
   ],
