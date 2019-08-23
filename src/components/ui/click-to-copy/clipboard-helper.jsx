@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Tooltip, Box } from '@primer/components'
 import PropTypes from 'prop-types'
 
@@ -11,17 +11,24 @@ const ClipBoardHelper = ({color, onClick, copyText, ...props} = {})  => {
     PRE_CLICK: 'Click to copy code to clipboard',
     POST_CLICK: 'Code copied to clipboard'
   }
-  
+  const [copied, setCopied] = useState(false)
   const [tooltipText, setTooltipText] = useState(
     tooltipMessages.PRE_CLICK
   )
+
+  useEffect(()=>{
+    const timeoutId = setTimeout(()=>{
+      if(copied){
+        setCopied(false)
+        setTooltipText(tooltipMessages.PRE_CLICK)
+      }
+    }, 1000)
+
+    return () => clearTimeout(timeoutId)
+  }, [copied])  
   
   const toggleTooltipText = () =>{
-    setTooltipText(tooltipMessages.POST_CLICK)
-    
-    setTimeout(()=>{
-      setTooltipText(tooltipMessages.PRE_CLICK)
-    }, 5000)
+    setTooltipText(tooltipMessages.POST_CLICK)       
   }
   
   const setClipboardText = text =>{
@@ -34,6 +41,7 @@ const ClipBoardHelper = ({color, onClick, copyText, ...props} = {})  => {
   const onClickClipboard = e =>{
     e.preventDefault()
     setClipboardText(copyText)
+    setCopied(true)
     onClick()
   }
   
