@@ -214,9 +214,24 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: ['.mdx', '.md'],
+        gatsbyRemarkPlugins: [
+          { resolve: `gatsby-remark-unwrap-images` },
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1152,
+              linkImagesToOriginal: false,
+              quality: 100,
+              withWebp: true,
+            },
+          },
+          { resolve: `gatsby-remark-copy-linked-files` },
+        ],
+        plugins: ['gatsby-remark-images'],
       },
     },
     // 'gatsby-plugin-theme-ui',
     //    'gatsby-plugin-mdx',
+    `gatsby-theme-style-guide`,
   ],
 }

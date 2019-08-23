@@ -37,6 +37,7 @@ const ComponentWrapper = ({ children, ...props }) => {
     li: components.Li,
     blockquote: components.Blockquote,
     page: Wrapper,
+    PhotoCredit: components.PhotoCredit,
   }
 
   return (
