@@ -13,7 +13,7 @@ const Thoughts = () => {
   } = useStaticQuery(
     graphql`
       query {
-        allMdx(filter: { frontmatter: { draft: { eq: false } } }) {
+        allMdx(filter: { frontmatter: { title: { ne: "" } } }) {
           posts: edges {
             post: node {
               fields {
@@ -22,6 +22,7 @@ const Thoughts = () => {
               frontmatter {
                 title
                 name
+                draft
               }
             }
           }
@@ -47,6 +48,7 @@ const Thoughts = () => {
     `
   )
   console.log(posts)
+  const isProduction = process.env.BUILD_STAGE !== 'develop'
   return edges.length > 0 ? (
     <>
       <Heading as={'h2'} color={'text'}>
@@ -61,11 +63,13 @@ const Thoughts = () => {
             <PostCard post={edge.node} />
           </Flex.Item>
         ))} */}
-        {posts.map(({ post }, index) => (
-          <Flex.Item mx={2} mb={3} flex={1} key={index}>
-            <PostCard post={post} />
-          </Flex.Item>
-        ))}
+        {posts
+          .filter(({ post }) => (isProduction ? !post.frontmatter.draft : true))
+          .map(({ post }, index) => (
+            <Flex.Item mx={2} mb={3} flex={1} key={index}>
+              <PostCard isProduction={isProduction} post={post} />
+            </Flex.Item>
+          ))}
       </Flex>
     </>
   ) : null

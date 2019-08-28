@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { Tooltip, Box } from '@primer/components'
 import PropTypes from 'prop-types'
+import copy from 'copy-to-clipboard'
 
 
 import { CopyIcon } from './'
@@ -33,9 +34,7 @@ const ClipBoardHelper = ({color, onClick, copyText, ...props} = {})  => {
   
   const setClipboardText = text =>{
     toggleTooltipText()
-    window &&
-      window.navigator &&
-        window.navigator.clipboard.writeText(text)
+    copy(text)
   }
   
   const onClickClipboard = e =>{
