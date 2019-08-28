@@ -21,15 +21,17 @@ const pStyle = css`
   }
 `
 
-export const GithubLayout = ({ children, timeToRead, title }) => {
+export const GithubLayout = ({ children, timeToRead, title, sidebar=true }) => {
   const { style } = useThemeContext()
+  const mainWidth = sidebar ? [null, 7 / 12, 8 / 12, 9 / 12] : '100%'
   return (
     <BorderBox
       display={[null, null, 'flex']}
       border={0}
       borderBottom={[null, null, style !== 'dark' ? 1 : 0]}
+      minHeight={'100vh'}
     >
-      <BorderBox
+      { sidebar ? (<BorderBox
         alignSelf={'stretch'}
         bg={'secondaryBackground'}
         border={0}
@@ -40,9 +42,9 @@ export const GithubLayout = ({ children, timeToRead, title }) => {
         width={[null, 5 / 12, 4 / 12, 3 / 12]}
       >
         <MastHead metaData={true} />
-      </BorderBox>
+      </BorderBox>) : null}
       <BorderBox
-        width={[null, 7 / 12, 8 / 12, 9 / 12]}
+        width={mainWidth}
         px={[null, 4, 4, 7]}
         border={0}
         borderTop={[1, 1, 0]}
@@ -57,7 +59,7 @@ export const GithubLayout = ({ children, timeToRead, title }) => {
               fontSize={4}
               color={style === 'dark' ? 'white' : null}
             >
-              <HomeLink />
+              {sidebar ? <HomeLink /> : null}
               <Heading
                 pl={[2, 2, null]}
                 fontSize={40}
@@ -72,13 +74,13 @@ export const GithubLayout = ({ children, timeToRead, title }) => {
                 mb={5}
                 color={`${style === 'dark' ? 'white' : 'gray'}`}
               >
-                <small>{timeToRead} min read</small>
+                {sidebar ? (<small>{timeToRead} min read</small>) : null}
               </Text>
               <Box px={[2, 1, null]} className={'markdown-body'}>
                 {children}
               </Box>
             </Box>
-            <HomeLink />
+            {sidebar ? <HomeLink /> : null}
           </Box>
         </Box>
       </BorderBox>

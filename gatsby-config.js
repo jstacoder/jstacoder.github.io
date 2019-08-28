@@ -197,7 +197,6 @@ module.exports = {
     'gatsby-plugin-twitter',
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
-    `gatsby-theme-docz`,
     // {
     //   resolve: `gatsby-theme-mdx`,
     //   options: {
@@ -230,6 +229,7 @@ module.exports = {
         plugins: ['gatsby-remark-images'],
       },
     },
+    `gatsby-theme-docz`,
     // 'gatsby-plugin-theme-ui',
     //    'gatsby-plugin-mdx',
     `gatsby-theme-style-guide`,

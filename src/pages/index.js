@@ -18,12 +18,11 @@ function IndexPage() {
   const { layout } = useSiteMetadata()
   const docs = useDocs()
   const menus = useMenus()
-  
+
   console.log(docs, menus)
   return (
     <Layout>
-      
-       <SEO />
+      <SEO />
       {layout === 'stacked' ? (
         <div className="container-lg py-6 p-responsive text-center">
           <MastHead metaData={true} />
@@ -41,6 +40,7 @@ function IndexPage() {
         <BorderBox
           display={[null, null, 'flex']}
           border={0}
+          width={'100'}
           borderBottom={[null, null, style !== 'dark' ? 1 : 0]}
         >
           <BorderBox
@@ -51,13 +51,13 @@ function IndexPage() {
             border={0}
             px={[4, 4, 6, 7]}
             py={6}
-            width={[null,null,5/12,4/12,3/12]}
+            width={[null, null, 5 / 12, 4 / 12, 3 / 12]}
           >
             <MastHead metaData={true} />
           </BorderBox>
           <BorderBox
-            width={[null, null, 7/12, 8/12, 9/12]}
-            px={[null,4,4,7]}
+            width={[null, null, 7 / 12, 8 / 12, 9 / 12]}
+            px={[null, 4, 4, 7]}
             border={0}
             borderTop={[1, 1, 0, 0]}
             bg={style === 'dark' ? 'gray.8' : 'gray.1'}

@@ -17,7 +17,8 @@ services:
         context: ./
         dockerfile: ./app/Dockerfile
         args: 
-          - VERSION '2.9.11'
+          - VERSION=2.9.11
+
     volumes:
         - ./:/app
         - node_global:/app/.node_modules
