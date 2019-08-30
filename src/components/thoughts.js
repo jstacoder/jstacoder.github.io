@@ -47,7 +47,6 @@ const Thoughts = () => {
       }
     `
   )
-  console.log(posts)
   const isProduction = process.env.BUILD_STAGE !== 'develop'
   return edges.length > 0 ? (
     <>
@@ -58,11 +57,6 @@ const Thoughts = () => {
         Articles I've written.
       </Text>
       <Flex display={[null, 'flex']} mb={4} my={'-8px'} flexWrap={'wrap'}>
-        {/* {edges.map((edge, index) => (
-          <Flex.Item mx={2} mb={3} flex={1} key={index}>
-            <PostCard post={edge.node} />
-          </Flex.Item>
-        ))} */}
         {posts
           .filter(({ post }) => (isProduction ? !post.frontmatter.draft : true))
           .map(({ post }, index) => (

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Flex, Box, Heading, BorderBox } from '@primer/components'
 
 import useThemeContext from '../hooks/themeContext'
+import { HoverBlock } from './hover-block'
 
 export function formatePostDate(dateString) {
   const date = new Date(dateString)
@@ -36,7 +37,7 @@ const RoundDiv = styled(BorderBox).attrs({
 function PostCard({ post, isProduction }) {
   const { theme } = useThemeContext()
   return (
-    <RoundDiv theme={theme}>
+    <HoverBlock sx={{ minWidth: '240px' }}>
       <Flex mb={1} justifyContent={'space-between'} alignItems={'flex-start'}>
         <SmallH1>
           <Link to={post.fields.slug}>
@@ -47,7 +48,7 @@ function PostCard({ post, isProduction }) {
       {!isProduction ? (
         <GrayText>{post.frontmatter.draft ? 'draft' : 'published'}</GrayText>
       ) : null}
-    </RoundDiv>
+    </HoverBlock>
   )
 }
 

@@ -1,65 +1,118 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx, Box } from 'theme-ui'
+import { Fragment } from 'react'
+import { HoverBlock } from './hover-block'
+import { Placeholder } from './placeholder'
 
-function TopicCard({ topic }) {
+function TopicCard({ topic: { web_url, image_url, name, description } }) {
   return (
-    <>
-      {topic.web_url ? (
-        <a
-          href={topic.web_url}
-          className="github-component position-relative hover-grow height-full no-underline d-flex flex-column flex-justify-center text-center border border-gray-light rounded-1 bg-white p-5"
-        >
-          {topic.image_url ? (
-            <img
-              src={topic.image_url}
-              width="64"
-              height="64"
-              className="mx-auto rounded-1 mb-3"
-              alt={topic.name}
+    <Fragment>
+      {web_url ? (
+        <HoverBlock url={web_url}>
+          {image_url ? (
+            <Box
+              as="img"
+              src={image_url}
+              sx={{
+                width: '64px',
+                height: '64px',
+                mx: 'auto',
+                borderRadius: 1,
+                mb: 3,
+              }}
+              alt={name}
             />
           ) : (
-            <div
-              className="bg-blue-light f4 text-gray-light text-bold rounded-1 flex-shrink-0 text-center mx-auto mb-3"
-              style={{ width: '64px', height: '64px', lineHeight: '64px' }}
+            <Placeholder />
+          )}
+          <Box
+            as="p"
+            sx={{
+              fontSize: 3,
+              lineHeight: 'condensed',
+              textAlign: 'center',
+              color: 'gray.9',
+              mb: 0,
+              mt: 1,
+            }}
+          >
+            {name}
+          </Box>
+          {description && (
+            <Box
+              as="p"
+              sx={{
+                fontSize: 5,
+                color: 'gray.5',
+                textAlign: 'center',
+                mb: 0,
+                mt: 1,
+              }}
             >
-              #
-            </div>
+              {description}
+            </Box>
           )}
-          <p className="f3 lh-condensed text-center link-gray-dark mb-0 mt-1">
-            {topic.name}
-          </p>
-          {topic.description && (
-            <p className="f5 text-gray text-center mb-0 mt-1">
-              {topic.description}
-            </p>
-          )}
-        </a>
+        </HoverBlock>
       ) : (
-        <div className="github-component position-relative height-full text-center border border-gray-light rounded-1 bg-white p-5">
-          {topic.image_url ? (
-            <img
-              src={topic.image_url}
-              width="64"
-              height="64"
-              className="mx-auto rounded-1 mb-3"
-              alt={topic.name}
+        <Box
+          as="div"
+          sx={{
+            fontFamily: 'normal',
+            position: 'relative',
+            height: '100%',
+            textAlign: 'center',
+            border: 1,
+            borderColor: 'gray.0',
+            borderRadius: 1,
+            bg: 'white',
+            p: 5,
+          }}
+        >
+          {image_url ? (
+            <Box
+              as="img"
+              src={image_url}
+              sx={{
+                width: '64px',
+                height: '64px',
+                mx: 'auto',
+                borderRadius: 1,
+                mb: 3,
+              }}
+              alt={name}
             />
           ) : (
-            <div
-              className="bg-blue-light f4 text-gray-light text-bold rounded-1 flex-shrink-0 text-center mx-auto mb-3"
-              style={{ width: '64px', height: '64px', lineHeight: '64px' }}
+            <Placeholder />
+          )}
+          <Box
+            as="p"
+            sx={{
+              fontSize: 3,
+              lineHeight: 'condensed',
+              textAlign: 'center',
+              mb: 0,
+              mt: 1,
+            }}
+          >
+            {name}
+          </Box>
+          {description && (
+            <Box
+              as="p"
+              sx={{
+                fontSize: 5,
+                color: 'gray.5',
+                textAlign: 'center',
+                mb: 0,
+                mt: 1,
+              }}
             >
-              #
-            </div>
+              {description}
+            </Box>
           )}
-          <p className="f3 lh-condensed text-center mb-0 mt-1">{topic.name}</p>
-          {topic.description && (
-            <p className="f5 text-gray text-center mb-0 mt-1">
-              {topic.description}
-            </p>
-          )}
-        </div>
+        </Box>
       )}
-    </>
+    </Fragment>
   )
 }
 

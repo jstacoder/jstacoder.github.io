@@ -7,15 +7,15 @@ const FontHeadingStyle = css({
   fontFamily: "'Lato', monospace, Sans-Serif"
 })
 
-export const HeadingWrapper = ({fontSize, color, bg, as, ...props}) => (
+export const HeadingWrapper = ({fontSize, color, bg, as, styles, ...props}) => (
   <Box 
     {...props}
     as={as} 
-    sx={{
-      fontSize,
+    sx={{      
       color: 'fontColor',
       bg,
     }}
+    styles={styles}
     css={FontHeadingStyle}
   />
 )
