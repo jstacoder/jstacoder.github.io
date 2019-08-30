@@ -230,7 +230,12 @@ module.exports = {
       },
     },
     `gatsby-theme-docz`,
-    // 'gatsby-plugin-theme-ui',
+    // {
+    //   resolve: `gatsby-plugin-theme-ui`,
+    //   options: {
+    //     mdx: false
+    //   }
+    // },
     //    'gatsby-plugin-mdx',
     `gatsby-theme-style-guide`,
   ],

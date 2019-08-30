@@ -75,7 +75,7 @@ export const themes = {
       lightGray: '#eaecef',
       darkGray: '#586069',
       text: '#495057',
-      lightText: '#fff',
+      lightText: primerTheme.colors.gray[8],
       darkText: primerTheme.colors.gray[4],
       subText: '#586069',
       secondaryBackground: 'white',
@@ -123,6 +123,13 @@ export const themes = {
       background: primerTheme.colors.gray[9],
       darkBackground: primerTheme.colors.gray[8],
       darkBorder: primerTheme.colors.gray[1],
+    },
+    styles: {
+      h2: {
+        a: {
+          color: 'orange.3',
+        },
+      },
     },
     boxShadow: '0 1px 1px rgba(27,31,35,0.1)',
   },
@@ -179,7 +186,7 @@ export const ThemeContext = createContext({
   dispatch: () => {},
 })
 
-export const ThemeContextProvider = ({ children }) => {
+export const ThemeContextProvider = ({ children, components }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const value = { state, dispatch }
   return (
