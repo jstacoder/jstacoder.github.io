@@ -123,7 +123,10 @@ const CodeWrapper = ({children, filename, code}) =>{
         color='lightText'
         opacity='0.8'
         display='flex'
-        pb={2} pt={2} pl={3}>
+        py={2} 
+        pl={3}
+        borderColor={'darkBorder'}
+        >
         <Text
           opacity='1'
           style={{flex: 1}}>

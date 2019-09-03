@@ -10,22 +10,7 @@ import Helmet from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
 function SEO() {
-  const {
-    github: {
-      viewer: { name },
-    },
-  } = useStaticQuery(
-    graphql`
-      query {
-        github {
-          viewer {
-            name
-          }
-        }
-      }
-    `
-  )
-
+  const name = 'jstacoders profile'
   return (
     <Helmet
       htmlAttributes={{

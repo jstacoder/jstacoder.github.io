@@ -83,7 +83,7 @@ export const themes = {
       background: primerTheme.colors.gray[1],
       lightBorder: primerTheme.colors.gray[1],
       darkBorder: null,
-      darkBackground: primerTheme.colors.gray[1],
+      darkBackground: primerTheme.colors.gray[8],
     },
     border: '1px solid #dee2e6',
     borders: [...primerTheme.borders, '1px solid black', '1px solid lightgray'],

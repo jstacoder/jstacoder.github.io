@@ -95,7 +95,7 @@ exports.createPages = ({ graphql, actions }) => {
       graphql(
         `
           {
-            allMdx(filter: { frontmatter: { draft: { eq: false } } }) {
+            allMdx(filter: { frontmatter: { title: { ne: "" } } }) {
               edges {
                 node {
                   id
@@ -178,12 +178,12 @@ exports.createPages = ({ graphql, actions }) => {
           reject(errors)
         }
         const {
-          allMdx: { edges: mdxPosts },
+          allMdx: { edges: mdxPosts } = {},
           allPosts: { posts },
           github: {
             viewer: { repositories, repositoriesContributedTo },
           },
-        } = data
+        } = data || {}
 
         createPage({
           path: '/github-repos/',
