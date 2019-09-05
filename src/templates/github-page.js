@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
 import { graphql } from 'gatsby'
 
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 import Icon from '../components/Icon'
 
 import styled from 'styled-components'

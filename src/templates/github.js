@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import { faStar as star } from '@fortawesome/free-solid-svg-icons'
 import Icon from 'components/Icon'
 import Meta from 'components/Meta'
-import Layout from 'components/Layout'
+import Layout from 'components/layout'
 
 export default ({ pageContext, location, data }) => {
   return (
