@@ -64,15 +64,17 @@ module.exports = {
       // }
     },
     `gatsby-transformer-yaml`,
-    // {
-    //  resolve: 'gatsby-source-unsplash',
-    //  options: {
-    //    UNSPLASH_API_KEY: process.env.UNSPLASH_API_KEY,
-    //    random: true,
-    //    query:'mountains',
-    //    count:5,
-    //  },
-    // },
+    {
+      resolve: './plugins/gatsby-source-unsplash',
+      options: {
+        UNSPLASH_API_KEY: process.env.UNSPLASH_API_KEY,
+        random: true,
+        searchTerms: ['mountains', 'vanilla', 'ice', 'lazy', 'easy'],
+        queryOptions: {
+          count: 1,
+        },
+      },
+    },
     {
       resolve: 'gatsby-source-graphql',
       options: {
@@ -123,6 +125,12 @@ module.exports = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
+          {
+            resolve: `gatsby-remark-embed-snippet`,
+            options: {
+              directory: `${__dirname}/src/examples/`,
+            },
+          },
           // 'gatsby-remark-tables',
           {
             resolve: 'gatsby-remark-emoji',
@@ -143,7 +151,14 @@ module.exports = {
               wrapperStyle: 'margin-bottom: 1.0725rem',
             },
           },
-          'gatsby-remark-prismjs',
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: 'language-',
+              inlineCodeMarker: null,
+              noInlineHighlight: false,
+            },
+          },
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
           `gatsby-remark-codemirror`,

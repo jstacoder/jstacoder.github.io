@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import SkillRow from '../SkillRow'
 
-export default class SkillList extends Component {
-  state = {
-    groups: [],
-  }
-  componentDidMount() {
-    let groups = [[]]
+const SkillList = props => {
+  const [groups, setGroups] = React.useState([[]])
+
+  React.useEffect(() => {
     this.props.skills.forEach(skill => {
       const groupLength = groups.length
       const lastGroup = groups[groupLength - 1]
@@ -20,26 +18,26 @@ export default class SkillList extends Component {
       currGroup.push(skill)
       groups.push(currGroup)
     })
-    this.setState({ groups })
-  }
-  render() {
-    return (
-      <React.Fragment>
-        <div>
-          <div className="col-lg-12">
-            <h2 className="section-heading">MY SKILLS</h2>
-            <hr className="border-white" />
-          </div>
+    setGroups(groups)
+  }, [])
+  return (
+    <React.Fragment>
+      <div>
+        <div className="col-lg-12">
+          <h2 className="section-heading">MY SKILLS</h2>
+          <hr className="border-white" />
         </div>
+      </div>
 
-        <div>
-          <div className="col-lg-12">
-            {this.state.groups.map(skills => (
-              <SkillRow skills={skills} />
-            ))}
-          </div>
+      <div>
+        <div className="col-lg-12">
+          {groups.map(skills => (
+            <SkillRow skills={skills} />
+          ))}
         </div>
-      </React.Fragment>
-    )
-  }
+      </div>
+    </React.Fragment>
+  )
 }
+
+export default SkillList

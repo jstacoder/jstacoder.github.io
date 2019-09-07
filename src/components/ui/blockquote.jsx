@@ -1,27 +1,38 @@
+/** @jsx jsx */
 /* eslint-disable prettier/prettier */
-import React from 'react'
-import styled from 'styled-components'
+import { jsx, css, Box } from 'theme-ui'
 
-export const Blockquote = styled.blockquote`
-  padding: 10px 30px 10px 30px;
-  margin: 30px 0;
-  border-radius: 3px;
-  border-left: 4px solid ${p => p.theme.colors.blockquote};
-  background: ${p => p.theme.colors.gray[2]};  
-  p{
-    color: ${p => p.theme.colors.darkText};
-    font-size: 18px;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: 22px;
-    margin: 15px 0;
-  }
-  p {
-    margin: 5px 0 10px;
-  }
-`
+export const Blockquote = props =>{
+  const styles = css({
+    p: '10px 30px 10px 30px',
+    m: '30px 0',
+    borderRadius: 1,
+    borderLeft: '4px solid',
+    borderColor: 'blockquote',
+    bg: 'gray.2',
+    p: {
+      color: 'darkText',
+      fontSize: '18px',
+    },
+    [[
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6'
+    ]]: {
+      fontSize: '22px',
+      m: '15px 0',
+    },
+    p: {
+      m: '5px 0 10px',
+    }
+  })
+
+  return (
+    <Box as='blockquote' {...props} styles={styles} />      
+  )
+}
+  
+

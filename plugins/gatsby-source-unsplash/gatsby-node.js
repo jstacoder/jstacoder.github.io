@@ -15,6 +15,8 @@ exports.sourceNodes = async (
   },
   configOptions
 ) => {
+  // console.log('jahaha')
+  // process.exit()
   const typeDefs = [
     schema.buildObjectType({
       name: 'PhotoObjectType',
@@ -23,6 +25,7 @@ exports.sourceNodes = async (
           type: 'ID!',
         },
       },
+      interfaces: ['Node'],
     }),
   ]
   // const typeDefs = [
@@ -61,21 +64,24 @@ exports.sourceNodes = async (
   //   })
   // ]
   // createTypes(typeDefs)
-  const { createNode, touchNode } = actions
+  const { createNode, touchNode, createNodeField } = actions
 
   const {
     UNSPLASH_API_KEY,
-    random,
     plugins,
-    ...unsplashOptions
+    random,
+    searchTerms,
+    queryOptions,
   } = configOptions
 
-  const processPhoto = photo => {
+  const processPhoto = (photo, searchTerm) => {
     const nodeId = createNodeId(`unsplash-photo-${photo.id}`)
     const nodeContent = JSON.stringify(photo)
     const nodeData = {
       ...photo,
+      searchTerm,
       id: nodeId,
+      unsplashId: photo.id,
       parent: null,
       children: [],
       internal: {
@@ -88,34 +94,54 @@ exports.sourceNodes = async (
     return nodeData
   }
 
-  const apiOptions = queryString.stringify(unsplashOptions)
-  const apiUrl = `https://api.unsplash.com/photos/${
-    random ? 'random' : ''
-  }?client_id=${UNSPLASH_API_KEY}&${apiOptions}`
-  // console.log(apiOptions, apiUrl)
-
-  return axios.get(apiUrl).then(async response => {
-    response.data.forEach(async photo => {
-      const nodeData = processPhoto(photo)
-      createNode(nodeData)
-
-      const node = getNode(nodeData.id)
-
-      let fileNode
-      console.log(node)
-
-      try {
-        fileNode = await createRemoteFileNode({
-          url: node.urls.raw,
-          parentNodeId: node.id,
-          store,
-          cache,
-          createNode,
-          createNodeId,
-          ext: '.jpg',
-        })
-        // console.log(fileNode)
-      } catch (e) {}
+  const getApiOptions = ({ queryOptions, searchTerm }) =>
+    queryString.stringify({
+      ...queryOptions,
+      query: searchTerm,
     })
+
+  const getApiUrl = searchTerm =>
+    `https://api.unsplash.com/photos/${
+      random ? 'random' : ''
+    }?client_id=${UNSPLASH_API_KEY}&${getApiOptions({
+      queryOptions,
+      searchTerm,
+    })}`
+  console.log('TERMS: ', searchTerms)
+  return searchTerms.map(searchTerm => {
+    const apiUrl = getApiUrl(searchTerm)
+    console.log(`url for ${searchTerm} is ${apiUrl}`)
+
+    return axios.get(apiUrl).then(async response =>
+      response.data.map(async photo => {
+        console.log(`attaching ${searchTerm} to ${photo.id}`)
+        const nodeData = processPhoto(photo, searchTerm)
+        createNode(nodeData)
+
+        const node = getNode(nodeData.id)
+
+        let fileNode
+        // console.log(node)
+
+        try {
+          fileNode = await createRemoteFileNode({
+            url: node.links.download,
+            parentNodeId: node.id,
+            store,
+            cache,
+            createNode,
+            createNodeId,
+            ext: '.jpg',
+          })
+          // console.log(fileNode)
+          createNodeField({
+            node: fileNode,
+            name: 'unsplashSearchTerm',
+            value: searchTerm,
+          })
+          return fileNode
+        } catch (e) {}
+      })
+    )
   })
 }

@@ -10,7 +10,7 @@ const ProjectGrid = ({ projects, title, subtitle }) => {
   } = React.useContext(ThemeContext)
 
   return (
-    <>
+    <React.Fragment>
       <Heading as={'h2'} color={style === 'dark' ? 'white' : null}>
         {title}
       </Heading>
@@ -37,7 +37,7 @@ const ProjectGrid = ({ projects, title, subtitle }) => {
           </Flex.Item>
         ))}
       </Flex>
-    </>
+    </React.Fragment>
   )
 }
 

@@ -71,6 +71,7 @@ export const themes = {
       success: getSuccess(primerTheme.colors, 'light'),
       error: getError(primerTheme.colors, 'light'),
       grey: '#6a737d',
+
       white: '#fff',
       lightGray: '#eaecef',
       darkGray: '#586069',
