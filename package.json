@@ -41,6 +41,7 @@
     "gatsby-plugin-preact": "^3.1.5",
     "gatsby-plugin-react-helmet": "^3.1.4",
     "gatsby-plugin-react-next": "^1.0.11",
+    "gatsby-plugin-remote-images": "^1.0.7",
     "gatsby-plugin-sass": "^2.1.10",
     "gatsby-plugin-sharp": "^2.2.13",
     "gatsby-plugin-sitemap": "^2.2.7",
