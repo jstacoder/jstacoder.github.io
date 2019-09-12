@@ -1,16 +1,13 @@
-name: build gatsby
-
 on: [push]
-
+name: build gatsby
 jobs:
   build:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v1
+      - name: actions/checkout@develop
       - name: hello worl action
-        uses: ./
+        uses: actions/hello-world-javascript-action@v1
         id: hello
         with:
             who-to-greet: 'kyle roux'
