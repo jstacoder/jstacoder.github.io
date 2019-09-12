@@ -64,7 +64,7 @@ module.exports = {
       // }
     },
     `gatsby-transformer-yaml`,
-    {
+    /*{
       resolve: './plugins/gatsby-source-unsplash',
       options: {
         UNSPLASH_API_KEY: process.env.UNSPLASH_API_KEY,
@@ -74,7 +74,7 @@ module.exports = {
           count: 1,
         },
       },
-    },
+    },*/
     {
       resolve: 'gatsby-source-graphql',
       options: {
@@ -112,6 +112,13 @@ module.exports = {
       options: {
         path: `${__dirname}/src/components/`,
         name: 'docs',
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/src/`,
+        name: 'filesystem',
       },
     },
     {
@@ -253,5 +260,12 @@ module.exports = {
     // },
     //    'gatsby-plugin-mdx',
     `gatsby-theme-style-guide`,
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'unsplashPhoto',
+        imagePath: 'links.download',
+      },
+    },
   ],
 }
