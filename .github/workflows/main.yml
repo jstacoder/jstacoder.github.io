@@ -19,7 +19,7 @@ jobs:
 
       - name: build
         env:
-            GH_API_KEY: ${{ secrets.GITHUB_API_TOKEN }}
+            GH_API_KEY: ${{ secrets.GITHUB_API_KEY }}
         run: yarn build
 
       - name: deploy
