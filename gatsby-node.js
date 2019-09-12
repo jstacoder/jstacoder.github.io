@@ -179,15 +179,15 @@ exports.createPages = ({ graphql, actions }) => {
         }
         const {
           allMdx: { edges: mdxPosts } = {},
-          allPosts: { posts },
+          allPosts: { posts } = {},
           github: {
             viewer: { repositories, repositoriesContributedTo },
           },
         } = data || {}
 
         createPage({
-          path: '/github-repos/',
-          component: require.resolve('./src/templates/github.js'),
+          path: `/github-repos/`,
+          component: require.resolve(`./src/templates/github.js`),
           context: {
             repositories,
             repositoriesContributedTo,
@@ -199,7 +199,7 @@ exports.createPages = ({ graphql, actions }) => {
           console.log(node.fields.slug)
           createPage({
             path: node.fields.slug,
-            component: path.resolve('./src/components/mdx-layout.js'),
+            component: path.resolve(`./src/components/mdx-layout.js`),
             context: {
               id: node.id,
             },
@@ -211,7 +211,7 @@ exports.createPages = ({ graphql, actions }) => {
           if (node === undefined) return
           const name = node.frontmatter.title
 
-          const PageTemplate = require.resolve('./src/templates/postTemplate')
+          const PageTemplate = require.resolve(`./src/templates/postTemplate`)
           createPage({
             path: node.fields.slug,
             component: PageTemplate,
