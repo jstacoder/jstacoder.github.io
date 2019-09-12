@@ -5,17 +5,13 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: hello worl action
-        uses: actions/hello-world-javascript-action@v1
-        id: hello
-        with:
-            who-to-greet: 'kyle roux'
-      - name: get outpout
-        run: echo "the time was ${{steps.hello.outputs.time}}"
+      - uses: actions/checkout@v1    
 
       - name: install
         run: yarn install
+        
+      - name: replace crappy file 
+        run: cp ./app/Seo.tpl.js ./node_modules/gatsby-theme-docz/templates/Seo.tpl.js
 
       - name: build
         env:
