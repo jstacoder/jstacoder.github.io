@@ -4,6 +4,8 @@
   "version": "2.0.2",
   "author": "Kyle Roux<jstacoder@gmail.com>",
   "dependencies": {
+    "@actions/core": "^1.1.0",
+    "@actions/github": "^1.1.0",
     "@emotion/core": "^10.0.14",
     "@fortawesome/free-regular-svg-icons": "^5.8.2",
     "@mdx-js/mdx": "^1.0.20",
@@ -155,6 +157,7 @@
     "docker-deploy": "yarn run docker-build && yarn run gh-pages",
     "docker-build": "docker-compose run app build",
     "gh-pages": "gh-pages -d public -b master",
+    "gh-pages:ci": "gh-pages -d public -b master -u \"Kyle Roux <jstacoder@gmail.com>\" -r https://$GH_API_KEY@github.com/jstacoder/jstacoder.github.io.git",
     "deploy": "yarn build && yarn run gh-pages",
     "develop": "gatsby develop --host 0.0.0.0 --port 8005",
     "format": "prettier --write \"**/*.+(js|json|md)\"",

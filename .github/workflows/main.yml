@@ -5,12 +5,12 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1    
+      - uses: actions/checkout@v1
 
       - name: install
         run: yarn install
-        
-      - name: replace crappy file 
+
+      - name: replace crappy file
         run: cp ./app/Seo.tpl.js ./node_modules/gatsby-theme-docz/templates/Seo.tpl.js
 
       - name: build
@@ -19,4 +19,7 @@ jobs:
         run: yarn build
 
       - name: deploy
-        run: yarn gh-pages
+        run: yarn gh-pages:ci
+        env:
+            GH_API_KEY: ${{ secrets.GITHUB_API_KEY }}
+
