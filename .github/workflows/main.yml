@@ -5,7 +5,7 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - name: actions/checkout@develop
+      - uses: actions/checkout@develop
       - name: hello worl action
         uses: actions/hello-world-javascript-action@v1
         id: hello
