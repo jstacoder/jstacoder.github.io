@@ -3,9 +3,6 @@ on:
     branch:
       - develop      
 name: build gatsby
-branding:
-  icon: 'eye'
-  color: 'red'
 jobs:
   build:
     name: build
