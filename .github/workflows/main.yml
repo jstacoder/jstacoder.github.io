@@ -24,5 +24,5 @@ jobs:
       - name: deploy
         run: yarn gh-pages:ci
         env:
-            GH_API_KEY: ${{ secrets.GITHUB_TOKEN }}
+            GH_API_KEY: ${{ secrets.GITHUB_API_KEY }}
 
