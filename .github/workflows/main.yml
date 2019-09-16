@@ -22,7 +22,9 @@ jobs:
         run: yarn build
 
       - name: deploy
-        run: yarn gh-pages:ci
+        uses: maxheld83/ghpages
         env:
             GH_API_KEY: ${{ secrets.GITHUB_API_KEY }}
+            GH_PAT: ${{ secrets.GITHUB_API_KEY }}
+            BUILD_DIR: 'public/'
 
