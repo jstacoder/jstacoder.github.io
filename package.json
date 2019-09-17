@@ -157,7 +157,7 @@
     "docker-deploy": "yarn run docker-build && yarn run gh-pages",
     "docker-build": "docker-compose run app build",
     "gh-pages": "gh-pages -d public -b master",
-    "gh-pages:ci": "gh-pages -d public -b master -u \"Kyle Roux <jstacoder@gmail.com>\" -r https://$GH_API_KEY@github.com/jstacoder/jstacoder.github.io.git",
+    "gh-pages:ci": "gh-pages -d public -b master -u \"Kyle Roux <jstacoder@gmail.com>\" -r https://x-access-token:$GH_API_KEY@github.com/jstacoder/jstacoder.github.io.git",
     "deploy": "yarn build && yarn run gh-pages",
     "develop": "gatsby develop --host 0.0.0.0 --port 8005",
     "format": "prettier --write \"**/*.+(js|json|md)\"",
