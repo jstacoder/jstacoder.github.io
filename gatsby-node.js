@@ -10,23 +10,6 @@ dotenv.config()
 
 module.paths.push(path.resolve('../', 'gatsby-theme-basic-blog'))
 
-const createGithubPage = (repo, createPage) => {
-  createPage({
-    path: `/github/${repo.name}`,
-    component: require.resolve('./src/templates/github-page.js'),
-    context: {
-      repo,
-      repoName: repo.name,
-    },
-  })
-}
-
-const createGithubPages = (repos, createPage) => {
-  repos.nodes.forEach(repo => {
-    createGithubPage(repo, createPage)
-  })
-}
-
 exports.onCreateNode = ({ actions, node, getNode }) => {
   const { createNodeField } = actions
 
@@ -68,6 +51,36 @@ exports.onCreateNode = ({ actions, node, getNode }) => {
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
+  const githubComponent = require.resolve('./src/templates/github-page.js')
+  const githubBranchComponent = require.resolve(
+    './src/templates/github-branch.jsx'
+  )
+
+  const createGithubPages = repos => repos.nodes.forEach(createGithubPage)
+
+  const createGithubPage = repo => {
+    createPage({
+      path: `/github/${repo.name}`,
+      component: githubComponent,
+      context: {
+        repo,
+        repoName: repo.name,
+      },
+    })
+    repo.refs.branches.map(({ name: branchName }) => {
+      const owner = repo.owner.login
+      createPage({
+        path: `/github/${repo.name}/${branchName}`,
+        component: githubBranchComponent,
+        context: {
+          repoName: repo.name,
+          branchName,
+          owner,
+        },
+      })
+    })
+  }
+
   const pageLength = 2
 
   const pageToPath = (index, pathPrefix, maxPages) => {
@@ -136,6 +149,14 @@ exports.createPages = ({ graphql, actions }) => {
                     watchers {
                       totalCount
                     }
+                    owner {
+                      login
+                    }
+                    refs(refPrefix: "refs/heads/", first: 10) {
+                      branches: nodes {
+                        name
+                      }
+                    }
                   }
                 }
                 repositoriesContributedTo(
@@ -144,9 +165,17 @@ exports.createPages = ({ graphql, actions }) => {
                 ) {
                   totalCount
                   nodes {
+                    owner {
+                      login
+                    }
                     name
                     stargazers {
                       totalCount
+                    }
+                    refs(refPrefix: "refs/heads/", first: 10) {
+                      branches: nodes {
+                        name
+                      }
                     }
                   }
                 }
@@ -193,8 +222,8 @@ exports.createPages = ({ graphql, actions }) => {
             repositoriesContributedTo,
           },
         })
-        createGithubPages(repositories, createPage)
-
+        createGithubPages(repositories)
+        createGithubPages(repositoriesContributedTo)
         each(mdxPosts, ({ node }) => {
           console.log(node.fields.slug)
           createPage({

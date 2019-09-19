@@ -27,7 +27,7 @@ export const PhotoCredit = ({username}) =>{
     
 
         return (
-            <Box mt={'-10px'}>
+            <Box mt={'5px'}>
                 <Text fontSize={'10px'}>
                     Photo by <Link href={userProfile.links.html}>{userProfile.name}</Link> {' '}
                     on <Link href={'https://unsplash.com/search/photos/task?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'}>Unsplash</Link>

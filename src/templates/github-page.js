@@ -1,11 +1,22 @@
 import React, { useState } from 'react'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
+import { Text, Link as PrimerLink } from '@primer/components'
 
 import Layout from '../components/layout'
 import Icon from '../components/Icon'
 
 import styled from 'styled-components'
+
+const BranchLink = ({ branch, repo }) => {
+  return (
+    <Text as="p">
+      <PrimerLink to={`/github/${repo}/${branch}`} as={Link}>
+        {branch}
+      </PrimerLink>
+    </Text>
+  )
+}
 
 // language=CSS
 const Masthead = styled.header`
@@ -21,10 +32,10 @@ export default props => {
   const [repoState, updateRepoState] = useState()
   const {
     pageContext: { repo },
-    // data,
+    data,
   } = props
 
-  //console.log(JSON.stringify(data))
+  console.log(JSON.stringify(data))
   return (
     <Layout location={props.location}>
       <Masthead>
@@ -35,6 +46,16 @@ export default props => {
               <p className="lead">{repo.description}</p>
 
               <Icon icon={faStar} text={repo.stargazers.totalCount} />
+              <div>
+                {data.github.repository.refs.branches.map(({ name }) => (
+                  <BranchLink
+                    branch={name}
+                    repo={repo.name}
+                    owner={'jstacoder'}
+                    key={name}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -42,6 +63,19 @@ export default props => {
     </Layout>
   )
 }
+export const query = graphql`
+  query githubRepoQuery($repoName: String!) {
+    github {
+      repository(name: $repoName, owner: "jstacoder") {
+        refs(refPrefix: "refs/heads/", first: 100) {
+          branches: nodes {
+            name
+          }
+        }
+      }
+    }
+  }
+`
 
 // export const query = graphql`
 //   query repoQuery($repoName: String!) {
