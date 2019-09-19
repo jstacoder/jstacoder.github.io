@@ -13,8 +13,8 @@ jobs:
       - name: install
         run: yarn install
 
-      - name: replace crappy file
-        run: cp ./app/Seo.tpl.js ./node_modules/gatsby-theme-docz/templates/Seo.tpl.js
+      # - name: replace crappy file
+      #   run: cp ./app/Seo.tpl.js ./node_modules/gatsby-theme-docz/templates/Seo.tpl.js
 
       - name: build
         env:
