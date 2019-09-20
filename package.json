@@ -166,7 +166,8 @@
     "lint:textfix": "textlint --fix src/pages/**/index.md",
     "test": "prettier --write \"**/*.+(js|jsx|json|css|scss)\"",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "postinstall": "patch-package"
   },
   "husky": {
     "hooks": {

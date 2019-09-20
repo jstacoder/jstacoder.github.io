@@ -7,21 +7,21 @@ import { Clippy } from '@primer/octicons-react'
 
 const BaseCopyIcon = styled(StyledOcticon).attrs((props)=>({
   color: props.color,
-  size: 25,
-  mr:3,
+  size: props.size || 25,
+  mr:props.mr !== undefined ? props.mr : 3,
+  p: props.p  !== undefined ? props.p : '2px',
 }))`
-  cursor: pointer;
-  padding: 2px;
+  cursor: pointer;  
   :hover {
-    background-color: white;
-    border-radius: 5px;
+    background-color: ${props=> props.hoverBackgroundColor || 'white'};
+    
     color: ${props=> props.theme.colors.darkText};
   }
 `
 
 export const CopyIcon = props =>{
   return (
-    <BaseCopyIcon icon={Clippy} {...props} />
+    <BaseCopyIcon icon={Clippy} {...props} />                                   
   )
 }
 
