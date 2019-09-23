@@ -13,8 +13,8 @@ jobs:
       - name: install
         run: yarn install
 
-      - name: replace crappy file
-        run: cp ./app/Seo.tpl.js ./node_modules/gatsby-theme-docz/templates/Seo.tpl.js
+      # - name: replace crappy file
+      #   run: cp ./app/Seo.tpl.js ./node_modules/gatsby-theme-docz/templates/Seo.tpl.js
 
       - name: build
         env:
@@ -22,10 +22,10 @@ jobs:
         run: yarn build
 
       - name: deploy
-        #        uses: maxheld83/ghpages@v0.2.1
-        run: yarn gh-pages:ci
+        uses: maxheld83/ghpages@v0.2.1
+        # run: yarn gh-pages:ci
         env:
-            GH_API_KEY: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             GH_PAT: ${{ secrets.GITHUB_API_KEY }}
             BUILD_DIR: 'public/'
 
