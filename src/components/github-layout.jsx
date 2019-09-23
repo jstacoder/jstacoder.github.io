@@ -21,7 +21,7 @@ const pStyle = css`
   }
 `
 
-export const GithubLayout = ({ children, timeToRead, title, sidebar=true }) => {
+export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUrl, backText}) => {
   const { style } = useThemeContext()
   const mainWidth = sidebar ? [null, 7 / 12, 8 / 12, 9 / 12] : '100%'
   return (
@@ -59,7 +59,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true }) => {
               fontSize={4}
               color={style === 'dark' ? 'white' : null}
             >
-              {sidebar ? <HomeLink /> : null}
+              {sidebar ? <HomeLink text={backText} url={backUrl} /> : null}
               <Heading
                 pl={[2, 2, null]}
                 fontSize={40}
@@ -74,13 +74,13 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true }) => {
                 mb={5}
                 color={`${style === 'dark' ? 'white' : 'gray'}`}
               >
-                {sidebar ? (<small>{timeToRead} min read</small>) : null}
+                {sidebar && timeToRead ? (<small>{timeToRead} min read</small>) : null}
               </Text>
               <Box px={[2, 1, null]} className={'markdown-body'}>
                 {children}
               </Box>
             </Box>
-            {sidebar ? <HomeLink /> : null}
+            {sidebar ? <HomeLink text={backText} url={backUrl} /> : null}
           </Box>
         </Box>
       </BorderBox>

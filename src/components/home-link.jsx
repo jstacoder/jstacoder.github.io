@@ -4,7 +4,7 @@ import { Box, Link, StyledOcticon, Text } from '@primer/components'
 import { Link as GatsbyLink } from 'gatsby'
 import { ChevronLeft } from '@primer/octicons-react'
 
-export const HomeLink = props =>{
+export const HomeLink = ({url = "/", text = "Home"}) =>{
   return (
      <Text fontSize={5} mx={4}>
        <Box
@@ -15,7 +15,7 @@ export const HomeLink = props =>{
        >
          <Link
            as={GatsbyLink}
-           to="/"
+           to={url}
            display={'flex'}
            alignItems={'center'}
            color={'text'}
@@ -30,10 +30,10 @@ export const HomeLink = props =>{
              icon={ChevronLeft}
              size={16}
              verticalAlign="middle"
-             ariaLabel="Home"
+             ariaLabel={text}
              mr={2}
            />
-           Home
+           {text}
          </Link>
        </Box>
      </Text>

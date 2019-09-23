@@ -3,7 +3,8 @@ import { faStar } from '@fortawesome/free-regular-svg-icons'
 import { graphql, Link } from 'gatsby'
 import { Text, Link as PrimerLink } from '@primer/components'
 
-import Layout from '../components/layout'
+import { GithubLayout } from '../components/github-layout'
+
 import Icon from '../components/Icon'
 
 import styled from 'styled-components'
@@ -37,7 +38,7 @@ export default props => {
 
   console.log(JSON.stringify(data))
   return (
-    <Layout location={props.location}>
+    <GithubLayout location={props.location}>
       <Masthead>
         <div className="container h-100">
           <div className="row h-100 align-items-center">
@@ -60,14 +61,14 @@ export default props => {
           </div>
         </div>
       </Masthead>
-    </Layout>
+    </GithubLayout>
   )
 }
 export const query = graphql`
   query githubRepoQuery($repoName: String!) {
     github {
       repository(name: $repoName, owner: "jstacoder") {
-        refs(refPrefix: "refs/heads/", first: 100) {
+        refs(refPrefix: "refs/heads/", first: 10) {
           branches: nodes {
             name
           }

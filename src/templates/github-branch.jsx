@@ -1,28 +1,19 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 
+import { GithubLayout } from '../components/github-layout'
+import { CommitBlockList } from '../components/CommitBlock/commit-block-list.jsx'
+
 export default props => {
     const branch = props.data.github.repository.ref
     const commit = branch.target 
     return(
-         <div>
-            
-            <p>
-                {branch.name}                
-            </p>
-            <ul>
-                {commit.history.commits.map(commit=>(
-                    <li>
-                        <p>{commit.message}</p>
-                        <p>{commit.committedDate}</p>
-                        <p><a href={commit.commitUrl}>{commit.oid}</a></p>
-                        <p>changes: {commit.changedFiles}</p>
-                        <p>ADDITIONS: {commit.additions}</p>
-                        <p>DELETIONS: {commit.deletions}</p>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <GithubLayout 
+            title={branch.name} 
+            backUrl={`/github/${props.pageContext.repoName}`} 
+            backText={props.pageContext.repoName}>                                
+            <CommitBlockList commits={commit.history.commits}/>            
+        </GithubLayout>
     )
 }
 
@@ -49,15 +40,24 @@ export const query = graphql`
                             changedFiles
                             additions
                             deletions
-                            history(first: 10){
+                            history(
+                                first: 10
+                                
+                            ){
                                 commits: nodes{
                                     message
-                                    oid
-                                    committedDate
-                                    commitUrl                                        
-                                    changedFiles
-                                    additions
-                                    deletions
+                                    authoredDate
+                                    committedDate                                
+                                    author{
+                                        avatarUrl                                    
+                                        user{
+                                            userName: login
+                                            userLink: url                                        
+                                        }
+                                    }
+                                    treeUrl
+                                    commitUrl
+                                    commitSha: oid                                
                                 }                            
                             }
                         }

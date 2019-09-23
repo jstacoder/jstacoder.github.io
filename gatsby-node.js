@@ -5,6 +5,7 @@ const path = require('path')
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const DotenvWebpackPlugin = require('dotenv-webpack')
 const dotenv = require('dotenv')
+const { paginate } = require('gatsby-awesome-pagination')
 
 dotenv.config()
 
@@ -121,7 +122,7 @@ exports.createPages = ({ graphql, actions }) => {
             github {
               viewer {
                 repositories(
-                  first: 40
+                  first: 10
                   orderBy: { field: STARGAZERS, direction: DESC }
                 ) {
                   totalCount
@@ -152,7 +153,7 @@ exports.createPages = ({ graphql, actions }) => {
                     owner {
                       login
                     }
-                    refs(refPrefix: "refs/heads/", first: 10) {
+                    refs(refPrefix: "refs/heads/", first: 20) {
                       branches: nodes {
                         name
                       }
@@ -160,7 +161,7 @@ exports.createPages = ({ graphql, actions }) => {
                   }
                 }
                 repositoriesContributedTo(
-                  first: 20
+                  first: 10
                   orderBy: { field: STARGAZERS, direction: DESC }
                 ) {
                   totalCount
@@ -172,7 +173,7 @@ exports.createPages = ({ graphql, actions }) => {
                     stargazers {
                       totalCount
                     }
-                    refs(refPrefix: "refs/heads/", first: 10) {
+                    refs(refPrefix: "refs/heads/", first: 20) {
                       branches: nodes {
                         name
                       }
@@ -225,14 +226,15 @@ exports.createPages = ({ graphql, actions }) => {
         createGithubPages(repositories)
         createGithubPages(repositoriesContributedTo)
         each(mdxPosts, ({ node }) => {
-          console.log(node.fields.slug)
-          createPage({
-            path: node.fields.slug,
-            component: path.resolve(`./src/components/mdx-layout.js`),
-            context: {
-              id: node.id,
-            },
-          })
+          console.log(node.fields)
+          node.fields.slug &&
+            createPage({
+              path: node.fields.slug,
+              component: path.resolve(`./src/components/mdx-layout.js`),
+              context: {
+                id: node.id,
+              },
+            })
         })
 
         // Create blog posts & pages.
