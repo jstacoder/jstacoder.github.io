@@ -4,7 +4,7 @@ on:
       - develop      
 name: build gatsby
 jobs:
-  build gatsby:
+  build_gatsby:
     name: build
     runs-on: ubuntu-latest
     steps:
