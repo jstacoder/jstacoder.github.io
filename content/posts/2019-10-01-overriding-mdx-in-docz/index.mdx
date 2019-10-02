@@ -1,0 +1,223 @@
+---
+  title: Overriding Mdx in Docz
+  draft: false
+  layout: default
+---
+
+## How to override the mdx components when using Docz
+
+> Why would i event want to do that?
+
+There are are few reasons why its helpful
+* you can replace a tags with gatsby's `Link`
+* you can override the sidebar, header or content
+* you can override the whole page
+* you can make a custom li that uses icons
+
+the possibilities are endless.
+
+One of the eaiser things we could do would be to completley override the 
+layout of a given page.   
+
+All you need to do for that to work is to export the 
+a component as default from the mdx file.  
+
+The biggest issue with this is you lose all context from the mdx.  
+As well as all mdx styling. 
+
+Another solution would be to just replace the default `Layout` component from
+`gatsby-theme-docz`.  
+
+This lets us keep our context and styling
+But it replaces all of the pages.
+
+Now what if I want to override only selective pages like the first solution,   
+
+But i want to keep my styling and context like in the second solution?
+
+Here is a way to get the best of both worlds.
+
+First we need a way to communicate that we want to override the pages layoput.  
+
+The first solution uses the `default export` feature of javascript to do this.  
+
+In our solution to make it feel more like a regular mdx document and less like a javascript file we will utilize its front-matter.  
+
+To do that we just add a field to our pages front-matter.
+
+I called mine `layout`. 
+
+And i think to start i will have 3
+
+The default layout provided by docz  
+
+One without the sidebar
+
+And one thats a blank slate,  
+No sidebar or header.  
+
+So the three ptions for `layout` are:  
+
+* default
+* content (no sidebar)
+* empty (nothing)
+
+so for example to remove the sidebar from a page i will create a new 
+mdx file and set the front-matter like this:
+
+```mdx
+---
+  name: My New Post
+  layout: content
+---
+```
+
+See here i set `layout` to `content`
+
+now we need to take that `layout` value and do something with it,
+the rest of this post assumes you have a minimal docz site setup,
+if not checkout their [docs](https://docz.site)
+
+First we need to override the docz theme to inject our layout.
+
+so create a file at `project_root/src/gatsby-theme-docz/index.js`
+
+and add this to it:
+
+```jsx filename=src/gatsby-theme-docz/index.js
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { theme, useConfig, ComponentsProvider, useCurrentDoc } from 'docz'
+import { Styled, ThemeProvider } from 'theme-ui'
+
+import defaultTheme from 'gatsby-theme-docz/srx/theme'
+import components from 'gatsby-theme-docz/src/components'
+
+const Theme = ({ children }) => {
+  const { themeConfig } = useConfig()
+  return (
+    <ThemeProvider theme={themeConfig}>
+      <ComponentsProvider components={components}>
+        <Styled.root>{children}</Styled.root>
+      </ComponentsProvider>
+    </ThemeProvider>
+  )
+}
+
+export const enhance = theme(
+  defaultTheme,
+  ({
+    mode = 'light',
+    showPlaygroundEditor = true,
+    showLiveError = true,
+    ...config
+  }) => ({
+    ...config,
+    showLiveError,
+    showPlaygroundEditor,
+    initialColorMode: mode,
+  })
+)
+
+export default enhance(Theme)
+```
+
+Now this is just a minimal working theme, so lets add our changes,
+first lets grab our layouts (well make the new ones next):
+
+```jsx
+import { Layout as DefaultLayout } from 'gatsby-theme-docz/src/components/Layout'
+import { Layout as ContentLayout } from '../components/layouts/content'
+import { Layout as EmptyLayout }  from '../components/layouts/empty'
+
+```
+
+Now inside of our theme component we will use the `useCurrentDoc` hook provided by docz.   
+
+It allows us to get the currently loaded documents front-matter to see which layout it is asking for.
+
+```jsx
+const Theme = ({ children }) => {
+  const { themeConfig } = useConfig()
+  const currentDoc = useCurrentDoc()
+
+  const layouts = {
+    default: DefaultLayout,
+    content: ContentLayout,
+    empty: EmptyLayout,
+  }
+
+  const layoutName = currentDoc && currentDoc.layout ? currentDoc.layout : 'default'
+  const layout = layouts[layoutName]
+  
+  const componentMap = {
+    ...components,
+    layout,
+  }
+  return (
+    <ThemeProvider theme={themeConfig} components={componentMap}>
+      <ComponentsProvider components={componentMap}>
+        <Styled.root>{children}</Styled.root>
+      </ComponentsProvider>
+    </ThemeProvider>
+  )
+}
+```
+
+Now lets make our layouts.  
+
+Of Course there are definatly better ways to do this but my goal
+here is just to keep everything working like it is.  
+
+So for the layout that will still have the header component im will just copy the default layout definition.   
+
+For the empty one we can just return our children wrapped in a div.
+
+```jsx filename=src/components/layouts/content.jsx
+/** @jsx jsx */
+import { useRef } from 'react'
+import { jsx, Layout as BaseLayout, Main, Container } from 'theme-ui'
+import { Global } from '@emotion/core'
+
+import global from 'gatsby-theme-docz/src/theme/global'
+import { Header } from 'gatsby-theme-docz/src/components/Header'
+import * as styles from 'gatsby-theme-docz/src/components/Layout/styles'
+
+export const Layout = ({ children }) => {
+  const nav = useRef()
+
+  styles.wrapper.display = 'flex'
+
+  return (
+    <BaseLayout sx={{ '& > div': { flex: '1 1 auto' } }} data-testid="layout">
+      <Global styles={global} />
+      <Main sx={styles.main}>
+        <Header nav={nav} onOpen={()=>{}} />
+        <div sx={styles.wrapper}>
+          <Container sx={styles.content} data-testid="main-container">
+            {children}
+          </Container>
+        </div>
+      </Main>
+    </BaseLayout>
+  )
+}
+```
+
+```jsx filename=src/components/layouts/empty.jsx
+/** @jsx jsx */
+import { jsx, Box } from 'theme-ui'
+
+
+export const Layout = ({children, ...props}) =>{
+  return (
+    <Box {...props}>
+      {children}
+    </Box>
+  )
+}
+```
+
+Now i can get whichever layout i want loaded for a page through
+its front-matter.  
+Cool huh? 

@@ -1,7 +1,139 @@
 ---
   title: Deploy Gatsby Site Using Github Actions
-  draft: true
+  draft: false
+  layout: default
 ---
 
 ![deployment](./deploy-kaip.jpg)
 <PhotoCredit username={'kaip'}/>
+
+
+
+
+### Why Automate Stuff?
+
+I have recently been developing my Gatsby sites on various platforms, 
+osx, windows, and between them linux via docker. 
+
+My main goal is the ability to do `gatsby build` and `gh-pages -d public -b master` without issues between platforms
+
+what kind of issues am i talking about?
+
+
+* __node__ __memory__ issues
+    * On both osx and windows i occsionally get odd `out of memory` errors in node when building  
+    
+Because of that I found it helpful to just use docker and docker-compose to run the build command
+
+* __cross__ __platform__ __sharp__ issues
+    * because i like to run the dev server locally 
+      (more because its one less step than anything)
+      i ended up with running into issues with sharp in the node modules
+      being built for the wrong plartform
+
+Now there are ways to avoid that as well, mainly using docker volumes to isolate the node modules between platforms,
+but it still didnt feel right
+
+### Github Actions
+
+Then i found Github Actions
+
+According to github using them you can automate any software development process.
+
+You do that by adding a workflow configuration file to your git repo,
+then based on that file github will do your bidding. It can do all kinds of 
+things for you:
+
+* run shell commands in various shells including:
+    * bash
+    * python
+    * ruby
+
+* run a javascript file that has access to your code and access to an api to manipulate various things
+* all the way to launching a docker container with w/e dockerfile you want
+
+Talk about convienient!
+
+Now This will work, let see what it will take to setup a workflow to just build and deploy my gatsby sites.
+
+First we need to give our worklow a name:
+
+```yml
+name: Build and Deploy Gatsby
+```
+
+Luckily the syntax is pretty easy, so to start you need to tell it when to run,
+I want it to run when i push changes to my develop branch, other branchs
+that arent master are branchs for features and bugs, and the master branch i deploy the site to so it sould only run the builds when 
+i push to the develop branch. 
+
+Here is how to do it:
+
+```yml
+on:
+  push:
+    branches:
+      - develop      
+```
+
+Ok now we define our jobs, i say jobs because we can have multiple
+but i only have one
+
+To define jobs you have a top-level `jobs` key 
+whose value is a mapping and the key is the jobs name
+and its value is another mapping to define the job, my jos name is build
+
+```yml
+jobs: 
+  build:    
+```
+
+
+To define a job it needs a name, it needs to know what kind of platform to run on
+and it needs a list of steps to run
+
+```yml
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+```
+
+To define a step you have a few options you can:
+* use predefined or your own custom actions (which can be javascript files or dockerfiles)
+* run shell commands
+* set environment variables
+* use secrets set in githubs settings
+amoung other things
+
+for our first step we checkout our repo using a predefined action from github
+```yml
+      - name: checkout 
+        uses: actions/checkout@v1
+```
+
+our next step installs our dependencies
+
+```yml
+      - name: install
+        run: yarn install 
+```
+
+the next step runs `yarn build` which is an alias for `gatsby build --prefix-paths`
+
+```yml
+      - name: build
+        run: yarn build
+```
+
+Finally i deploy it to github pages using another predefined action,
+but because its pushing to our repo it needs an api token, but luckily 
+github provides one as `secrets.GITHUB_TOKEN` you just need to add it as
+an environment variable
+
+```yml
+      - name: deploy
+        uses: maxheld83/ghpages@v0.2.1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          BUILD_DIR: 'public/'
+```
