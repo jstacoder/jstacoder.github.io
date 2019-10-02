@@ -43,10 +43,9 @@ fields:
   config:
     required: true
     options:
-    - stacked
-    - dual_column
-    - tri_column
-    - sidebar
+    - default
+    - content
+    - empty
     source:
       type: simple
       section: 
