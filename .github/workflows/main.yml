@@ -4,28 +4,22 @@ on:
       - develop      
 name: build gatsby
 jobs:
-  build:
+  build_gatsby:
     name: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
 
-      - name: install
-        run: |
-          yarn global add patch-package
-          yarn install
+      - name: yarn install
+        run: yarn install
 
-      # - name: replace crappy file
-      #   run: cp ./app/Seo.tpl.js ./node_modules/gatsby-theme-docz/templates/Seo.tpl.js
-
-      - name: build
+      - name: gatsby build
         env:
             GH_API_KEY: ${{ secrets.GITHUB_API_KEY }}
         run: yarn build
 
       - name: deploy
         uses: maxheld83/ghpages@v0.2.1
-        # run: yarn gh-pages:ci
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             GH_PAT: ${{ secrets.GITHUB_API_KEY }}
