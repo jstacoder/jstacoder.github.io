@@ -40,19 +40,15 @@ const ComponentProps = ({component})=>{
       }
     }
 `
-    const data = useStaticQuery(query)
-    console.log(data)
-    const propsList = data.allComponentMetadata.edges.filter(({node})=> {
-        console.log(component.name, node.component)//,component._filemeta.name)
-        return node.component === component.name
-    })
+    const data = useStaticQuery(query)    
+    const propsList = data.allComponentMetadata.edges.filter(
+      ({node})=> node.component === component.name
+    )
 
-    const props = propsList[0] && propsList[0].node && propsList[0].node.props
-    console.log(props)
+    const props = propsList[0] && propsList[0].node && propsList[0].node.props    
     return props ? ( 
         <Box m={1}>
     <PropsTable css={css`td { color:${theme.colors.fontColor}; }`} props={props.reduce((prev, curr)=>{
-
         prev[curr.name] = curr
         if(prev[curr.name].description&&prev[curr.name].description.text){
             prev[curr.name].description = prev[curr.name].description.text
