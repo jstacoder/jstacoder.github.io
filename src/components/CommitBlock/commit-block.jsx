@@ -22,19 +22,16 @@ import { CopyIcon } from '../ui/click-to-copy/index.jsx'
 export const CommitBlock = ({ commit }) => {
     const {
         message,
-        author: {
-            avatarUrl,
-            user: {
-                userName,
-                userLink,
-            }
-        },
+        author,
         treeUrl,
         commitUrl,
         authoredDate,
         committedDate,
         commitSha,
     } = commit
+    const avatarUrl = author && author.avatarUrl
+    const userName = author && author.user && author.user.userName
+    const userLink = author && author.user && author.user.userLink
     console.log(authoredDate)
     const dateAuthored = formatDistanceToNow(new Date(authoredDate), {
         addSuffix: true,
@@ -53,9 +50,11 @@ export const CommitBlock = ({ commit }) => {
                     </Box>
 
                     <Box as={Flex}>
+                        { avatarUrl && 
                         <Link href={''}>
                             <Avatar px={2} height={25} width={40} src={avatarUrl} />
                         </Link>
+                        }
                         <Link
                             as={'a'}
                             fontWeight={'600'}
