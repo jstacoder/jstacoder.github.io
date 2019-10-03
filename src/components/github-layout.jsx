@@ -6,11 +6,13 @@ import {
   StyledOcticon,
   Link,
   Heading,
+  Fixed,
 } from '@primer/components'
 import { ChevronLeft } from '@primer/octicons-react'
 import { Link as GatsbyLink } from 'gatsby'
 import MastHead from './mastHead'
 import { css } from 'styled-components'
+import { doczState } from 'docz'
 
 import { HomeLink } from '../components/home-link'
 import useThemeContext from '../hooks/themeContext'
@@ -24,25 +26,37 @@ const pStyle = css`
 export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUrl, backText}) => {
   const { style } = useThemeContext()
   const mainWidth = sidebar ? [null, 7 / 12, 8 / 12, 9 / 12] : '100%'
+
+  const {
+    context: {
+      Provider
+    }
+  } = doczState
+
   return (
+    <Provider value={{initial: {props: {}}}}>
     <BorderBox
       display={[null, null, 'flex']}
       border={0}
       borderBottom={[null, null, style !== 'dark' ? 1 : 0]}
       minHeight={'100vh'}
     >
-      { sidebar ? (<BorderBox
-        alignSelf={'stretch'}
-        bg={'secondaryBackground'}
-        border={0}
-        borderRight={style !== 'dark' ? 0 : 3}
-        borderRadius={0}
-        px={[4, 4, 6, 7]}
-        py={6}
-        width={[null, 5 / 12, 4 / 12, 3 / 12]}
-      >
-        <MastHead metaData={true} />
-      </BorderBox>) : null}
+      { sidebar ? (
+        <BorderBox
+          alignSelf={'stretch'}
+          bg={'secondaryBackground'}
+          border={0}
+          borderRight={style !== 'dark' ? 0 : 3}
+          borderRadius={0}
+          px={[4, 4, 6, 7]}
+          py={6}
+          width={[null, 5 / 12, 4 / 12, 3 / 12]}
+        >
+          <Box as={Fixed} top={50} left={75}>
+            <MastHead metaData={true} />
+          </Box>
+        </BorderBox>
+      ) : null}
       <BorderBox
         width={mainWidth}
         px={[null, 4, 4, 7]}
@@ -85,5 +99,6 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
         </Box>
       </BorderBox>
     </BorderBox>
+    </Provider>
   )
 }

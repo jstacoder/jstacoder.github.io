@@ -8,7 +8,7 @@ import Projects from '../components/projects'
 import Interests from '../components/interests'
 import Thoughts from '../components/thoughts'
 import useSiteMetadata from '../hooks/siteMetaData'
-import { Box, BorderBox } from '@primer/components'
+import { Box, BorderBox, Fixed } from '@primer/components'
 import { useDocs, useMenus } from 'docz'
 import { useAuth } from '../hooks/authContext'
 import SEO from '../components/seo'
@@ -53,7 +53,9 @@ function IndexPage() {
             py={6}
             width={[null, null, 5 / 12, 4 / 12, 3 / 12]}
           >
-            <MastHead metaData={true} />
+            <Box as={Fixed} top={50} left={75}>
+              <MastHead metaData={true} />
+            </Box>
           </BorderBox>
           <BorderBox
             width={[null, null, 7 / 12, 8 / 12, 9 / 12]}
