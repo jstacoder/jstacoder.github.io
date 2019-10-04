@@ -2,18 +2,17 @@ import React from 'react'
 import {
   BorderBox,
   Box,
-  Text,
-  StyledOcticon,
-  Link,
-  Heading,
-  Fixed,
-} from '@primer/components'
-import { ChevronLeft } from '@primer/octicons-react'
-import { Link as GatsbyLink } from 'gatsby'
+  Text,   
+  Heading,   
+  Position,
+  } from '@primer/components'
 import MastHead from './mastHead'
 import { css } from 'styled-components'
 import { doczState } from 'docz'
+import { system } from 'styled-system'
+import styled from 'styled-components'
 
+import SEO from '../components/seo'
 import { HomeLink } from '../components/home-link'
 import useThemeContext from '../hooks/themeContext'
 
@@ -23,7 +22,8 @@ const pStyle = css`
   }
 `
 
-export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUrl, backText}) => {
+
+export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUrl, backText, isIndex=false}) => {
   const { style } = useThemeContext()
   const mainWidth = sidebar ? [null, 7 / 12, 8 / 12, 9 / 12] : '100%'
 
@@ -35,6 +35,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
 
   return (
     <Provider value={{initial: {props: {}}}}>
+      <SEO/>
     <BorderBox
       display={[null, null, 'flex']}
       border={0}
@@ -52,9 +53,9 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
           py={6}
           width={[null, 5 / 12, 4 / 12, 3 / 12]}
         >
-          <Box as={Fixed} top={50} left={75}>
+          <Position position={['static', 'static' ,'static','static', 'sticky']} top={50} left={75}>
             <MastHead metaData={true} />
-          </Box>
+          </Position>
         </BorderBox>
       ) : null}
       <BorderBox
@@ -73,7 +74,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
               fontSize={4}
               color={style === 'dark' ? 'white' : null}
             >
-              {sidebar ? <HomeLink text={backText} url={backUrl} /> : null}
+              {!isIndex ? <HomeLink text={backText} url={backUrl} /> : null}
               <Heading
                 pl={[2, 2, null]}
                 fontSize={40}
@@ -88,13 +89,13 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
                 mb={5}
                 color={`${style === 'dark' ? 'white' : 'gray'}`}
               >
-                {sidebar && timeToRead ? (<small>{timeToRead} min read</small>) : null}
+                {timeToRead ? (<small>{timeToRead} min read</small>) : null}
               </Text>
               <Box px={[2, 1, null]} className={'markdown-body'}>
                 {children}
               </Box>
             </Box>
-            {sidebar ? <HomeLink text={backText} url={backUrl} /> : null}
+            {!isIndex ? <HomeLink text={backText} url={backUrl} /> : null}
           </Box>
         </Box>
       </BorderBox>
