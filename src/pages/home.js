@@ -5,7 +5,7 @@ import Interests from '~components/interests'
 import Thoughts from '~components/thoughts'
 import { HomePageWrapper } from '~components/home-page-wrapper'
 
-export const HomePage = ({ children }) => {
+export default ({ children }) => {
   return (
     <HomePageWrapper>
       <Projects />
