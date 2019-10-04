@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link } from 'docz'
 import styled from 'styled-components'
 import { Flex, Box, Heading, BorderBox } from '@primer/components'
 
@@ -37,18 +37,16 @@ const RoundDiv = styled(BorderBox).attrs({
 function PostCard({ post, isProduction }) {
   const { theme } = useThemeContext()
   return (
-    <HoverBlock sx={{ minWidth: '240px' }}>
-      <Flex mb={1} justifyContent={'space-between'} alignItems={'flex-start'}>
-        <SmallH1>
-          <Link to={post.fields.slug}>
-            {post.frontmatter.title || post.frontmatter.name}
-          </Link>
-        </SmallH1>
-      </Flex>
-      {!isProduction ? (
-        <GrayText>{post.frontmatter.draft ? 'draft' : 'published'}</GrayText>
-      ) : null}
-    </HoverBlock>
+    <Link to={post.fields.slug}>
+      <HoverBlock sx={{ minWidth: '240px' }}>
+        <Flex mb={1} justifyContent={'space-between'} alignItems={'flex-start'}>
+          <SmallH1>{post.frontmatter.title || post.frontmatter.name}</SmallH1>
+        </Flex>
+        {!isProduction ? (
+          <GrayText>{post.frontmatter.draft ? 'draft' : 'published'}</GrayText>
+        ) : null}
+      </HoverBlock>
+    </Link>
   )
 }
 
