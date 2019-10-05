@@ -25,7 +25,7 @@ const pStyle = css`
 
 export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUrl, backText, isIndex=false}) => {
   const { style } = useThemeContext()
-  const mainWidth = sidebar ? [null, 7 / 12, 8 / 12, 9 / 12] : '100%'
+  const mainWidth = sidebar ? [null, 7 / 12, 8 / 12, 9 / 12] : ['100%']
 
   return (  
       
