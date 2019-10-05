@@ -38,6 +38,7 @@ export const CommitBlockList = ({commits}) =>{
                       <Text as='p' mb={2}>Commits on {formattedDay}</Text>
                         <ul sx={{
                             listStyleType:'none',            
+                            paddingInlineStart: 'unset',
                         }}>
                             {commits.map((commit, idx)=> (
                                 <li sx={{

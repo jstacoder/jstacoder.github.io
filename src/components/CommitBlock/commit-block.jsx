@@ -40,7 +40,7 @@ export const CommitBlock = ({ commit }) => {
     })
     const shortMessage = message.slice(0, 45)
     return (
-        <BorderBox p={2} width={['100%', null, null, null]}>
+        <BorderBox px={1} py={2} width={['100%', null, null, null]}>
             <Box as={Flex} justifyContent={'space-between'}>
                 <Box as={Flex} flexDirection='column'>
                     <Box as={Flex}>
