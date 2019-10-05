@@ -91,7 +91,7 @@ function mastHead() {
     company,
   } = user
   return (
-    <>
+    <Box width={'25%'} display={'static'}>
       <Avatar
         src={avatarUrl}
         alt="user-avatar"
@@ -279,7 +279,7 @@ function mastHead() {
           />
         </Box>
       </Box>
-    </>
+    </Box>
   )
 }
 

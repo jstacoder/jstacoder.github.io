@@ -32,7 +32,6 @@ export const CommitBlock = ({ commit }) => {
     const avatarUrl = author && author.avatarUrl
     const userName = author && author.user && author.user.userName
     const userLink = author && author.user && author.user.userLink
-    console.log(authoredDate)
     const dateAuthored = formatDistanceToNow(new Date(authoredDate), {
         addSuffix: true,
     })
@@ -41,7 +40,7 @@ export const CommitBlock = ({ commit }) => {
     })
     const shortMessage = message.slice(0, 45)
     return (
-        <BorderBox p={2}>
+        <BorderBox p={2} width={['100%', null, null, null]}>
             <Box as={Flex} justifyContent={'space-between'}>
                 <Box as={Flex} flexDirection='column'>
                     <Box as={Flex}>

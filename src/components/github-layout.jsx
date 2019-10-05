@@ -41,7 +41,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
           alignSelf={'stretch'}
           bg={'secondaryBackground'}
           border={0}
-          borderRight={style !== 'dark' ? 0 : 3}
+          borderRight={[null, null, style !== 'dark' ? 0 : 3]}
           borderRadius={0}
           px={[4, 4, 6, 7]}
           py={6}
@@ -56,7 +56,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
         width={mainWidth}
         px={[null, 4, 4, 7]}
         border={0}
-        borderTop={[1, 1, 0]}
+        borderTop={[1, 1, 1, 0]}
         borderRadius={0}
         bg={'background'}
         py={6}
