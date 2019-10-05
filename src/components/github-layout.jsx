@@ -27,21 +27,15 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
   const { style } = useThemeContext()
   const mainWidth = sidebar ? [null, 7 / 12, 8 / 12, 9 / 12] : '100%'
 
-  const {
-    context: {
-      Provider
-    }
-  } = doczState
-
-  return (
-    <Provider value={{initial: {props: {}}}}>
-      <SEO/>
+  return (  
+      
     <BorderBox
       display={[null, null, 'flex']}
       border={0}
       borderBottom={[null, null, style !== 'dark' ? 1 : 0]}
       minHeight={'100vh'}
     >
+      <SEO/>
       { sidebar ? (
         <BorderBox
           alignSelf={'stretch'}
@@ -72,7 +66,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
             <Box
               mx={[2, 2, null]}
               fontSize={4}
-              color={style === 'dark' ? 'white' : null}
+            color={style === 'dark' ? 'white' : null}
             >
               {!isIndex ? <HomeLink text={backText} url={backUrl} /> : null}
               <Heading
@@ -100,6 +94,6 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
         </Box>
       </BorderBox>
     </BorderBox>
-    </Provider>
+  
   )
 }

@@ -33,7 +33,6 @@ export const componentsMap = {
   h6: components.H6,
   li: components.Li,
   blockquote: components.Blockquote,
-  page: Wrapper,
   PhotoCredit: components.PhotoCredit,
 }
 

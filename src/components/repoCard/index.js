@@ -14,6 +14,7 @@ import {
 } from '@primer/components'
 import styles from '../layout.scss'
 import styled, { css } from 'styled-components'
+import repoStyles from './repoCard.module.scss'
 
 const repoColorBallStyle = css`
   border-radius: 50%;
@@ -84,14 +85,16 @@ function RepoCard({ repository }) {
             </Link>
           </Heading>
         </Flex.Item>
-        <Flex.Item
-          flex={1}
-          color={`gray`}
-          mb={'2'}
-          fontSize={4}
-          whiteSpace="normal"
-        >
-          <Emoji text={repository.description || ''} />
+        <Flex.Item flex={1} mb={'2'}>
+          <Text
+            className={repoStyles.repoText}
+            as={'p'}
+            color="darkText"
+            whiteSpace="normal"
+            fontSize={4}
+          >
+            <Emoji text={repository.description || ''} />
+          </Text>
         </Flex.Item>
         <Flex.Item fontSize={6}>
           <Flex justifyContent={'space-between'}>
