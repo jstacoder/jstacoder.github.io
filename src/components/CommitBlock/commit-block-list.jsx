@@ -22,11 +22,9 @@ const sortCommitsByCommitDate = commits =>{
     return rtn 
 }
 
-export const CommitBlockList = ({commits}) =>{
-    console.log(commits)
+export const CommitBlockList = ({commits}) =>{    
     const commitsByDay = sortCommitsByCommitDate(commits)
-    const daysToShow = Object.keys(commitsByDay)
-    console.log(daysToShow)
+    const daysToShow = Object.keys(commitsByDay)    
     return (
         <Fragment>
             {
