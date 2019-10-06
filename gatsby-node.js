@@ -27,7 +27,6 @@ exports.onCreateNode = ({ actions, node, getNode }) => {
       node,
       value: `${prefix}${value}`,
     })
-    console.log(node.fields)
   }
 
   // markdown nodes
@@ -226,7 +225,6 @@ exports.createPages = ({ graphql, actions }) => {
         createGithubPages(repositories)
         createGithubPages(repositoriesContributedTo)
         each(mdxPosts, ({ node }) => {
-          console.log(node.fields)
           node.fields.slug &&
             createPage({
               path: node.fields.slug,
