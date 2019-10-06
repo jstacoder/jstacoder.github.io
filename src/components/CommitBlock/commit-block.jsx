@@ -41,7 +41,7 @@ export const CommitBlock = ({ commit }) => {
     const shortMessage = message.slice(0, 45)
     return (
         <BorderBox px={1} py={2} width={['100%', 'inherit']}>
-            <Box display={['none', 'none', 'block', 'block']} as={Flex} justifyContent={'space-between'}>
+            <Box display={['none', 'none', 'flex', 'flex']} as={Flex} justifyContent={'space-between'}>
                 <Box as={Flex} flexDirection='column'>
                     <Box as={Flex}>
                         <Text p={2} fontWeight={'700'} color={'black'} as={Flex}>{shortMessage}</Text>
