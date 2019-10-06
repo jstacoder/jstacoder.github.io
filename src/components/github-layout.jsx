@@ -34,6 +34,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
       border={0}
       borderBottom={[null, null, style !== 'dark' ? 1 : 0]}
       minHeight={'100vh'}
+      width={'100%'}
     >
       <SEO/>
       { sidebar ? (
