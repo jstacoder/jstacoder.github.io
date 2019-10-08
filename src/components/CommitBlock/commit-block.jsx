@@ -42,7 +42,7 @@ export const CommitBlock = ({ commit }) => {
     return (
         <BorderBox px={1} py={2} width={['100%', 'inherit']}>            
             <Box display={['flex', 'flex', 'none']} as={Flex}>
-                {avatarUrl && <Avatar px={2} src={avatarUrl} />}
+                {avatarUrl && <Avatar px={2} width={35} src={avatarUrl} />}
                 <Flex flexDirection='column'>
                     <Text p={2}>{shortMessage}</Text>
                     <Flex>
