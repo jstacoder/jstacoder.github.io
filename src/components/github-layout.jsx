@@ -48,7 +48,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
           py={6}
           width={[null, '40%', '40%', 3 / 12]}
         >
-          <Position position={['static', 'static' ,'static','static', 'sticky']} top={50} left={75}>
+          <Position position={['static', 'sticky']} top={50} left={75}>
             <MastHead metaData={true} />
           </Position>
         </BorderBox>
