@@ -40,16 +40,19 @@ export const CommitBlock = ({ commit }) => {
     })
     const shortMessage = message.slice(0, 45)
     return (
-        <BorderBox px={1} py={2} width={['100%', 'inherit']}>
-            // small screens
+        <BorderBox px={1} py={2} width={['100%', 'inherit']}>            
             <Box display={['flex', 'flex', 'none']} as={Flex}>
                 {avatarUrl && <Avatar px={2} src={avatarUrl} />}
-                <Text p={2}>{shortMessage}</Text>
-                {committedDate && <Text color='gray.4' px={2}>committed {dateCommitted}</Text>}
-                {authoredDate && !committedDate && <Text color={'gray.4'} px={2}>authored {dateAuthored}</Text>}
-
-            </Box>
-            // Large screens            
+                <Flex flexDirection='column'>
+                    <Text p={2}>{shortMessage}</Text>
+                    <Flex>
+                        {committedDate && <Text color='gray.4' px={2}>committed {dateCommitted}</Text>}                    
+                        {authoredDate && !committedDate && <Text color={'gray.4'} px={2}>authored {dateAuthored}</Text>}
+                        <Text> * </Text>
+                        <Text>{commitSha}</Text>
+                    </Flex>
+                </Flex>
+            </Box>            
             <Box display={['none', 'none', 'flex', 'flex']} as={Flex} justifyContent={'space-between'}>
                 <Box as={Flex} flexDirection='column'>
                     <Box as={Flex}>
