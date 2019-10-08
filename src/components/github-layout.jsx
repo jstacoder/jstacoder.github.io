@@ -55,12 +55,12 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
       ) : null}
       <BorderBox
         width={mainWidth}
-        px={[null, 4, 4, 7]}
+        px={[0, 0, 4, 7]}
         border={0}
         borderTop={[1, 1, 1, 0]}
         borderRadius={0}
         bg={'background'}
-        py={[null, 2, 4, 6]}
+        py={[0,0, 4, 6]}
       >
         <Box mx={'auto'} maxWidth={900}>
           <Box fontSize={4} color={style === 'dark' ? 'white' : null} mb={6}>
@@ -86,7 +86,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
               >
                 {timeToRead ? (<small>{timeToRead} min read</small>) : null}
               </Text>
-              <Box px={[null, 2, 1, null]} className={'markdown-body'}>
+              <Box px={[0, 1, 2, 1, null]} className={'markdown-body'}>
                 {children}
               </Box>
             </Box>

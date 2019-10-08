@@ -33,7 +33,7 @@ export const CommitBlockList = ({commits}) =>{
                     const formattedDay = format(new Date(day), 'MMM d, yyyy')                               
                     return (
                     <Box key={day}>
-                      <Text as='p' mb={2}>Commits on {formattedDay}</Text>
+                      <Text as='p' pl={[3,3,2,1]} mb={2}>Commits on {formattedDay}</Text>
                         <ul sx={{
                             listStyleType:'none',            
                             paddingInlineStart: 'unset',
