@@ -43,7 +43,7 @@ export const CommitBlock = ({ commit }) => {
         <BorderBox px={1} py={2} width={['100%', 'inherit']}>
             // small screens
             <Box display={['flex', 'flex', 'none']} as={Flex}>
-                {avatarUrl && <Avatar px={2} height={25} width={40} src={avatarUrl} />}
+                {avatarUrl && <Avatar px={2} src={avatarUrl} />}
                 <Text p={2}>{shortMessage}</Text>
                 {committedDate && <Text color='gray.4' px={2}>committed {dateCommitted}</Text>}
                 {authoredDate && !committedDate && <Text color={'gray.4'} px={2}>authored {dateAuthored}</Text>}
