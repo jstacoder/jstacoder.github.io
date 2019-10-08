@@ -25,14 +25,14 @@ const pStyle = css`
 
 export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUrl, backText, isIndex=false}) => {
   const { style } = useThemeContext()
-  const mainWidth = sidebar ? [null, 7 / 12, 8 / 12, 9 / 12] : ['100%']
+  const mainWidth = sidebar ? [null, '60%','60%', 9 / 12] : ['100%']
 
   return (  
       
     <BorderBox
-      display={[null, null, 'flex']}
+      display={[null, 'flex']}
       border={0}
-      borderBottom={[null, null, style !== 'dark' ? 1 : 0]}
+      borderBottom={[null, null, null, style !== 'dark' ? 1 : 0]}
       minHeight={'100vh'}
       width={'100%'}
     >
@@ -42,11 +42,11 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
           alignSelf={'stretch'}
           bg={'secondaryBackground'}
           border={0}
-          borderRight={[null, null, style !== 'dark' ? 0 : 3]}
+          borderRight={[null, null, null, style !== 'dark' ? 0 : 3]}
           borderRadius={0}
           px={[4, 4, 6, 7]}
           py={6}
-          width={[null, 5 / 12, 4 / 12, 3 / 12]}
+          width={[null, '40%', '40%', 3 / 12]}
         >
           <Position position={['static', 'static' ,'static','static', 'sticky']} top={50} left={75}>
             <MastHead metaData={true} />
