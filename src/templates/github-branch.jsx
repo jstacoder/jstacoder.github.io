@@ -14,7 +14,7 @@ export default props => {
             title={branch.name}
             backUrl={`/github/${props.pageContext.repoName}`}
             backText={props.pageContext.repoName}>
-            <CommitBlockList commits={commit.history.commits}/>
+            <CommitBlockList repo={props.pageContext.repoName} branch={branch.name} commits={commit.history.commits}/>
         </GithubLayout>
     )
 }
