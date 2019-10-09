@@ -91,7 +91,7 @@ export default ({ data }) => {
                 style === 'dark' ? 'text-white' : 'text-gray'
               }`}
             >
-              <small>{post.timeToRead} min read</small>
+              <small>{post.timeToRead} min reads</small>
             </p>
             <div dangerouslySetInnerHTML={{ __html: post.html }} />
           </div>
