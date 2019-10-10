@@ -36,7 +36,7 @@ export default props => {
     data,
   } = props
 
-  console.log(JSON.stringify(data))
+  // console.log(JSON.stringify(data))
   return (
     <GithubLayout location={props.location}>
       <Masthead>

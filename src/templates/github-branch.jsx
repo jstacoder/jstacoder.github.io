@@ -8,7 +8,7 @@ export default props => {
     const branch = props.data.github.repository.ref
     const commit = branch.target
 
-    console.log(commit.history.commits)
+    // console.log(commit.history.commits)
     return(
         <GithubLayout
             title={branch.name}
