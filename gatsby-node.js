@@ -278,8 +278,8 @@ exports.createPages = ({ graphql, actions }) => {
   })
 }
 
-exports.onCreateWebpackConfig = ({ actions }) => {
-  actions.setWebpackConfig({
+exports.onCreateWebpackConfig = ({ actions, stage, loaders }) => {
+  let config = {
     plugins: [new DotenvWebpackPlugin()],
     resolve: {
       alias: {
@@ -296,5 +296,16 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         '~scss': path.resolve(__dirname, 'src/scss'),
       },
     },
-  })
+  }
+  if (stage === 'build-html') {
+    config.module = {
+      rules: [
+        {
+          test: /react-ace/,
+          use: loaders.null(),
+        },
+      ],
+    }
+  }
+  actions.setWebpackConfig(config)
 }
