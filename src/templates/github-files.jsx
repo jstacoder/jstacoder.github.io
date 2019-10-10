@@ -45,7 +45,7 @@ export const getChangedFilesFromCommit = commit =>{
 
   parents.forEach(parent=> parentEntries[parent.oid] = parent.tree.entries)
 
-  console.log('ENTRIES: ',  commitEntries, parentEntries)
+  // console.log('ENTRIES: ',  commitEntries, parentEntries)
 
   const combineEntry = ({name, object = {}}={})=> ({name, ...object})
 
@@ -65,7 +65,7 @@ export const getChangedFilesFromCommit = commit =>{
     (prev, parent)=> ({...prev, [parent.oid]: recursiveEntrys(parentEntries[parent.oid])}), {}
   )
 
-  console.log('HERELL ==>  ', commits, parentCommits)
+  // console.log('HERELL ==>  ', commits, parentCommits)
 
   parents.forEach(parent=>{
     const currentParentEntries = parentEntries[parent.oid]
@@ -75,9 +75,9 @@ export const getChangedFilesFromCommit = commit =>{
     const parentObj = parentCommits[parent.oid] ? parentCommits[parent.oid] : [] //mapArrToObj('name')(currentParentEntries)
     const addedFiles = commitEntries.length > currentParentEntries.length
     const removedFiles = commitEntries.length < currentParentEntries.length
-    console.log('first: ', addedFiles)
-    console.log('second: ', additions)
-    console.log('removed: ', removedFiles)
+    // console.log('first: ', addedFiles)
+    // console.log('second: ', additions)
+    // console.log('removed: ', removedFiles)
 
 
 
@@ -87,14 +87,14 @@ export const getChangedFilesFromCommit = commit =>{
 
     const changedFiles = diffFiles(parentNames, commitNames)
 
-    console.log('changed: ', commits, 'added: ', parentObj, 'removed: ', removedFiles)
+    // console.log('changed: ', commits, 'added: ', parentObj, 'removed: ', removedFiles)
 
     const { added, deleted, updated } = detailedDiff(commits, parentObj)
 
     addedItems.concat(Object.keys(added))
     deletedItems.concat(Object.keys(deleted))
 
-    console.log('added: ', added, '\ndeleted: ',deleted, '\nupdated: ',updated)
+    // console.log('added: ', added, '\ndeleted: ',deleted, '\nupdated: ',updated)
 
     const updatedKeys = Object.keys(updated)
 
@@ -111,7 +111,7 @@ export const getChangedFilesFromCommit = commit =>{
 
       const updatedFileBase = updated[key]
 
-      console.log('UPDATED: ', updatedFileBase)
+      // console.log('UPDATED: ', updatedFileBase)
 
       const updatedFile = updatedFileBase && updatedFileBase.object && updatedFileBase.object.text
 
@@ -163,7 +163,7 @@ export default ({data: { github : { resource : commit }}}) =>{
         {tree.entries && <RenderTree {...tree} showFiles />}
         {updatedKeys.map(key=>{
           const itm = updatedItems[key]
-          console.log(itm)
+          // console.log(itm)
           return itm.parentText && itm.commitText ? (
             <Flex flexDirection={"column"}>
               <Box>{key}</Box>

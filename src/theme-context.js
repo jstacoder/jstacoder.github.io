@@ -149,8 +149,6 @@ Object.keys(themes).forEach(key => {
   currentTheme.breakpoints.sm = currentTheme.breakpoints[1]
   currentTheme.breakpoints.md = currentTheme.breakpoints[2]
   currentTheme.breakpoints.lg = currentTheme.breakpoints[3]
-
-  console.log(currentTheme.breakpoints)
 })
 
 const windowGlobal = typeof window !== 'undefined' && window
