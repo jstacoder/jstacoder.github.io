@@ -88,6 +88,7 @@ exports.createPages = ({ graphql, actions }) => {
       })
       if (ownerIsViewer && branch.target) {
         context.commitUrl = branch.target.commitUrl
+        context.parentPath = branchPath
         const commitPath = `${branchPath}/${branch.target.sha}`
         createPage({
           path: commitPath,
