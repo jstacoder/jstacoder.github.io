@@ -55,15 +55,17 @@ exports.createPages = ({ graphql, actions }) => {
   const githubBranchComponent = require.resolve(
     './src/templates/github-branch.jsx'
   )
-  const githubFilesComponents = require.resolve(
+  const githubFilesComponent = require.resolve(
     './src/templates/github-files.jsx'
   )
 
   const createGithubPages = repos => repos.nodes.forEach(createGithubPage)
 
   const createGithubPage = repo => {
+    const owner = repo.owner.login
+    const repoPath = `/github/${owner}/${repo.name}`
     createPage({
-      path: `/github/${repo.name}`,
+      path: repoPath,
       component: githubComponent,
       context: {
         repo,
@@ -71,8 +73,8 @@ exports.createPages = ({ graphql, actions }) => {
       },
     })
     repo.refs.branches.map(({ name: branchName, ...branch }) => {
-      const owner = repo.owner.login
       const ownerIsViewer = owner === 'jstacoder'
+      const branchPath = `${repoPath}/${branchName}`
       const context = {
         repoName: repo.name,
         branchName,
@@ -80,18 +82,16 @@ exports.createPages = ({ graphql, actions }) => {
         ownerIsViewer,
       }
       createPage({
-        path: `/github/${repo.name}/${branchName}`,
+        path: branchPath,
         component: githubBranchComponent,
         context,
       })
       if (ownerIsViewer && branch.target) {
         context.commitUrl = branch.target.commitUrl
-
-        const path = `/github/${repo.name}/${branchName}/${branch.target.sha}`
-        console.log(path)
+        const commitPath = `${branchPath}/${branch.target.sha}`
         createPage({
-          path,
-          component: githubFilesComponents,
+          path: commitPath,
+          component: githubFilesComponent,
           context,
         })
       }

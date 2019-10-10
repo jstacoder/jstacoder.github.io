@@ -98,13 +98,53 @@ const GithubTheme = () =>({
   ]
 })
 
+const languageMap = {
+  html: 'django',
+  xml:'xml',
+  mdx: 'md',
+  md: 'md', 
+  js: 'js',
+  css: 'css',
+  sh: 'bash',
+  c: 'c',
+  cs: 'cs',
+  cpp: 'cpp',
+  diff: 'diff',
+  yml: 'yml',
+  git: 'git',
+  graphql: 'graphql',
+  gql: 'graphql',
+  json: 'json',
+  less: 'less',
+  nginx: 'nginx',
+  objc: 'objectivec',
+  php: 'php',
+  psh: 'powershell',
+  pwsh: 'powershell',
+  jsx: 'jsx',
+  tsx: 'tsx',
+  sass: 'sass',
+  scss: 'scss',
+  sql: 'sql',
+  stylus: 'stylus',
+  styl: 'stylus',  
+}
 
+const getLanguageFromFilename = filename =>{
+  const parts = filename.split('.')
+
+  const ext = parts[parts.length-1]
+
+  return ext in languageMap ? languageMap[ext] : ext
+}
 
 const getLive = children =>
-  children && typeof children !== String ? children.props.live : false
+  children && typeof children !== String && children.props
+   ? children.props.live : false
 
 const getChildren = children =>
-  children && typeof children !== String ? React.Children.toArray(children.props.children).join('\n') :
+  children && typeof children !== String && children.props 
+  ? React.Children.toArray(children.props.children).join('\n') :
     children
 
 const getFilename = children =>
@@ -159,14 +199,14 @@ export const Code = ({children, onChange}) =>{
   const codeClassName = getClassName(children)
   
   const handleChange = useCallback((code)=>{
-      console.log('changing',code)
+      // console.log('changing',code)
         onChange && onChange(code)
         setCode(code)
   },[code])
   
-  console.log(code, filename, liveEditorRequested)
+  // console.log(code, filename, liveEditorRequested)
   
-  const language = codeClassName.replace(/language-/, '')
+  const language = codeClassName ? codeClassName.replace(/language-/, '') : getLanguageFromFilename(filename)
   
   const scope = {
     Alert,
