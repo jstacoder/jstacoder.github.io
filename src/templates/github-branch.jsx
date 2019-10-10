@@ -12,9 +12,14 @@ export default props => {
     return(
         <GithubLayout
             title={branch.name}
-            backUrl={`/github/${props.pageContext.repoName}`}
+            backUrl={`/github/${props.pageContext.owner}/${props.pageContext.repoName}`}
             backText={props.pageContext.repoName}>
-            <CommitBlockList repo={props.pageContext.repoName} branch={branch.name} commits={commit.history.commits}/>
+            <CommitBlockList 
+                owner={props.pageContext.owner}
+                repo={props.pageContext.repoName} 
+                branch={branch.name} 
+                commits={commit.history.commits}
+            />
         </GithubLayout>
     )
 }

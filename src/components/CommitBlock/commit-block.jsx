@@ -20,7 +20,7 @@ import { Link as GatsbyLink } from 'gatsby'
 import { CommitShaLink } from './commit-sha-link.jsx'
 import { CopyIcon } from '../ui/click-to-copy/index.jsx'
 
-export const CommitBlock = ({ commit, branch, repo }) => {
+export const CommitBlock = ({ commit, branch, repo, owner }) => {
     const {
         message,
         author,
@@ -57,7 +57,7 @@ export const CommitBlock = ({ commit, branch, repo }) => {
             <Box display={['none', 'none', 'flex', 'flex']} as={Flex} justifyContent={'space-between'}>
                 <Box as={Flex} flexDirection='column'>
                     <Box as={Flex}>
-                        <GatsbyLink to={`/github/${repo}/${branch}/${commitSha}`}  p={2} fontWeight={'700'} color={'black'} as={Flex}>{shortMessage}</GatsbyLink>
+                        <GatsbyLink to={`/github/${owner}/${repo}/${branch}/${commitSha}`}  p={2} fontWeight={'700'} color={'black'} as={Flex}>{shortMessage}</GatsbyLink>
                         {message.length !== shortMessage.length &&  <Box as={Text} mt={2} lineHeight={0} p={2} backgroundColor='gray.2' color='black' height='20px'>...</Box>}
                     </Box>
 

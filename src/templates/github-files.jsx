@@ -121,7 +121,7 @@ export default ({data: { github : { resource : commit }}}) =>{
   const updatedKeys = Object.keys(updatedItems)
 
   return (
-    <GithubLayout title={'files'} sidebar={false}>
+    <GithubLayout title={'files'}>
       <Box sx={{border: '1px solid grey', p: 4}}>
         <button onClick={()=> setShow(!show)}>{!!show ? 'hide' : 'show' }</button>
         <Box sx={{border: '1px solid black'}}>

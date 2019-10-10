@@ -22,7 +22,7 @@ const sortCommitsByCommitDate = commits =>{
     return rtn 
 }
 
-export const CommitBlockList = ({commits, branch, repo}) =>{    
+export const CommitBlockList = ({commits, branch, repo, owner}) =>{    
     const commitsByDay = sortCommitsByCommitDate(commits)
     const daysToShow = Object.keys(commitsByDay)    
     return (
@@ -45,7 +45,7 @@ export const CommitBlockList = ({commits, branch, repo}) =>{
                                         bg: '#f6fbff'
                                     }
                                 }} key={idx} selected={idx === 0}>
-                                    <CommitBlock repo={repo} commit={commit} branch={branch} />
+                                    <CommitBlock repo={repo} commit={commit} branch={branch} owner={owner} />
                                 </li>
                             ))}
                         </ul>
