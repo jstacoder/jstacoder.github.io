@@ -76,7 +76,7 @@ function RepoCard({ repository }) {
           mb={1}
         >
           <Heading fontSize={`13px`} lineHeight={1.25} mb={1}>
-            <Link to={`/github/${repository.name}`}>
+            <Link to={`/github/${repository.owner.login}/${repository.name}`}>
               <StyledOcticon icon={RepoIcon} marginRight={1} />
               <Text ml={1} fontWeight={'normal'}>
                 {repository.owner.login}/
