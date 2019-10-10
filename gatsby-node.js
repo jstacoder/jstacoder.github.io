@@ -55,29 +55,46 @@ exports.createPages = ({ graphql, actions }) => {
   const githubBranchComponent = require.resolve(
     './src/templates/github-branch.jsx'
   )
+  const githubFilesComponent = require.resolve(
+    './src/templates/github-files.jsx'
+  )
 
   const createGithubPages = repos => repos.nodes.forEach(createGithubPage)
 
   const createGithubPage = repo => {
+    const owner = repo.owner.login
+    const repoPath = `/github/${owner}/${repo.name}`
     createPage({
-      path: `/github/${repo.name}`,
+      path: repoPath,
       component: githubComponent,
       context: {
         repo,
         repoName: repo.name,
       },
     })
-    repo.refs.branches.map(({ name: branchName }) => {
-      const owner = repo.owner.login
+    repo.refs.branches.map(({ name: branchName, ...branch }) => {
+      const ownerIsViewer = owner === 'jstacoder'
+      const branchPath = `${repoPath}/${branchName}`
+      const context = {
+        repoName: repo.name,
+        branchName,
+        owner,
+        ownerIsViewer,
+      }
       createPage({
-        path: `/github/${repo.name}/${branchName}`,
+        path: branchPath,
         component: githubBranchComponent,
-        context: {
-          repoName: repo.name,
-          branchName,
-          owner,
-        },
+        context,
       })
+      if (ownerIsViewer && branch.target) {
+        context.commitUrl = branch.target.commitUrl
+        const commitPath = `${branchPath}/${branch.target.sha}`
+        createPage({
+          path: commitPath,
+          component: githubFilesComponent,
+          context,
+        })
+      }
     })
   }
 
@@ -155,6 +172,12 @@ exports.createPages = ({ graphql, actions }) => {
                     refs(refPrefix: "refs/heads/", first: 20) {
                       branches: nodes {
                         name
+                        target {
+                          ... on Github_Commit {
+                            sha: oid
+                            commitUrl
+                          }
+                        }
                       }
                     }
                   }

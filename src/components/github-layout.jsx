@@ -5,12 +5,10 @@ import {
   Text,   
   Heading,   
   Position,
+  Flex,
   } from '@primer/components'
 import MastHead from './mastHead'
-import { css } from 'styled-components'
-import { doczState } from 'docz'
-import { system } from 'styled-system'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import SEO from '../components/seo'
 import { HomeLink } from '../components/home-link'
@@ -22,6 +20,14 @@ const pStyle = css`
   }
 `
 
+const Header = ({children}) =>{
+  return (
+    <Box width='100%'>
+      {children}
+    </Box>
+  )
+}
+
 
 export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUrl, backText, isIndex=false}) => {
   const { style } = useThemeContext()
@@ -30,7 +36,9 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
   return (  
       
     <BorderBox
-      display={[null, 'flex']}
+      as={Flex}
+      flexDirection={`${sidebar? 'row': 'column'}`}
+      display={[null, 'flex']}      
       border={0}
       borderBottom={[null, null, null, style !== 'dark' ? 1 : 0]}
       minHeight={'100vh'}
@@ -52,7 +60,12 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
             <MastHead metaData={true} />
           </Position>
         </BorderBox>
-      ) : null}
+      ) : (
+        <Header>
+          <Box size={20} border="1px solid blue">Hi</Box>
+        </Header>
+      )}
+
       <BorderBox
         width={mainWidth}
         px={[0, 0, 4, 7]}
@@ -61,6 +74,8 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
         borderRadius={0}
         bg={'background'}
         py={[0,0, 4, 6]}
+        as={sidebar ? BorderBox : Flex}
+        flex={sidebar ? 0 : 1}
       >
         <Box mx={'auto'} maxWidth={900}>
           <Box fontSize={4} color={style === 'dark' ? 'white' : null} mb={6}>

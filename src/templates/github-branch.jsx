@@ -6,13 +6,20 @@ import { CommitBlockList } from '../components/CommitBlock/commit-block-list.jsx
 
 export default props => {
     const branch = props.data.github.repository.ref
-    const commit = branch.target 
+    const commit = branch.target
+
+    console.log(commit.history.commits)
     return(
-        <GithubLayout 
-            title={branch.name} 
-            backUrl={`/github/${props.pageContext.repoName}`} 
-            backText={props.pageContext.repoName}>                                
-            <CommitBlockList commits={commit.history.commits}/>            
+        <GithubLayout
+            title={branch.name}
+            backUrl={`/github/${props.pageContext.owner}/${props.pageContext.repoName}`}
+            backText={props.pageContext.repoName}>
+            <CommitBlockList 
+                owner={props.pageContext.owner}
+                repo={props.pageContext.repoName} 
+                branch={branch.name} 
+                commits={commit.history.commits}
+            />
         </GithubLayout>
     )
 }
@@ -23,6 +30,7 @@ export const query = graphql`
         $repoName: String! 
         $branchName: String!
         $owner: String!
+        $ownerIsViewer: Boolean!
     ){
         github{
             repository(
@@ -33,6 +41,7 @@ export const query = graphql`
                     name
                     target {                        
                         ...on Github_Commit {
+                            
                             committedDate
                             oid                            
                             message
@@ -41,13 +50,12 @@ export const query = graphql`
                             additions
                             deletions
                             history(
-                                first: 10
-                                
+                                first: 10                               
                             ){
                                 commits: nodes{
                                     message
                                     authoredDate
-                                    committedDate                                
+                                    committedDate         
                                     author{
                                         avatarUrl                                    
                                         user{
@@ -57,7 +65,27 @@ export const query = graphql`
                                     }
                                     treeUrl
                                     commitUrl
-                                    commitSha: oid                                
+                                    commitSha: oid           
+                                    tree @include(if: $ownerIsViewer){
+                                        entries {
+                                          name
+                                          object {
+                                            ...on Github_Tree {
+                                              entries {
+                                                name
+                                                object{
+                                                  ...on Github_Tree {
+                                                    entries {
+                                                      name
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          
+                                        }
+                                      }
+                                    }
                                 }                            
                             }
                         }
