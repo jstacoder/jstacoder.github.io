@@ -157,7 +157,7 @@ const getClassName = children =>
 
 const CodeWrapper = ({children, filename, code}) =>{
   return filename  !== undefined ? (
-    <Box mt={3}>
+    <Box mt={3} width={"100%"}>
       <FilenameBox
         bg='secondaryBackground'
         color='lightText'
