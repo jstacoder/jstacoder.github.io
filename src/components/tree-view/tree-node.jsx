@@ -36,7 +36,7 @@ const NodeIcon = styled.div`
 
 
 export const TreeNode = props =>{
-    console.log(props)
+    // console.log(props)
     const {node = {}, getChildNodes, level, onToggle, onNodeSelect, selected, allowFiles, allowFolders} = props
 
     const isAllowed = node.type === 'folder' ? allowFolders : allowFiles

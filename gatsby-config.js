@@ -259,7 +259,7 @@ module.exports = {
     //   }
     // },
     //    'gatsby-plugin-mdx',
-    `gatsby-theme-style-guide`,
+    // `gatsby-theme-style-guide`,
     {
       resolve: `gatsby-plugin-remote-images`,
       options: {
