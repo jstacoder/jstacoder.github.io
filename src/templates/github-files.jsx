@@ -103,21 +103,21 @@ export const getChangedFilesFromCommit = commit =>{
 
       const parentIdx = currentParentEntries.indexOf(parentObj[key])
 
-      const _commitText = commitEntries[idx].object.text
+      const _commitText = commitEntries[idx] && commitEntries[idx].object && commitEntries[idx].object.text
       const commitText = _commitText && _commitText.split('\n')
 
-       const _parentText = currentParentEntries[parentIdx].object.text
+       const _parentText = currentParentEntries[parentIdx] && currentParentEntries[parentIdx].object && currentParentEntries[parentIdx].object.text
        const parentText = _parentText && _parentText.split('\n')
 
-      const updatedFileBase = updated[key]
+      // const updatedFileBase = updated[key]
 
       // console.log('UPDATED: ', updatedFileBase)
 
-      const updatedFile = updatedFileBase && updatedFileBase.object && updatedFileBase.object.text
+      // const updatedFile = updatedFileBase && updatedFileBase.object && updatedFileBase.object.text
 
-      const oldFileBase = parentObj[key]
+      // const oldFileBase = parentObj[key]
 
-      const oldFile = oldFileBase && oldFileBase.object && oldFileBase.object.text
+      // const oldFile = oldFileBase && oldFileBase.object && oldFileBase.object.text
 
       updatedItems = {
         ...updatedItems, [key]: {
