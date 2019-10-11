@@ -123,8 +123,8 @@ export const getChangedFilesFromCommit = commit =>{
       updatedItems = {
         ...updatedItems, [key]: {
           diff: unifiedDiff(
-            parentText,
             commitText,
+            parentText,
             {
               fromfile: `${key}[OLD]=>`,
               fromfiledate: parentCommittedDate,

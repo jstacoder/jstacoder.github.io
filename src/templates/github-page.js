@@ -68,7 +68,7 @@ export const query = graphql`
   query githubRepoQuery($repoName: String!) {
     github {
       repository(name: $repoName, owner: "jstacoder") {
-        owner: {
+        owner {
           login
         }
         refs(refPrefix: "refs/heads/", first: 10) {
