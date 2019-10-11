@@ -114,8 +114,6 @@ export const getChangedFilesFromCommit = commit =>{
 
       // const updatedFileBase = updated[key]
 
-      // // console.log('UPDATED: ', updatedFileBase)
-
       // const updatedFile = updatedFileBase && updatedFileBase.object && updatedFileBase.object.text
 
       // const oldFileBase = parentObj[key]
@@ -148,7 +146,7 @@ export const getChangedFilesFromCommit = commit =>{
   }
 }
 
-export default ({data: { github : { resource : commit }}}) =>{
+export default ({data: { github : { resource : commit }}, ...props}) =>{
   const [show, setShow] = useState(true)
   const { tree } = commit
   const { addedItems, deletedItems, updatedItems } = getChangedFilesFromCommit(commit)
@@ -157,7 +155,7 @@ export default ({data: { github : { resource : commit }}}) =>{
     console.log('clicked ', num)
   }
   return (
-    <GithubLayout title={'files'}>
+    <GithubLayout title={commit.oid.slice(0, 6)} sidebar={false} backUrl={props.pageContext.parentPath} backText={'go back'} >
       <Box sx={{border: '1px solid grey', p: 0}}>
         <button onClick={()=> setShow(!show)}>{!!show ? 'hide' : 'show' }</button>
         <Box sx={{border: '1px solid black'}}>

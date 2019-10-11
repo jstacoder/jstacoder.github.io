@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback, useContext } from 'react'
 import { LiveContext } from 'react-live'
-import AceEditor from 'react-ace'
+import  AceEditor from 'react-ace'
 import 'brace/mode/jsx'
 import 'brace/'
 
@@ -21,8 +21,8 @@ export const CodeEditor = ({code, disabled, language, onChange, style, minHeight
             onChange={updateContent}
             style={{...style, minHeight, maxHeight: '100vh', height:'100%'}}
             name="blah"
-            mode={'jsx'}
-            theme="monokai"
+            mode={language}
+            theme={theme || "monokai"}
             showGutter={true}/>
     )
 }

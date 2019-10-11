@@ -9,10 +9,10 @@ import Icon from '../components/Icon'
 
 import styled from 'styled-components'
 
-const BranchLink = ({ branch, repo }) => {
+const BranchLink = ({ branch, repo, owner }) => {
   return (
     <Text as="p">
-      <PrimerLink to={`/github/${repo}/${branch}`} as={Link}>
+      <PrimerLink to={`/github/${owner}/${repo}/${branch}`} as={Link}>
         {branch}
       </PrimerLink>
     </Text>
@@ -52,7 +52,7 @@ export default props => {
                   <BranchLink
                     branch={name}
                     repo={repo.name}
-                    owner={'jstacoder'}
+                    owner={data.github.repository.owner.login}
                     key={name}
                   />
                 ))}
@@ -68,6 +68,9 @@ export const query = graphql`
   query githubRepoQuery($repoName: String!) {
     github {
       repository(name: $repoName, owner: "jstacoder") {
+        owner: {
+          login
+        }
         refs(refPrefix: "refs/heads/", first: 10) {
           branches: nodes {
             name
