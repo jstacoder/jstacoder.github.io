@@ -2,6 +2,9 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer'
 
+import { componentsMap } from '../../gatsby-browser'
+import { GithubLayout } from '~components/github-layout'
+
 export default function PageTemplate({
   data: {
     mdx: {
@@ -13,11 +16,14 @@ export default function PageTemplate({
   ...props
 }) {
   return (
-    <React.Fragment>
-      <MDXRenderer {...props} title={title} timeToRead={timeToRead}>
-        {body}
-      </MDXRenderer>
-    </React.Fragment>
+    <MDXRenderer
+      {...props}
+      title={title}
+      timeToRead={timeToRead}
+      components={componentsMap}
+    >
+      {body}
+    </MDXRenderer>
   )
 }
 

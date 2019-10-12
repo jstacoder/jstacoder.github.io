@@ -6,32 +6,39 @@ import { ChevronLeft } from '@primer/octicons-react'
 
 export const HomeLink = ({url = "/", text = "Home"}) =>{
   return (
-     <Text fontSize={5} mx={4}>
+     <Text
+       sx={{
+         fontSize:5,
+         mx:4
+       }}>
        <Box
          as={'span'}
-         display={'flex'}
-         alignItems={'center'}
-
+         sx={{
+           display: 'flex',
+           alignItems: 'center',
+         }}
        >
          <Link
            as={GatsbyLink}
            to={url}
-           display={'flex'}
-           alignItems={'center'}
-           color={'text'}
            sx={{
+             display:'flex',
+             alignItems: 'center',
+             color: 'text',
             ':hover': {
-               color: 'lightText',
+               color: 'darkText',
                textDecoration:'none',
             }
          }}
          >
            <StyledOcticon
              icon={ChevronLeft}
-             size={16}
-             verticalAlign="middle"
-             ariaLabel={text}
-             mr={2}
+             sx={{
+               size: 16 ,
+               verticalAlign: "middle",
+               mr:  2 ,
+             }}
+               ariaLabel={text}
            />
            {text}
          </Link>

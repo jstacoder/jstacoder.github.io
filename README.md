@@ -1,3 +1,8 @@
+---
+name: My Profile
+route: /readme
+---
+
 ### My Profile site
 
 ![](./static/img/profile-image.png)

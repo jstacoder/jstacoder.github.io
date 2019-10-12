@@ -143,15 +143,15 @@ module.exports = {
             resolve: 'gatsby-remark-emoji',
             options: {},
           },
-          `gatsby-remark-unwrap-images`,
-          {
-            resolve: 'gatsby-remark-images',
-            options: {
-              maxWidth: 750,
-              linkImagesToOriginal: false,
-              wrapperStyle: 'margin-bottom: 1.0725rem;',
-            },
-          },
+          // `gatsby-remark-unwrap-images`,
+          // {
+          //   resolve: 'gatsby-remark-images',
+          //   options: {
+          //     maxWidth: 750,
+          //     linkImagesToOriginal: false,
+          //     wrapperStyle: 'margin-bottom: 1.0725rem;',
+          //   },
+          // },
           {
             resolve: 'gatsby-remark-responsive-iframe',
             options: {
@@ -231,26 +231,26 @@ module.exports = {
     //     // }]
     //   }
     // },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        extensions: ['.mdx', '.md'],
-        gatsbyRemarkPlugins: [
-          { resolve: `gatsby-remark-unwrap-images` },
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 1152,
-              linkImagesToOriginal: false,
-              quality: 100,
-              withWebp: true,
-            },
-          },
-          { resolve: `gatsby-remark-copy-linked-files` },
-        ],
-        plugins: ['gatsby-remark-images'],
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-mdx`,
+    //   options: {
+    //     extensions: ['.mdx', '.md'],
+    //     gatsbyRemarkPlugins: [
+    //       // { resolve: `gatsby-remark-unwrap-images` },
+    //       // {
+    //       //   resolve: `gatsby-remark-images`,
+    //       //   options: {
+    //       //     maxWidth: 1152,
+    //       //     linkImagesToOriginal: false,
+    //       //     quality: 100,
+    //       //     withWebp: true,
+    //       //   },
+    //       // },
+    //       { resolve: `gatsby-remark-copy-linked-files` },
+    //     ],
+    //     // plugins: ['gatsby-remark-images'],
+    //   },
+    // },
     `gatsby-theme-docz`,
     // {
     //   resolve: `gatsby-plugin-theme-ui`,

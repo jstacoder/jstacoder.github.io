@@ -1,5 +1,7 @@
-import React, { useReducer, createContext } from 'react'
-import { ThemeProvider } from 'styled-components'
+/** @jsx jsx */
+import { jsx, ThemeProvider } from 'theme-ui'
+import { useReducer, createContext } from 'react'
+import { theme as DoczTheme, ComponentsProvider } from 'docz'
 import { generateMedia } from 'styled-media-query'
 import { theme as primerTheme } from '@primer/components'
 
@@ -71,17 +73,15 @@ export const themes = {
       success: getSuccess(primerTheme.colors, 'light'),
       error: getError(primerTheme.colors, 'light'),
       grey: '#6a737d',
-
       white: '#fff',
       lightGray: '#eaecef',
       darkGray: '#586069',
-      text: '#495057',
       lightText: primerTheme.colors.gray[8],
       darkText: primerTheme.colors.gray[4],
       subText: '#586069',
       secondaryBackground: 'white',
       lightBackground: '#d5d7d6',
-      background: primerTheme.colors.gray[1],
+      mainBackground: primerTheme.colors.gray[1],
       lightBorder: primerTheme.colors.gray[1],
       darkBorder: null,
       darkBackground: primerTheme.colors.gray[8],
@@ -99,6 +99,7 @@ export const themes = {
     background: '#2f363d',
     iconColor: '#ffffff',
     fontColor: '#fff',
+    border: 0,
     colors: {
       ...primerTheme.colors,
       fontColor: '#fff',
@@ -111,17 +112,15 @@ export const themes = {
       error: getError(primerTheme.colors, 'dark'),
       grey: '#586069',
       white: '#fff',
-      text: 'white',
       lightGray: '#eaecef',
       darkGray: '#24292e',
       lightText: '#eaecef',
-      darkText: 'darkslategray',
+      darkText: '#868e96',
       subText: '#eaecef',
-      background: primerTheme.colors.gray[8],
       secondaryBackground: primerTheme.colors.gray[9],
-      lightBackground: '#c5c8c3',
+      lightBackground: primerTheme.colors.gray[9],
       lightBorder: null,
-      background: primerTheme.colors.gray[9],
+      mainBackground: primerTheme.colors.gray[8],
       darkBackground: primerTheme.colors.gray[8],
       darkBorder: primerTheme.colors.gray[1],
     },
@@ -187,10 +186,15 @@ export const ThemeContext = createContext({
 
 export const ThemeContextProvider = ({ children, components }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
+  const Theme = DoczTheme({ ...state.theme })
   const value = { state, dispatch }
   return (
     <ThemeContext.Provider value={value}>
-      <ThemeProvider theme={state.theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={state.theme} components={components}>
+        <ComponentsProvider components={components}>
+          {children}
+        </ComponentsProvider>
+      </ThemeProvider>
     </ThemeContext.Provider>
   )
 }

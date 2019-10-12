@@ -15,10 +15,6 @@ categories:
 draft: true
 ---
 
-import Wrapper from '~components/wrapper.jsx'
-
-export default Wrapper
-
 ## Dark Mode:
 
 ### The react hooks way

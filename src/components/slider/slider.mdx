@@ -1,23 +1,19 @@
 ---
  title: Slider component
  menu: Components
- draft: true
+ draft: false
 ---
+
 
 import Slider from './'
 import { SliderWithStartAndEndHandler, VerticalExample } from './examples.jsx'
-import ComponentProps from '../component-props'
-
-import Wrapper from '~components/wrapper.jsx'
-
-export default Wrapper
-
+import { Props } from 'docz'
 
 
 ### Slider Component
 
 ## Props
-<ComponentProps component={Slider}/>
+<Props of={Slider}/>
 
 
 ## Usage
@@ -48,7 +44,7 @@ export default Wrapper
 
     return (
         <BorderBox p={3} m={2}>
-           <BorderBox p={2} m={2} style={{textAlign:'center'}} width={'100px'} mx={'auto'} color="black"> {val}</BorderBox>
+           <BorderBox p={2} m={2} style={{textAlign:'center'}} width={'100px'} mx={'auto'} color='black'> {val}</BorderBox>
             <Slider value={val} onChange={setVal}/>
         </BorderBox>
     )

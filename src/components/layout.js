@@ -16,8 +16,8 @@ export default function Layout({ children }) {
     state: { theme },
   } = useContext(ThemeContext)
   useEffect(() => {
-    document.body.style.backgroundColor = theme.background
-  }, [theme.background])
+    document.body.style.backgroundColor = theme.colors.background
+  }, [theme.colors.background])
   // const components = {
   //   wrapper: ({ children }) => <React.Fragment>{children}</React.Fragment>,
   // }

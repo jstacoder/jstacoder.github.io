@@ -13,10 +13,6 @@ date: '2019-05-05'
 draft: true
 ---
 
-import Wrapper from '~components/wrapper.jsx'
-
-export default Wrapper
-
 # Graphql why?
 
 ### You may have heard about Gatsby and that it uses graphql

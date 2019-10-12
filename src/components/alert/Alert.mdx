@@ -2,17 +2,13 @@
   title: Alert Component
   menu: Projects
   draft: false
----
+---  
+
+
 
 import { Alert } from './alert.js'
 import { Star, Repo, GitBranch } from '@primer/octicons-react'
 import { Props } from 'docz'
-
-import ComponentProps from '../component-props'
-
-import Wrapper from '~components/wrapper.jsx'
-
-export default Wrapper
 
 
 Here is an alert component ive written.
@@ -54,7 +50,7 @@ Try changing the code in the example below.
 ### Warning 
 
 ```jsx live=true
-<Alert kind="warning">
+<Alert kind='warning'>
     A warning alert
 </Alert>
 ```
@@ -62,7 +58,7 @@ Try changing the code in the example below.
 ### Danger with custom icon
 
 ```jsx live=true
-<Alert icon={props=> <GitBranch {...props} size={25}/>} kind="danger">
+<Alert icon={props=> <GitBranch {...props} size={25}/>} kind='danger'>
     Danger will robinson with custom icon
 </Alert>
 ```
@@ -70,7 +66,7 @@ Try changing the code in the example below.
 ### Error
 
 ```jsx live=true
-<Alert kind="error">
+<Alert kind='error'>
     An error alert
 </Alert>
 ```
@@ -78,7 +74,7 @@ Try changing the code in the example below.
 ### Success 
 
 ```jsx live=true
-<Alert kind="success" dismissable>
+<Alert kind='success' dismissable>
     A successful alert
 </Alert>
 ```

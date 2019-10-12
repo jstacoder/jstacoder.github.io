@@ -59,9 +59,10 @@ exports.createPages = ({ graphql, actions }) => {
     './src/templates/github-files.jsx'
   )
 
-  const createGithubPages = repos => repos.nodes.forEach(createGithubPage)
+  const createGithubPages = (repos, viewer) =>
+    repos.nodes.forEach(repo => createGithubPage({ repo, viewer }))
 
-  const createGithubPage = repo => {
+  const createGithubPage = ({ repo, viewer }) => {
     const owner = repo.owner.login
     const repoPath = `/github/${owner}/${repo.name}`
     createPage({
@@ -73,7 +74,7 @@ exports.createPages = ({ graphql, actions }) => {
       },
     })
     repo.refs.branches.map(({ name: branchName, ...branch }) => {
-      const ownerIsViewer = owner === 'jstacoder'
+      const ownerIsViewer = owner === viewer.login
       const branchPath = `${repoPath}/${branchName}`
       const context = {
         repoName: repo.name,
@@ -138,6 +139,7 @@ exports.createPages = ({ graphql, actions }) => {
             }
             github {
               viewer {
+                login
                 repositories(
                   first: 10
                   orderBy: { field: STARGAZERS, direction: DESC }
@@ -234,7 +236,7 @@ exports.createPages = ({ graphql, actions }) => {
           allMdx: { edges: mdxPosts } = {},
           allPosts: { posts } = {},
           github: {
-            viewer: { repositories, repositoriesContributedTo },
+            viewer: { repositories, repositoriesContributedTo, login },
           },
         } = data || {}
 
@@ -246,8 +248,8 @@ exports.createPages = ({ graphql, actions }) => {
             repositoriesContributedTo,
           },
         })
-        createGithubPages(repositories)
-        createGithubPages(repositoriesContributedTo)
+        createGithubPages(repositories, { login })
+        createGithubPages(repositoriesContributedTo, { login })
         each(mdxPosts, ({ node }) => {
           node.fields.slug &&
             createPage({

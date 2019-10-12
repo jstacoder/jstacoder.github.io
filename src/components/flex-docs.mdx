@@ -8,11 +8,6 @@ import { Playground, Props } from 'docz'
 import { BorderBox, Flex, Text, Box } from '@primer/components'
 import { Center, SpaceBetween, SpaceAround, SpaceEvenly, FlexStart, FlexEnd, BlockGroup, FlexBlock } from '../components/flex-docs/justify-content.jsx'
 
-import Wrapper from '~components/wrapper.jsx'
-
-export default Wrapper
-
-
 aaa
 
 | foo | bar |
@@ -65,8 +60,8 @@ aaaa
 
 
 <Playground>
-<>
-<Flex flexWrap={'wrap'} alignItems={'center'} height={500}>
+<Box>
+<Flex flexWrap='wrap' alignItems='center' height={500}>
 <Text mb={0} style={{alignSelf: 'flex-end'}}>SpaceAround</Text>
 <Flex minWidth={'100%'} justifyContent={'space-around'}>
   <BorderBox bg={'green.3'} size={20}></BorderBox>
@@ -89,5 +84,5 @@ aaaa
   <BorderBox bg={'gray.3'} size={20}></BorderBox>
 </Flex>
 </Flex>
-</>
+</Box>
 </Playground>

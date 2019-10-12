@@ -1,4 +1,6 @@
-import React from 'react'
+/** @jsx jsx */
+import { Fragment } from 'react'
+import { jsx } from 'theme-ui'
 import { useStaticQuery, graphql } from 'gatsby'
 import Emoji from 'react-emoji-render'
 import {
@@ -19,6 +21,7 @@ import {
   Text,
 } from '@primer/components'
 import Toggle from 'react-toggle'
+import './Toggle.css'
 import useSiteMetadata from '../hooks/siteMetaData'
 import useThemeContext from '../hooks/themeContext'
 import styled from 'styled-components'
@@ -91,7 +94,7 @@ function mastHead() {
     company,
   } = user
   return (
-    <>
+    <Fragment>
       <Avatar
         src={avatarUrl}
         alt="user-avatar"
@@ -279,7 +282,7 @@ function mastHead() {
           />
         </Box>
       </Box>
-    </>
+    </Fragment>
   )
 }
 

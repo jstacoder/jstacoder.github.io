@@ -1,9 +1,10 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
 import {
   BorderBox,
   Box,
-  Text,   
-  Heading,   
+  Text,
+  Heading,
   Position,
   Flex,
   } from '@primer/components'
@@ -20,88 +21,114 @@ const pStyle = css`
   }
 `
 
-const Header = ({children}) =>{
+const Header = ({children, ...props}) =>{
   return (
-    <Box width='100%'>
+    <Box {...props} as={Flex} width='100%'>
       {children}
     </Box>
   )
 }
 
 
-export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUrl, backText, isIndex=false}) => {
+export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUrl, backText, path}) => {
+  const isIndex = path === '/'
   const { style } = useThemeContext()
   const mainWidth = sidebar ? [null, '60%','60%', 9 / 12] : ['100%']
 
-  return (  
-      
+  return (
+
     <BorderBox
       as={Flex}
-      flexDirection={`${sidebar? 'row': 'column'}`}
-      display={[null, 'flex']}      
-      border={0}
-      borderBottom={[null, null, null, style !== 'dark' ? 1 : 0]}
-      minHeight={'100vh'}
-      width={'100%'}
+      sx={{
+        bg: 'mainBackground',
+        flexDirection: sidebar ? 'row': 'column',
+        display: [null, 'flex'],
+        border: 0,
+        borderBottom: [null, null, null, style !== 'dark' ? 1 : 0],
+        minHeight: '100vh',
+        width: '100%',
+      }}
     >
       <SEO/>
-      { sidebar ? (
         <BorderBox
-          alignSelf={'stretch'}
-          bg={'secondaryBackground'}
-          border={0}
-          borderRight={[null, null, null, style !== 'dark' ? 0 : 3]}
-          borderRadius={0}
-          px={[4, 4, 6, 7]}
-          py={6}
-          width={[null, '40%', '40%', 3 / 12]}
+          sx={{
+            alignSelf: 'stretch',
+            bg: 'secondaryBackground',
+            border: 0,
+            borderRight: [null, null, null, style !== 'dark' ? 0 : 3],
+            borderRadius: 0,
+            px: [4, 4, 6, 7],
+            py: 6,
+            width: [null, '40%', '20%'],
+            display: sidebar ? 'flex' : 'none',
+          }}
         >
-          <Position position={['static', 'sticky']} top={50} left={75}>
+          <Position sx={{maxWidth: [null, '40%', '15%']}} position={['static', null, 'fixed']} top={50} left={75}>
             <MastHead metaData={true} />
           </Position>
         </BorderBox>
-      ) : (
-        <Header>
-          <Box size={20} border="1px solid blue">Hi</Box>
+        <Header
+          sx={{display: sidebar ? 'none': 'inherit'}}
+        >
+          <Box sx={{width:20, height: 20,border: "1px solid blue"}}>Hi</Box>
         </Header>
-      )}
-
       <BorderBox
-        width={mainWidth}
-        px={[0, 0, 4, 7]}
-        border={0}
-        borderTop={[1, 1, 1, 0]}
-        borderRadius={0}
-        bg={'background'}
-        py={[0,0, 4, 6]}
+        sx={{
+          width: mainWidth,
+          px: [0, 0, 4, 7],
+          border: 0,
+          borderTop: [1, 1, 1, 0],
+          borderRadius: 0,
+          py: [0, 0, 4, 6],
+          flex: sidebar ? 1 : 0,
+        }}
         as={sidebar ? BorderBox : Flex}
-        flex={sidebar ? 0 : 1}
       >
-        <Box mx={'auto'} maxWidth={900}>
-          <Box fontSize={4} color={style === 'dark' ? 'white' : null} mb={6}>
+        <Box
+          sx={{
+            mx: 'auto',
+            maxWidth: 900,
+          }}
+        >
+          <Box
+            sx={{
+              fontSize: 4,
+              color: 'lightText',
+              mb: 6
+            }}>
             <Box
-              my={[2, 2, null]}
-              fontSize={4}
-            color={style === 'dark' ? 'white' : null}
+              sx={{
+                my: [2, 2, null],
+                fontSize: 4,
+                color: 'lightText'
+              }}
             >
               {!isIndex ? <HomeLink text={backText} url={backUrl} /> : null}
               <Heading
-                pl={[2, 2, null]}
-                fontSize={40}
-                fontWeight={300}
-                lineHeight={1.25}
+                sx={{
+                  pl: [2, 2, null],
+                  fontSize: 40,
+                  fontWeight: 300,
+                  lineHeight: 1.25,
+                }}
               >
                 {title}
               </Heading>
               <Text
-                mx={[2, 2, null]}
+                sx={{
+                  mx: [2, 2, null],
+                  mb: 5,
+                  color: 'lightText'
+                }}
                 as={'p'}
-                mb={5}
-                color={`${style === 'dark' ? 'white' : 'gray'}`}
               >
                 {timeToRead ? (<small>{timeToRead} min read</small>) : null}
               </Text>
-              <Box px={[0, 1, 2, 1, null]} className={'markdown-body'}>
+              <Box
+                sx={{
+                  px: [0, 1, 2, 1, null],
+                }}
+                className={'markdown-body'}>
                 {children}
               </Box>
             </Box>
@@ -110,6 +137,6 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
         </Box>
       </BorderBox>
     </BorderBox>
-  
+
   )
 }

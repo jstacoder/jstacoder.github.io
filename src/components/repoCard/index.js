@@ -1,4 +1,5 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx, Flex } from 'theme-ui'
 import Emoji from 'react-emoji-render'
 import { Link } from 'gatsby'
 import useThemeContext from '../../hooks/themeContext'
@@ -9,7 +10,7 @@ import {
   BorderBox,
   StyledOcticon,
   Heading,
-  Flex,
+  //Flex,
   Link as PrimerLink,
 } from '@primer/components'
 import styles from '../layout.scss'
@@ -53,79 +54,105 @@ function RepoCard({ repository }) {
   return (
     <BorderBox
       className={`${styles.githubComponent}`}
-      height={'100%'}
-      textAlign={'left'}
-      bg={'white'}
-      borderRadius={3}
-      p={3}
-      border={theme.border && theme.border}
-      borderColor={'lightBorder'}
-      boxShadow={theme.boxShadow && theme.boxShadow}
-      px={3}
-      mx={2}
+      sx={{
+        height: '100%',
+        textAlign: 'left',
+        bg: 'white',
+        borderRadius: 3,
+        p: 3,
+        border: theme.border,
+        borderColor: 'lightBorder',
+        boxShadow: theme.boxShadow,
+        px: 3,
+        mx: 2,
+      }}
     >
       <Flex
-        height={'100%'}
-        flexFlow={'column'}
-        justifyContent={'flex-start'}
-        flexDirection={'column'}
+        sx={{
+          height: '100%',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+        }}
       >
-        <Flex.Item
-          justifyContent={'space-between'}
-          alignItems={'flex-start'}
-          mb={1}
+        <Flex
+          sx={{
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            mb: 1,
+          }}
         >
-          <Heading fontSize={`13px`} lineHeight={1.25} mb={1}>
+          <Heading
+            sx={{
+              fontSize: `13px`,
+              lineHeight: 1.25,
+              mb: 1,
+            }}
+          >
             <Link to={`/github/${repository.owner.login}/${repository.name}`}>
               <StyledOcticon icon={RepoIcon} marginRight={1} />
-              <Text ml={1} fontWeight={'normal'}>
+              <Text
+                sx={{
+                  ml: 1,
+                  fontWeight: 'normal',
+                }}
+              >
                 {repository.owner.login}/
               </Text>
               {repository.name}
             </Link>
           </Heading>
-        </Flex.Item>
-        <Flex.Item flex={1} mb={'2'}>
+        </Flex>
+        <Flex
+          sx={{
+            flex: 1,
+            mb: 2,
+          }}
+        >
           <Text
-            className={repoStyles.repoText}
+            sx={{
+              color: 'darkText',
+              whiteSpace: 'normal',
+              fontSize: 4,
+            }}
             as={'p'}
-            color="darkText"
-            whiteSpace="normal"
-            fontSize={4}
           >
             <Emoji text={repository.description || ''} />
           </Text>
-        </Flex.Item>
-        <Flex.Item fontSize={6}>
-          <Flex justifyContent={'space-between'}>
-            <Flex.Item display={'inline-flex'}>
+        </Flex>
+        <Box sx={{ fontSize: 6 }}>
+          <Flex sx={{ justifyContent: 'space-between' }}>
+            <Flex sx={{ display: 'inline-flex' }}>
               <RepoColor color={repository.language.color} />
               <RepoLanguageText name={repository.language.name} />
-            </Flex.Item>
-            <Flex.Item display={'inline-flex'}>
+            </Flex>
+            <Flex sx={{ display: 'inline-flex' }}>
               <PrimerLink
                 href={repository.url}
-                display={'inline-flex'}
-                color={'gray'}
-                mr={1}
+                sx={{
+                  display: 'inline-flex',
+                  color: 'grey',
+                  mr: 1,
+                }}
               >
-                <StyledOcticon icon={StarIcon} marginRight={1} />
+                <StyledOcticon icon={StarIcon} sx={{ mr: 1 }} />
                 {repository.stargazers.totalCount}
               </PrimerLink>
-            </Flex.Item>
-            <Flex.Item display={'inline-flex'}>
+            </Flex>
+            <Flex sx={{ display: 'inline-flex' }}>
               <PrimerLink
                 href={repository.url}
-                display={'inline-flex'}
-                color={'gray'}
-                mr={1}
+                sx={{
+                  display: 'inline-flex',
+                  color: 'grey',
+                  mr: 1,
+                }}
               >
-                <StyledOcticon icon={GitBranchIcon} marginRight={1} />
+                <StyledOcticon icon={GitBranchIcon} sx={{ mr: 1 }} />
                 {repository.forkCount}
               </PrimerLink>
-            </Flex.Item>
+            </Flex>
           </Flex>
-        </Flex.Item>
+        </Box>
       </Flex>
     </BorderBox>
   )

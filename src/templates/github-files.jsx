@@ -1,11 +1,12 @@
 /** @jsx jsx */
-import { jsx, Box, Styled } from 'theme-ui'
+import { jsx, Box, Styled, useThemeUI } from 'theme-ui'
 import { useState } from 'react'
 import { graphql } from 'gatsby'
 import { FileDirectory, FileCode, FoldUp, FoldDown, ChevronRight, ChevronDown } from '@primer/octicons-react'
 import { StyledOcticon, Details, Flex } from '@primer/components'
 import { detailedDiff } from 'deep-object-diff'
 import lightFormat from 'date-fns/lightFormat'
+import { useConfig } from 'docz'
 
 import { CodeEditor } from 'components/ui/editor'
 import { Code as Pre } from 'components/ui/pre'
@@ -53,9 +54,9 @@ export const getChangedFilesFromCommit = commit =>{
     return entries.map(entry=>{
       const newEntry = combineEntry(entry)
       if(newEntry.entries){
-        newEntry.entries = recursiveEntrys(newEntry.entries)        
-      }        
-      return newEntry    
+        newEntry.entries = recursiveEntrys(newEntry.entries)
+      }
+      return newEntry
     })
   }
 
@@ -103,7 +104,7 @@ export const getChangedFilesFromCommit = commit =>{
 
       const parentIdx = currentParentEntries.indexOf(parentObj[key])
 
-      const entry = commitEntries[idx] 
+      const entry = commitEntries[idx]
       const _commitText = entry && entry.object && entry.object.text
       const commitText = _commitText && _commitText.split('\n')
 
@@ -147,6 +148,11 @@ export const getChangedFilesFromCommit = commit =>{
 }
 
 export default ({data: { github : { resource : commit }}, ...props}) =>{
+
+  const stuff = useThemeUI()
+  console.log("THEME-UI", stuff)
+  const config = useConfig()
+  console.log("DOCZ",config)
   const [show, setShow] = useState(true)
   const { tree } = commit
   const { addedItems, deletedItems, updatedItems } = getChangedFilesFromCommit(commit)
@@ -155,7 +161,7 @@ export default ({data: { github : { resource : commit }}, ...props}) =>{
     console.log('clicked ', num)
   }
   return (
-    <GithubLayout title={commit.oid.slice(0, 6)} sidebar={false} backUrl={props.pageContext.parentPath} backText={'go back'} >
+    <GithubLayout title={commit.oid.slice(0, 6)} backUrl={props.pageContext.parentPath} backText={'go back'} >
       <Box sx={{border: '1px solid grey', p: 0}}>
         <button onClick={()=> setShow(!show)}>{!!show ? 'hide' : 'show' }</button>
         <Box sx={{border: '1px solid black'}}>

@@ -1,66 +1,17 @@
-// @flow
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
 import { ThemeContextProvider } from './src/theme-context'
-import { BaseStyles } from '@primer/components'
-import { Playground, Props } from 'docz'
 import { utilities } from '@primer/components/css'
 import { createGlobalStyle } from 'styled-components'
 
-import useThemeContext from './src/hooks/themeContext'
-import { AuthContextProvider } from './src/hooks/authContext'
-import Wrapper from './src/components/wrapper'
-import { BlocksProvider } from 'mdx-blocks'
-import { future } from 'mdx-blocks/themes'
-
-import * as components from './src/components/ui'
-
-export const componentsMap = {
-  wrapper: Wrapper,
-  props: Props,
-  Props,
-  playground: Playground,
-  Playground,
-  pre: components.Code,
-  // ul: components.Ul,
-  ol: components.Ol,
-  table: components.Table,
-  p: components.P,
-  h1: components.H1,
-  h2: components.H2,
-  h3: components.H3,
-  h4: components.H4,
-  h5: components.H5,
-  h6: components.H6,
-  li: components.Li,
-  blockquote: components.Blockquote,
-  PhotoCredit: components.PhotoCredit,
-}
-
-const ComponentWrapper = ({ children, ...props }) => {
-  const { theme } = useThemeContext()
-
-  return (
-    <BlocksProvider
-      {...props}
-      {...future}
-      components={componentsMap}
-      theme={theme}
-    >
-      {children}
-    </BlocksProvider>
-  )
-}
+import componentsMap from './src/gatsby-plugin-theme-ui/components'
 
 export const wrapRootElement = ({ element }) => {
   const PrimerStyle = createGlobalStyle`${utilities}`
   return (
-    <AuthContextProvider>
-      <ThemeContextProvider components={componentsMap}>
-        <ComponentWrapper>
-          <PrimerStyle />
-          {element}
-        </ComponentWrapper>
-      </ThemeContextProvider>
-    </AuthContextProvider>
+    <ThemeContextProvider components={componentsMap}>
+      <PrimerStyle />
+      {element}
+    </ThemeContextProvider>
   )
 }

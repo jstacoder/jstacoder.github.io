@@ -1,0 +1,26 @@
+diff --git a/node_modules/remark-docz/dist/index.esm.js b/node_modules/remark-docz/dist/index.esm.js
+index 53db291..8d17be6 100644
+--- a/node_modules/remark-docz/dist/index.esm.js
++++ b/node_modules/remark-docz/dist/index.esm.js
+@@ -88,7 +88,7 @@ const createImgSrc = src => {
+   return t.jsxExpressionContainer(t.callExpression(t.identifier('require'), [t.stringLiteral(pathname)]));
+ };
+ 
+-const imageToJsx = node => generate(t.jsxOpeningElement(t.jsxIdentifier('img'), [t.jsxAttribute(t.jsxIdentifier('alt'), t.stringLiteral(node.alt)), t.jsxAttribute(t.jsxIdentifier('src'), createImgSrc(node.url))], true)).code; // turns `html` nodes into `jsx` nodes
++const imageToJsx = node => generate(t.jsxOpeningElement(t.jsxIdentifier('img'), [t.jsxAttribute(t.jsxIdentifier('alt'), t.stringLiteral(node.alt||'')), t.jsxAttribute(t.jsxIdentifier('src'), createImgSrc(node.url))], true)).code; // turns `html` nodes into `jsx` nodes
+ 
+ 
+ var index = (() => tree => {
+diff --git a/node_modules/remark-docz/dist/index.js b/node_modules/remark-docz/dist/index.js
+index ec8ba2e..b3ba23d 100644
+--- a/node_modules/remark-docz/dist/index.js
++++ b/node_modules/remark-docz/dist/index.js
+@@ -92,7 +92,7 @@ const createImgSrc = src => {
+   return t.jsxExpressionContainer(t.callExpression(t.identifier('require'), [t.stringLiteral(pathname)]));
+ };
+ 
+-const imageToJsx = node => generate(t.jsxOpeningElement(t.jsxIdentifier('img'), [t.jsxAttribute(t.jsxIdentifier('alt'), t.stringLiteral(node.alt)), t.jsxAttribute(t.jsxIdentifier('src'), createImgSrc(node.url))], true)).code; // turns `html` nodes into `jsx` nodes
++const imageToJsx = node => generate(t.jsxOpeningElement(t.jsxIdentifier('img'), [t.jsxAttribute(t.jsxIdentifier('alt'), t.stringLiteral(node.alt||'')), t.jsxAttribute(t.jsxIdentifier('src'), createImgSrc(node.url))], true)).code; // turns `html` nodes into `jsx` nodes
+ 
+ 
+ var index = (() => tree => {

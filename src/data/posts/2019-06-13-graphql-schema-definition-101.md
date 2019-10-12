@@ -12,10 +12,6 @@ categories:
 draft: true
 ---
 
-import Wrapper from '~components/wrapper.jsx'
-
-export default Wrapper
-
 ## Graphql schema 101
 
 ---
