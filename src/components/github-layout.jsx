@@ -60,11 +60,18 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
             borderRadius: 0,
             px: [4, 4, 6, 7],
             py: 6,
-            width: [null, '40%', '20%'],
+            width: [null, '40%', '25%'],
             display: sidebar ? 'flex' : 'none',
           }}
         >
-          <Position sx={{maxWidth: [null, '40%', '15%']}} position={['static', null, 'fixed']} top={50} left={75}>
+          <Position 
+              sx={{
+                maxWidth: [null, '40%', '18%']
+              }} 
+              position={['static', null, 'fixed']} 
+              top={'3em'} 
+              left={'3em'}
+            >
             <MastHead metaData={true} />
           </Position>
         </BorderBox>

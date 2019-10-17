@@ -19,6 +19,7 @@ import {
   Link as PrimerLink,
   BorderBox,
   Text,
+  Flex,
 } from '@primer/components'
 import Toggle from 'react-toggle'
 import './Toggle.css'
@@ -27,6 +28,7 @@ import useThemeContext from '../hooks/themeContext'
 import styled from 'styled-components'
 
 const StyledHr = styled.hr`
+  max-width: '40%';
   ${props => props.color === 'dark' && 'border-top-color: whitesmoke;'}
 `
 
@@ -71,11 +73,11 @@ function mastHead() {
     `
   )
   const StackedMeta = props => (
-    <Box {...props} display={[null, null, 'inline-block']} mr={3} />
+    <Box {...props} sx={{ display: [null, null, 'inline-block'], mr: 3 }} />
   )
 
   const SideMeta = props => (
-    <Box {...props} display={'flex'} alignItems={'center'} mb={3} />
+    <Box as={Flex} {...props} sx={{ alignItems: 'center', mb: 3 }} />
   )
 
   const MetaComponent = layout === 'stacked' ? StackedMeta : SideMeta
@@ -99,32 +101,38 @@ function mastHead() {
         src={avatarUrl}
         alt="user-avatar"
         className="circle"
-        mb={3}
-        size={150}
-        borderRadius={'50%'}
-        maxWidth={'180px'}
+        sx={{
+          mb: 3,
+          size: 150,
+          borderRadius: '50%',
+          maxWidth: '180px',
+        }}
       />
       <Heading
-        color={style === 'dark' ? 'white' : undefined}
-        mb={2}
-        lineHeight={1.25}
+        sx={{
+          color: 'lightText',
+          mb: 2,
+          lineHeight: 1.25,
+        }}
       >
         {name ? name : login}
       </Heading>
-      <Box fontSize={6} mb={2}>
+      <Box sx={{ fontSize: 6, mb: 2 }}>
         {name && (
-          <MetaComponent>
+          <MetaComponent sx={{ color: 'lightText' }}>
             <StyledOcticon
-              color={theme.iconColor}
+              sx={{
+                color: 'iconColor',
+                size: 20,
+                verticalAlign: 'middle',
+                mr: 2,
+              }}
               icon={MarkGithub}
-              size={20}
-              verticalAlign="middle"
-              mr={2}
               ariaLabel="GitHub"
             />
             <PrimerLink
               href={`https://github.com/${login}`}
-              color={style === 'dark' ? 'white' : undefined}
+              sx={{ color: 'lightText' }}
             >
               {login}
             </PrimerLink>
@@ -133,26 +141,30 @@ function mastHead() {
       </Box>
       <StyledHr color={style} />
       {isDeveloperProgramMember && (
-        <MetaComponent color={style === 'dark' ? 'white' : undefined}>
+        <MetaComponent sx={{ color: 'lightText' }}>
           <StyledOcticon
-            color={theme.iconColor}
+            sx={{
+              color: 'iconColor',
+              size: 20,
+              verticalAlign: 'middle',
+              mr: 2,
+            }}
             icon={CircuitBoard}
-            size={20}
-            verticalAlign="middle"
-            mr={2}
             ariaLabel="Location"
           />
           <BorderBox
             as={'span'}
-            fontSize={5}
-            border={0}
-            color={'white'}
-            bg={'success'}
-            py={1}
-            px={2}
+            sx={{
+              fontSize: 5,
+              border: 0,
+              color: 'white',
+              bg: 'success',
+              py: 1,
+              px: 2,
+              display: 'inline-block',
+              borderRadius: 2,
+            }}
             title="Developer Program Member"
-            display={'inline-block'}
-            borderRadius={2}
           >
             Developer Program Member
           </BorderBox>
@@ -160,34 +172,40 @@ function mastHead() {
       )}
       <Text
         as={'p'}
-        mb={3}
-        fontSize={4}
-        color={style === 'dark' ? 'white' : 'gray.5'}
+        sx={{
+          mb: 3,
+          fontSize: 4,
+          color: 'lightText',
+        }}
       >
         <Emoji text={bio || ''} />
       </Text>
-      <Box mb={6} fontSize={4}>
+      <Box sx={{ mb: 6, fontSize: 4 }}>
         {company && (
-          <MetaComponent color={style === 'dark' ? 'white' : undefined}>
+          <MetaComponent sx={{ color: 'lightText' }}>
             <StyledOcticon
-              color={theme.iconColor}
-              icon={Organization}
-              size={20}
-              verticalAlign="middle"
-              mr={2}
+              sx={{
+                color: 'iconColor',
+                size: 20,
+                verticalAlign: 'middle',
+                mr: 2,
+              }}
               ariaLabel="Location"
+              icon={Organization}
             />
             {company}
           </MetaComponent>
         )}
         {location && (
-          <MetaComponent color={style === 'dark' ? 'white' : undefined}>
+          <MetaComponent sx={{ color: 'lightText' }}>
             <StyledOcticon
-              color={theme.iconColor}
+              sx={{
+                color: 'iconColor',
+                size: 20,
+                verticalAlign: 'middle',
+                mr: 2,
+              }}
               icon={Location}
-              size={20}
-              verticalAlign="middle"
-              mr={2}
               ariaLabel="Location"
             />
             {location}
@@ -203,49 +221,47 @@ function mastHead() {
               mr={2}
               ariaLabel="email"
             />
-            <PrimerLink
-              href={`mailto:${email}`}
-              color={style === 'dark' ? 'white' : undefined}
-            >
+            <PrimerLink href={`mailto:${email}`} sx={{ color: 'lightText' }}>
               {email}
             </PrimerLink>
           </MetaComponent>
         )}
         {websiteUrl && (
-          <MetaComponent>
+          <MetaComponent sx={{ color: 'lightText' }}>
             <StyledOcticon
-              color={theme.iconColor}
+              sx={{
+                color: 'iconColor',
+                size: 20,
+                verticalAlign: 'middle',
+                mr: 2,
+              }}
               icon={Link}
-              size={20}
-              verticalAlign="middle"
-              mr={2}
               ariaLabel="email"
             />
-            <PrimerLink
-              href={websiteUrl}
-              color={style === 'dark' ? 'white' : undefined}
-            >
+            <PrimerLink href={websiteUrl} sx={{ color: 'lightText' }}>
               {websiteUrl}
             </PrimerLink>
           </MetaComponent>
         )}
         {isHireable && (
           <BorderBox
-            display={'inline-block'}
-            fontSize={5}
-            borderRadius={2}
-            bg={'green.5'}
-            py={1}
-            px={2}
+            sx={{
+              display: 'inline-block',
+              fontSize: 5,
+              borderRadius: 2,
+              bg: 'green.5',
+              py: 1,
+              px: 2,
+              border: 0,
+            }}
             title="Hire me"
-            border={0}
           >
             Available for hire
           </BorderBox>
         )}
         <StyledHr color={style} />
-        <Box mb={1}>
-          <Heading mb={2} fontSize={4} color={style === 'dark' && 'white'}>
+        <Box sx={{ mb: 1 }}>
+          <Heading sx={{ mb: 2, fontSize: 4, color: 'lightText' }}>
             Organizations
           </Heading>
           {organizations &&
@@ -255,11 +271,11 @@ function mastHead() {
                 style={{ cursor: 'pointer' }}
                 key={avatarUrl}
               >
-                <Avatar size={35} mr={2} src={avatarUrl} />
+                <Avatar sx={{ size: 35, mr: 2 }} src={avatarUrl} />
               </PrimerLink>
             ))}
         </Box>
-        <Box mt={16}>
+        <Box sx={{ mt: 4 }}>
           <Toggle
             defaultChecked={style === 'dark'}
             onChange={onThemeChange}
