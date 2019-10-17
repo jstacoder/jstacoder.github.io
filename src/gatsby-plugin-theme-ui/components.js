@@ -3,15 +3,17 @@ import { jsx } from 'theme-ui'
 import { Playground, Props } from 'docz'
 import Wrapper from 'components/wrapper'
 import * as components from 'components/ui'
+import baseComponents from 'gatsby-theme-docz/src/components'
 
 export default {
+  ...baseComponents,
   wrapper: Wrapper,
   props: Props,
   Props,
   playground: Playground,
   Playground,
-  pre: components.Code,
-  // ul: components.Ul,
+  //pre: components.Code,
+  ul: components.Ul,
   ol: components.Ol,
   table: components.Table,
   p: components.P,

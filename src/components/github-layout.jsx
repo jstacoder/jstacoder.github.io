@@ -34,13 +34,14 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
   const isIndex = path === '/'
   const { style } = useThemeContext()
   const mainWidth = sidebar ? [null, '60%','60%', 9 / 12] : ['100%']
+  const { theme } = useThemeContext()
 
   return (
 
     <BorderBox
       as={Flex}
       sx={{
-        bg: 'mainBackground',
+        bg: theme.colors.mainBackground,
         flexDirection: sidebar ? 'row': 'column',
         display: [null, 'flex'],
         border: 0,
@@ -53,7 +54,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
         <BorderBox
           sx={{
             alignSelf: 'stretch',
-            bg: 'secondaryBackground',
+            bg: theme.colors.secondaryBackground,
             border: 0,
             borderRight: [null, null, null, style !== 'dark' ? 0 : 3],
             borderRadius: 0,

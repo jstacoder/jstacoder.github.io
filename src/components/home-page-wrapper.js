@@ -1,4 +1,6 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { Children } from 'react'
 import { Box } from '@primer/components'
 import useSiteMetadata from '../hooks/siteMetaData'
 
@@ -15,7 +17,7 @@ export const HomePageWrapper = ({ children }) => {
     )
   return layoutIsStacked ? (
     <>
-      {React.Children.toArray(children).map(child => (
+      {Children.toArray(children).map(child => (
         <Wrapper key={child.displayName}>{child}</Wrapper>
       ))}
     </>

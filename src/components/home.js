@@ -1,4 +1,5 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
 
 import Projects from '~components/projects'
 import Interests from '~components/interests'

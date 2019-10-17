@@ -190,11 +190,7 @@ export const ThemeContextProvider = ({ children, components }) => {
   const value = { state, dispatch }
   return (
     <ThemeContext.Provider value={value}>
-      <ThemeProvider theme={state.theme} components={components}>
-        <ComponentsProvider components={components}>
-          {children}
-        </ComponentsProvider>
-      </ThemeProvider>
+      <ThemeProvider theme={state.theme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   )
 }

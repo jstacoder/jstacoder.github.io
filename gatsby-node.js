@@ -304,7 +304,7 @@ exports.onCreateWebpackConfig = ({ actions, stage, loaders }) => {
     config.module = {
       rules: [
         {
-          test: /react-ace|brace/,
+          test: /[react-ace|brace]/,
           use: loaders.null(),
         },
       ],

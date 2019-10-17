@@ -9,6 +9,6 @@ export const StyledText = styled(Text)`
 
 export const P = props =>{
   return (
-    <StyledText {...props} fontSize={[4,3,2]} as={'p'} color={'fontColor'}/>
+    <StyledText {...props} fontSize={[2,3,4]} as={'p'} color={'fontColor'}/>
   )
 }

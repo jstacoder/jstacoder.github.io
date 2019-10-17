@@ -144,14 +144,7 @@ module.exports = {
             options: {},
           },
           // `gatsby-remark-unwrap-images`,
-          // {
-          //   resolve: 'gatsby-remark-images',
-          //   options: {
-          //     maxWidth: 750,
-          //     linkImagesToOriginal: false,
-          //     wrapperStyle: 'margin-bottom: 1.0725rem;',
-          //   },
-          // },
+
           {
             resolve: 'gatsby-remark-responsive-iframe',
             options: {
@@ -231,33 +224,48 @@ module.exports = {
     //     // }]
     //   }
     // },
+    {
+      resolve: `gatsby-theme-docz`,
+      // options: {
+      //   gatsbyRemarkPlugins: [
+      //      {
+      //       resolve: 'gatsby-remark-images',
+      //       options: {
+      //         maxWidth: 750,
+      //         linkImagesToOriginal: false,
+      //         wrapperStyle: 'margin-bottom: 1.0725rem;',
+      //       },
+      //     },
+      //   ]
+      // }
+    },
     // {
     //   resolve: `gatsby-plugin-mdx`,
     //   options: {
-    //     extensions: ['.mdx', '.md'],
+    //     extensions: ['.mdx',],
     //     gatsbyRemarkPlugins: [
-    //       // { resolve: `gatsby-remark-unwrap-images` },
-    //       // {
-    //       //   resolve: `gatsby-remark-images`,
-    //       //   options: {
-    //       //     maxWidth: 1152,
-    //       //     linkImagesToOriginal: false,
-    //       //     quality: 100,
-    //       //     withWebp: true,
-    //       //   },
-    //       // },
-    //       { resolve: `gatsby-remark-copy-linked-files` },
+    //       { resolve: `gatsby-remark-unwrap-images` },
+    //       {
+    //         resolve: `gatsby-remark-images`,
+    //         options: {
+    //           maxWidth: 1152,
+    //           linkImagesToOriginal: false,
+    //           quality: 100,
+    //           withWebp: true,
+    //         },
+    //       },
+    //       // { resolve: `gatsby-remark-copy-linked-files` },
     //     ],
     //     // plugins: ['gatsby-remark-images'],
     //   },
     // },
-    `gatsby-theme-docz`,
-    // {
-    //   resolve: `gatsby-plugin-theme-ui`,
-    //   options: {
-    //     mdx: false
-    //   }
-    // },
+
+    {
+      resolve: `gatsby-plugin-theme-ui`,
+      options: {
+        mdx: false,
+      },
+    },
     //    'gatsby-plugin-mdx',
     // `gatsby-theme-style-guide`,
     {
