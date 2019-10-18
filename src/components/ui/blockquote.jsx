@@ -3,13 +3,8 @@
 import { jsx, css, Box } from 'theme-ui'
 
 export const Blockquote = props =>{
+
   const styles = css({
-    p: '10px 30px 10px 30px',
-    m: '30px 0',
-    borderRadius: 1,
-    borderLeft: '4px solid',
-    borderColor: 'blockquote',
-    bg: 'gray.2',
     p: {
       color: 'darkText',
       fontSize: '18px',
@@ -27,11 +22,23 @@ export const Blockquote = props =>{
     },
     p: {
       m: '5px 0 10px',
-    }
+    }  
   })
 
   return (
-    <Box as='blockquote' {...props} styles={styles} />      
+    <Box 
+      as='blockquote' 
+      css={styles} 
+      sx={{            
+        py: '10px',
+        px: '30px',
+        m: '30px 0',
+        borderRadius: 1,
+        borderLeft: '4px solid',
+        borderColor: 'blockquote',
+        bg: 'gray.2',
+      }}
+      />      
   )
 }
   

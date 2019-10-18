@@ -60,10 +60,10 @@ export const themes = {
     // space,
     mediaQuerys,
     background: '#ffffff',
-    iconColor: '#24292e',
     fontColor: '#24292e',
     colors: {
       ...primerTheme.colors,
+      iconColor: '#24292e',
       fontColor: '#24292e',
       text: '#24292e',
       primary: primerTheme.colors.blue[3],
@@ -77,7 +77,7 @@ export const themes = {
       lightGray: '#eaecef',
       darkGray: '#586069',
       lightText: primerTheme.colors.gray[8],
-      darkText: primerTheme.colors.gray[4],
+      darkText: primerTheme.colors.gray[5],
       subText: '#586069',
       secondaryBackground: 'white',
       lightBackground: '#d5d7d6',
@@ -125,6 +125,9 @@ export const themes = {
       darkBorder: primerTheme.colors.gray[1],
     },
     styles: {
+      blockquote: {
+        p: 6,
+      },
       h2: {
         a: {
           color: 'orange.3',
