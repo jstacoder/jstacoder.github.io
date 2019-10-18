@@ -59,7 +59,7 @@ function RepoCard({ repository }) {
         textAlign: 'left',
         bg: 'white',
         borderRadius: 3,
-        p: 3,
+        p: 2,
         border: theme.border,
         borderColor: 'lightBorder',
         boxShadow: theme.boxShadow,
@@ -112,14 +112,14 @@ function RepoCard({ repository }) {
             sx={{
               color: 'darkText',
               whiteSpace: 'normal',
-              fontSize: 4,
+              fontSize: 1,
             }}
             as={'p'}
           >
             <Emoji text={repository.description || ''} />
           </Text>
         </Flex>
-        <Box sx={{ fontSize: 6 }}>
+        <Box sx={{ fontSize: 2 }}>
           <Flex sx={{ justifyContent: 'space-between' }}>
             <Flex sx={{ display: 'inline-flex' }}>
               <RepoColor color={repository.language.color} />

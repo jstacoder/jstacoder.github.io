@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { Fragment } from 'react'
 import { jsx } from 'theme-ui'
+import { Fragment } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import Emoji from 'react-emoji-render'
 import {
@@ -109,17 +109,17 @@ function mastHead() {
         }}
       />
       <Heading
+        color={theme.colors.lightText}
         sx={{
-          color: 'lightText',
           mb: 2,
           lineHeight: 1.25,
         }}
       >
         {name ? name : login}
       </Heading>
-      <Box sx={{ fontSize: 6, mb: 2 }}>
+      <Box sx={{ fontSize: 2, mb: 2 }}>
         {name && (
-          <MetaComponent sx={{ color: 'lightText' }}>
+          <MetaComponent color={theme.colors.lightText}>
             <StyledOcticon
               sx={{
                 color: 'iconColor',
@@ -132,7 +132,7 @@ function mastHead() {
             />
             <PrimerLink
               href={`https://github.com/${login}`}
-              sx={{ color: 'lightText' }}
+              color={theme.colors.lightText}
             >
               {login}
             </PrimerLink>
@@ -141,7 +141,7 @@ function mastHead() {
       </Box>
       <StyledHr color={style} />
       {isDeveloperProgramMember && (
-        <MetaComponent sx={{ color: 'lightText' }}>
+        <MetaComponent color={theme.colors.lightText}>
           <StyledOcticon
             sx={{
               color: 'iconColor',
@@ -154,11 +154,11 @@ function mastHead() {
           />
           <BorderBox
             as={'span'}
+            bg={theme.colors.success}
+            color={theme.colors.white}
             sx={{
-              fontSize: 5,
+              fontSize: 1,
               border: 0,
-              color: 'white',
-              bg: 'success',
               py: 1,
               px: 2,
               display: 'inline-block',
@@ -172,23 +172,23 @@ function mastHead() {
       )}
       <Text
         as={'p'}
+        color={theme.colors.lightText}
+        mb={3}
         sx={{
-          mb: 3,
-          fontSize: 4,
-          color: 'lightText',
+          fontSize: 1,
         }}
       >
         <Emoji text={bio || ''} />
       </Text>
-      <Box sx={{ mb: 6, fontSize: 4 }}>
+      <Box sx={{ mb: 2, fontSize: 1 }}>
         {company && (
-          <MetaComponent sx={{ color: 'lightText' }}>
+          <MetaComponent color={theme.colors.lightText}>
             <StyledOcticon
+              color={theme.colors.iconColor}
+              size={20}
+              mr={2}
               sx={{
-                color: 'iconColor',
-                size: 20,
                 verticalAlign: 'middle',
-                mr: 2,
               }}
               ariaLabel="Location"
               icon={Organization}
@@ -197,13 +197,13 @@ function mastHead() {
           </MetaComponent>
         )}
         {location && (
-          <MetaComponent sx={{ color: 'lightText' }}>
+          <MetaComponent color={theme.colors.lightText}>
             <StyledOcticon
+              color={theme.colors.iconColor}
+              size={20}
+              mr={2}
               sx={{
-                color: 'iconColor',
-                size: 20,
                 verticalAlign: 'middle',
-                mr: 2,
               }}
               icon={Location}
               ariaLabel="Location"
@@ -212,16 +212,16 @@ function mastHead() {
           </MetaComponent>
         )}
         {email && (
-          <MetaComponent>
+          <MetaComponent color={theme.colors.lightText}>
             <StyledOcticon
-              color={theme.iconColor}
+              color={theme.colors.iconColor}
               icon={Mail}
               size={20}
               verticalAlign="middle"
               mr={2}
               ariaLabel="email"
             />
-            <PrimerLink href={`mailto:${email}`} sx={{ color: 'lightText' }}>
+            <PrimerLink href={`mailto:${email}`} color={theme.colors.lightText}>
               {email}
             </PrimerLink>
           </MetaComponent>
@@ -247,7 +247,7 @@ function mastHead() {
           <BorderBox
             sx={{
               display: 'inline-block',
-              fontSize: 5,
+              fontSize: 2,
               borderRadius: 2,
               bg: 'green.5',
               py: 1,
@@ -261,7 +261,7 @@ function mastHead() {
         )}
         <StyledHr color={style} />
         <Box sx={{ mb: 1 }}>
-          <Heading sx={{ mb: 2, fontSize: 4, color: 'lightText' }}>
+          <Heading sx={{ mb: 2, fontSize: 1, color: 'darkText' }}>
             Organizations
           </Heading>
           {organizations &&

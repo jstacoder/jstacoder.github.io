@@ -7,7 +7,7 @@ import {
   LightBulb,
   Stop,
 } from '@primer/octicons-react'
-import { PropTypes } from 'prop-types'
+import PropTypes from 'prop-types'
 
 import CloseButton from './close'
 import useThemeContext from '../../hooks/themeContext'

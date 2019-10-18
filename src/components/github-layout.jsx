@@ -40,10 +40,10 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
 
     <BorderBox
       as={Flex}
+      display={[null, 'flex']}
       sx={{
         bg: theme.colors.mainBackground,
         flexDirection: sidebar ? 'row': 'column',
-        display: [null, 'flex'],
         border: 0,
         borderBottom: [null, null, null, style !== 'dark' ? 1 : 0],
         minHeight: '100vh',
@@ -58,8 +58,8 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
             border: 0,
             borderRight: [null, null, null, style !== 'dark' ? 0 : 3],
             borderRadius: 0,
-            px: [4, 4, 6, 7],
-            py: 6,
+            px: [1, 1, 3, 4],
+            py: 2,
             width: [null, '40%', '25%'],
             display: sidebar ? 'flex' : 'none',
           }}
@@ -83,11 +83,11 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
       <BorderBox
         sx={{
           width: mainWidth,
-          px: [0, 0, 4, 7],
+          px: [0, 0, 1, 2],
           border: 0,
           borderTop: [1, 1, 1, 0],
           borderRadius: 0,
-          py: [0, 0, 4, 6],
+          py: [0, 0, 1, 2],
           flex: sidebar ? 1 : 0,
         }}
         as={sidebar ? BorderBox : Flex}
@@ -102,7 +102,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
             sx={{
               fontSize: 4,
               color: 'lightText',
-              mb: 6
+              mb: 2
             }}>
             <Box
               sx={{
@@ -125,7 +125,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
               <Text
                 sx={{
                   mx: [2, 2, null],
-                  mb: 5,
+                  mb: 2,
                   color: 'lightText'
                 }}
                 as={'p'}
