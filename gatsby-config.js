@@ -269,6 +269,12 @@ module.exports = {
     //    'gatsby-plugin-mdx',
     // `gatsby-theme-style-guide`,
     {
+      resolve: `gatsby-remark-images`,
+      options: {
+        maxWidth: 1080,
+      },
+    },
+    {
       resolve: `gatsby-plugin-remote-images`,
       options: {
         nodeType: 'unsplashPhoto',

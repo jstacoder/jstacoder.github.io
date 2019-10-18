@@ -12,7 +12,7 @@ import {FilenameBox} from '../shared/filename-box'
 import {LiveError, LivePreview, LiveProvider} from 'react-live'
 
 import { LiveEditor as BaseEditor } from './editor'
-import 'brace/theme/monokai'
+
 
 import { Center, SpaceBetween, SpaceAround, SpaceEvenly, FlexStart, FlexEnd, BlockGroup, FlexBlock } from '../flex-docs/justify-content.jsx'
 import FlexComponent from '../flex'

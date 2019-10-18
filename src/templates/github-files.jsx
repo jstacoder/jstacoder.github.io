@@ -150,13 +150,14 @@ export const getChangedFilesFromCommit = commit =>{
 export default ({data: { github : { resource : commit }}, ...props}) =>{
 
   const stuff = useThemeUI()
-  console.log("THEME-UI", stuff)
+  // console.log("THEME-UI", stuff)
   const config = useConfig()
-  console.log("DOCZ",config)
+  // console.log("DOCZ",config)
   const [show, setShow] = useState(true)
   const { tree } = commit
   const { addedItems, deletedItems, updatedItems } = getChangedFilesFromCommit(commit)
   const updatedKeys = Object.keys(updatedItems)
+  console.log(updatedItems)
   const clickLine = num =>{
     console.log('clicked ', num)
   }

@@ -1,8 +1,6 @@
 import React, { useState, useMemo, useCallback, useContext } from 'react'
 import { LiveContext } from 'react-live'
-import  AceEditor from 'react-ace'
-import 'brace/mode/jsx'
-import 'brace/'
+
 
 export const CodeEditor = ({code, disabled, language, onChange, style, minHeight = '100px', theme})=>{
 
@@ -14,17 +12,25 @@ export const CodeEditor = ({code, disabled, language, onChange, style, minHeight
         setEditorCode(code)
         onChange(code)
     }, [editorCode])
-    return (
-        <AceEditor
-            width={'100%'}
-            value={editorCode}
-            onChange={updateContent}
-            style={{...style, minHeight, maxHeight: '100vh', height:'100%'}}
-            name="blah"
-            mode={language}
-            theme={theme || "monokai"}
-            showGutter={true}/>
-    )
+
+    if(typeof window !== "undefined"){
+        const AceEditor = require('react-ace').default
+        require('brace/mode/jsx')
+        require('brace/theme/github')
+        require('brace/theme/monokai')
+        return (
+            <AceEditor
+                width={'100%'}
+                value={editorCode}
+                onChange={updateContent}
+                style={{...style, minHeight, maxHeight: '100vh', height:'100%'}}
+                name="blah"
+                mode={language}
+                theme={theme || "monokai"}
+                showGutter={true}/>
+        )
+    }
+    return null   
 }
 
 

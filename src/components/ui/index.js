@@ -27,3 +27,5 @@ export { H6 } from './h6'
 export { Code } from './pre'
 
 export { PhotoCredit } from './photo-credit'
+
+// export const Code = ({children}) =><div>{children}</div>

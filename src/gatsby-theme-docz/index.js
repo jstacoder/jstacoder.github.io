@@ -17,7 +17,7 @@ const components = {
 const Theme = ({ children }) => {
   const { themeConfig } = useConfig()
 
-  console.log(themeConfig)
+  // console.log(themeConfig)
 
   return (
     <ThemeProvider theme={themeConfig}>
