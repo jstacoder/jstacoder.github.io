@@ -11,7 +11,7 @@ export default {
   wrapper: Wrapper,
   // props: Props,
   // Props,
-  // playground: Playground,
+  playground: Playground,
   // Playground,
   pre: components.Pre,
   code: components.Code,
@@ -26,6 +26,7 @@ export default {
   h5: components.H5,
   h6: components.H6,
   li: components.Li,
+
   blockquote: components.Blockquote,
   PhotoCredit: components.PhotoCredit,
   img: ({ children, ...props }) => <img {...props} />,

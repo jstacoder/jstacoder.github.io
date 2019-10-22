@@ -5,7 +5,12 @@ import { Heading, Text, Flex } from '@primer/components'
 import useThemeContext from '../hooks/themeContext'
 
 function Topics() {
-  const { style } = useThemeContext()
+  const {
+    style,
+    theme: {
+      colors: { lightText, darkText },
+    },
+  } = useThemeContext()
   const {
     allDataYaml: { edges },
   } = useStaticQuery(
@@ -28,10 +33,10 @@ function Topics() {
   const topics = edges.filter(edge => edge.node.topics)[0].node.topics
   return (
     <>
-      <Heading as={'h2'} ml={[3, 2, null]} color={'text'}>
+      <Heading as={'h2'} ml={[3, 2, null]} color={lightText}>
         My Interests
       </Heading>
-      <Text as={'p'} fontSize={4} mb={4} ml={[3, 2, null]} color={'subText'}>
+      <Text as={'p'} fontSize={4} mb={4} ml={[3, 2, null]} color={darkText}>
         Topics that I am currently working to learn more about.
       </Text>
       <Flex

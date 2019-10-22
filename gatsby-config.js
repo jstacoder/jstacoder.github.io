@@ -128,13 +128,13 @@ module.exports = {
         name: 'docs',
       },
     },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        path: `${__dirname}/src/`,
-        name: 'filesystem',
-      },
-    },
+    // {
+    //   resolve: 'gatsby-source-filesystem',
+    //   options: {
+    //     path: `${__dirname}/src/`,
+    //     name: 'filesystem',
+    //   },
+    // },
     {
       resolve: 'gatsby-source-filesystem',
       options: {

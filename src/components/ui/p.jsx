@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text } from '@primer/components'
 import styled from 'styled-components'
+import useThemeContext from '../../hooks/themeContext'
 
 export const StyledText = styled(Text)`
   font-family: 'Lato', monospace, Sans-Serif;
@@ -8,7 +9,8 @@ export const StyledText = styled(Text)`
 `
 
 export const P = props =>{
+  const { theme } = useThemeContext()
   return (
-    <StyledText {...props} fontSize={[2,3,4]} as={'p'} color={'fontColor'}/>
+    <StyledText {...props} theme={theme} fontSize={[4,3,2]} as={'p'} color={'lightText'}/>
   )
 }
