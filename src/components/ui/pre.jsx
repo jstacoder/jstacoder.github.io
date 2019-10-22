@@ -4,7 +4,7 @@ import { GitBranch, Star } from '@primer/octicons-react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import { typography } from '@styled-system/typography'
 import styled from 'styled-components'
-// import Prisim from 'prism-react-renderer/prism'
+import Prisim from 'prism-react-renderer/prism'
 
 import { Alert } from '../alert/alert'
 import ClipBoardHelper from './click-to-copy/clipboard-helper'
@@ -23,10 +23,116 @@ const LiveEditor = styled(BaseEditor)`
   ${typography}
 `
 
+const darkTheme =  {
+  plain: {
+    color: '#d6deeb',
+    backgroundColor: '#13161F',
+  },
+  styles: [
+    {
+      types: ['changed'],
+      style: {
+        color: 'rgb(162, 191, 252)',
+        fontStyle: 'italic',
+      },
+    },
+    {
+      types: ['deleted'],
+      style: {
+        color: 'rgba(239, 83, 80, 0.56)',
+        fontStyle: 'italic',
+      },
+    },
+    {
+      types: ['inserted', 'attr-name'],
+      style: {
+        color: 'rgb(173, 219, 103)',
+        fontStyle: 'italic',
+      },
+    },
+    {
+      types: ['comment'],
+      style: {
+        color: 'rgb(99, 119, 119)',
+        fontStyle: 'italic',
+      },
+    },
+    {
+      types: ['string', 'url'],
+      style: {
+        color: 'rgb(173, 219, 103)',
+      },
+    },
+    {
+      types: ['variable'],
+      style: {
+        color: 'rgb(214, 222, 235)',
+      },
+    },
+    {
+      types: ['number'],
+      style: {
+        color: 'rgb(247, 140, 108)',
+      },
+    },
+    {
+      types: ['builtin', 'char', 'constant', 'function'],
+      style: {
+        color: 'rgb(130, 170, 255)',
+      },
+    },
+    {
+      // This was manually added after the auto-generation
+      // so that punctuations are not italicised
+      types: ['punctuation'],
+      style: {
+        color: 'rgb(199, 146, 234)',
+      },
+    },
+    {
+      types: ['selector', 'doctype'],
+      style: {
+        color: 'rgb(199, 146, 234)',
+        fontStyle: 'italic',
+      },
+    },
+    {
+      types: ['class-name'],
+      style: {
+        color: 'rgb(255, 203, 139)',
+      },
+    },
+    {
+      types: ['tag', 'operator', 'keyword'],
+      style: {
+        color: 'rgb(127, 219, 202)',
+      },
+    },
+    {
+      types: ['boolean'],
+      style: {
+        color: 'rgb(255, 88, 116)',
+      },
+    },
+    {
+      types: ['property'],
+      style: {
+        color: 'rgb(128, 203, 196)',
+      },
+    },
+    {
+      types: ['namespace'],
+      style: {
+        color: 'rgb(178, 204, 214)',
+      },
+    },
+  ],
+}
+
 const GithubTheme = () =>({
   plain: {
-    color: "#393A34",
-    backgroundColor: "#f6f8fa"
+    color: "#393a34",
+    backgroundColor: "#adada1"
   },
   styles: [
     {
@@ -72,7 +178,7 @@ const GithubTheme = () =>({
       }
     },
     {
-      types: ["atrule", "keyword", "attr-name", "selector"],
+      types: ["plain","atrule", "keyword", "attr-name", "selector"],
       style: {
         color: "#00a4db"
       }
@@ -102,7 +208,7 @@ const languageMap = {
   html: 'django',
   xml:'xml',
   mdx: 'md',
-  md: 'md', 
+  md: 'md',
   js: 'js',
   css: 'css',
   sh: 'bash',
@@ -127,7 +233,7 @@ const languageMap = {
   scss: 'scss',
   sql: 'sql',
   stylus: 'stylus',
-  styl: 'stylus',  
+  styl: 'stylus',
 }
 
 const getLanguageFromFilename = filename =>{
@@ -142,13 +248,41 @@ const getLive = children =>
   children && typeof children !== String && children.props
    ? children.props.live : false
 
-const getChildren = children =>
-  children && typeof children !== String && children.props 
-  ? React.Children.toArray(children.props.children).join('\n') :
+const extractChildren = children =>{
+  const childType = typeof children
+  let childArray
+  switch(childType){
+    case "string":
+      childArray = [children]
+      break
+    case "object":
+      if(Array.isArray(children)){
+        childArray = children.map(child=> extractChildren(child))
+        break
+      }
+      childArray = React.Children.toArray(children)
+      break
+    default:
+      childArray =  [""]
+  }
+  console.log(childArray)
+  return childArray.join('')
+  // if(!!children && typeof children !== String && children.props){
+  //   return React.Children.toArray(children.props.children).map(child=>
+  //     child.props ? extractChildren(child.props) : child
+  //   ).join('')
+  // }
+  // return children.join('')
+}
+
+const getChildren = children => {
+  return children && typeof children !== String && children.props
+    ? React.Children.toArray(children.props.children) :
     children
+}
 
 const getFilename = children =>
-  (children && typeof children !== String && children.props && children.props.filename) 
+  (children && typeof children !== String && children.props && children.props.filename)
   ? children.props.filename : undefined
 
 const getClassName = children =>
@@ -163,7 +297,7 @@ const CodeWrapper = ({children, filename, code}) =>{
         color='lightText'
         opacity='0.8'
         display='flex'
-        py={2} 
+        py={2}
         pl={3}
         borderColor={'darkBorder'}
         >
@@ -186,40 +320,69 @@ const CodeWrapper = ({children, filename, code}) =>{
   )
 }
 
+const handleChildren = children => {
 
-export const Code = ({children, onChange}) =>{
+  if(typeof children === "string"){
+    return children
+  }else if(children.props && children.props.children){
+
+    if(typeof children.props.children === 'string') {
+      return children.props.children
+    }
+    return Array.isArray(children.props.children) ? children.props.children.map(handleChildren) : children.props.children
+  }
+
+  return children.map(handleChildren)
+}
+
+const flatten = arr => arr.map(itm=> Array.isArray(itm) ? itm.join('') : itm)
+
+export const Code = ({children, onChange, className: codeClassName, ...props}) =>{
+
   const liveEditorRequested = getLive(children)
+  // debugger
   const filename = getFilename(children)
 
-  const initialCode = React.useMemo(()=> getChildren(children), [children])
+  const childArray = React.useMemo(()=> {
+    const processed = handleChildren(children)
+    console.log(processed)
+    const flat = processed.flat(Infinity)
+    console.log(flat)
+    return flat
+  }, [children])
+
+  const initialCode = React.useMemo(()=> childArray.join(''), [childArray])
+
+  // debugger
 
   const [code, setCode] = React.useState(initialCode)
 
   // const code = getChildren(children)
-  const codeClassName = getClassName(children)
-  
+
   const handleChange = useCallback((code)=>{
       // console.log('changing',code)
         onChange && onChange(code)
         setCode(code)
   },[code])
-  
+
   // console.log(code, filename, liveEditorRequested)
-  
-  const language = codeClassName ? codeClassName.replace(/language-/, '') : getLanguageFromFilename(filename)
-  
+
+  const classParts = codeClassName.split(' ')
+  const languageName = classParts.filter(part=> part.search('language') > -1)[0]
+  const language = filename ? getLanguageFromFilename(filename) : languageName.replace(/language-/, '')
+
   const scope = {
     Alert,
     GitBranch,
     FlexComponent,
     Star,
-    Center, 
+    Center,
     SpaceBetween,
-    SpaceAround, 
-    SpaceEvenly, 
-    FlexStart, 
-    FlexEnd, 
-    BlockGroup, 
+    SpaceAround,
+    SpaceEvenly,
+    FlexStart,
+    FlexEnd,
+    BlockGroup,
     FlexBlock,
     Slider,
     Flex,
@@ -227,14 +390,14 @@ export const Code = ({children, onChange}) =>{
     Box,
     Text,
   }
-  
+
   const transformCode = code =>{
     if(code.startsWith('()')||code.startsWith('class')){
       return code
     }
     return `<React.Fragment>${code}</React.Fragment>`
   }
-  
+  console.log(language)
   return liveEditorRequested ? (
       <BorderBox
         border={0}
@@ -251,7 +414,7 @@ export const Code = ({children, onChange}) =>{
         </BorderBox>
   ) : (
     <CodeWrapper filename={filename} code={code}>
-      <Highlight {...defaultProps} code={code} language={language}>
+      <Highlight {...defaultProps} code={code} language={language} theme={darkTheme}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={`${codeClassName} ${className}`} style={{ ...style }}>
             {tokens.map((line, i) => (
@@ -270,6 +433,8 @@ export const Code = ({children, onChange}) =>{
       </Highlight>
     </CodeWrapper>
   )
-  
-  
+
+
 }
+
+export const Pre = ({children}) => <div>{children}</div>

@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer'
 
 import { componentsMap } from '../../gatsby-browser'
-import { GithubLayout } from '~components/github-layout'
+import { GithubLayout } from './github-layout'
 
 export default function PageTemplate({
   data: {

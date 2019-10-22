@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { jsx, ThemeProvider } from 'theme-ui'
+import { jsx } from 'theme-ui'
+import { ThemeProvider } from 'emotion-theming'
 import { useReducer, createContext } from 'react'
 import { theme as DoczTheme, ComponentsProvider } from 'docz'
 import { generateMedia } from 'styled-media-query'

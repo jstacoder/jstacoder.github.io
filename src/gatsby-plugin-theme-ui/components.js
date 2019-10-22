@@ -2,6 +2,7 @@
 import { jsx } from 'theme-ui'
 import { Playground, Props } from 'docz'
 import Wrapper from 'components/wrapper'
+import { MDXProvider } from '@mdx-js/react'
 import * as components from 'components/ui'
 import baseComponents from 'gatsby-theme-docz/src/components'
 
@@ -12,7 +13,8 @@ export default {
   // Props,
   // playground: Playground,
   // Playground,
-  pre: components.Code,
+  pre: components.Pre,
+  code: components.Code,
   ul: components.Ul,
   ol: components.Ol,
   table: components.Table,
@@ -26,4 +28,5 @@ export default {
   li: components.Li,
   blockquote: components.Blockquote,
   PhotoCredit: components.PhotoCredit,
+  img: ({ children, ...props }) => <img {...props} />,
 }

@@ -1280,6 +1280,15 @@
   dependencies:
     unist-util-visit "^1.3.0"
 
+"@mapbox/rehype-prism@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@mapbox/rehype-prism/-/rehype-prism-0.3.1.tgz#538e38737df0d0d1462beabf9ceae88fce4035a5"
+  integrity sha512-3LVcYjRoyn13yRyAxGdHEOA9k2litvxJU60IbaOlPWStUiNA2GspgwiDSVHzhF+nLOu8Wed6SWFFLh18U/KEQw==
+  dependencies:
+    hast-util-to-string "^1.0.0"
+    refractor "^2.3.0"
+    unist-util-visit "^1.1.3"
+
 "@mdx-js/loader@0.16.0":
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-0.16.0.tgz#801df7fba7f61d0171acc7bcf710f6689da5e5fa"
@@ -2728,6 +2737,18 @@ babel-plugin-export-metadata@2.0.0-rc.54:
   version "2.0.0-rc.54"
   resolved "https://registry.yarnpkg.com/babel-plugin-export-metadata/-/babel-plugin-export-metadata-2.0.0-rc.54.tgz#ff77c037a9fbd8fe1f7e335520565dcff2fa7181"
   integrity sha512-OJ3aNq7YS2t3Y0hDgS3Ydr9jGZCDYcMlaeymNKAkhyU8YgnucSYH2Z4WV2D4sICZhnH9T/UHCybpp1bF4Npe5g==
+  dependencies:
+    "@babel/cli" "^7.5.5"
+    "@babel/core" "^7.5.5"
+    "@babel/preset-env" "^7.5.5"
+    "@babel/template" "^7.4.4"
+    babel-core "7.0.0-bridge.0"
+    lodash "^4.17.14"
+
+babel-plugin-export-metadata@2.0.0-rc.56:
+  version "2.0.0-rc.56"
+  resolved "https://registry.yarnpkg.com/babel-plugin-export-metadata/-/babel-plugin-export-metadata-2.0.0-rc.56.tgz#a3521c0026fca230156eee1076e9cc1bf25393ef"
+  integrity sha512-BpCGgORJsg7OCi48nAZDKpMDPpxMFgjFkFSc+2BeT99X3dtEwsXMMqfdbTnk0u5kR9DXX/tbjb8K6D1ZAPHyCQ==
   dependencies:
     "@babel/cli" "^7.5.5"
     "@babel/core" "^7.5.5"
@@ -5000,6 +5021,42 @@ docz-core@2.0.0-rc.55:
     xstate "^4.6.7"
     yargs "^13.3.0"
 
+docz-core@2.0.0-rc.57:
+  version "2.0.0-rc.57"
+  resolved "https://registry.yarnpkg.com/docz-core/-/docz-core-2.0.0-rc.57.tgz#cbc03033087d2a247d15b3faf19242eb59400193"
+  integrity sha512-d9oxcJQD7J+UZFffxuDTxh9blQOJwJRI9393ifRYRrU82V3wQKgavqRojqVDwoSctjT74O7AtxH5nzGsQ2RcOg==
+  dependencies:
+    "@sindresorhus/slugify" "^0.9.1"
+    chalk "^2.4.2"
+    chokidar "^3.0.2"
+    detect-port "^1.3.0"
+    docz-utils "2.0.0-rc.54"
+    env-dot-prop "^2.0.1"
+    fast-deep-equal "^2.0.1"
+    fast-glob "^3.0.4"
+    find-up "^4.1.0"
+    fs-extra "^8.1.0"
+    get-pkg-repo "^4.1.0"
+    humanize-string "^2.1.0"
+    latest-version "^5.1.0"
+    load-cfg "2.0.0-rc.54"
+    lodash "^4.17.14"
+    minimatch "^3.0.4"
+    ora "^3.4.0"
+    react-docgen "^4.1.1"
+    react-docgen-actual-name-handler "2.0.0-rc.54"
+    react-docgen-external-proptypes-handler "^1.0.3"
+    react-docgen-typescript "^1.12.5"
+    recast "^0.18.1"
+    resolve "^1.11.1"
+    shelljs "^0.8.3"
+    signale "^1.4.0"
+    titleize "^2.1.0"
+    typescript "3.5.3"
+    wait-on "^3.3.0"
+    xstate "^4.6.7"
+    yargs "^13.3.0"
+
 docz-utils@2.0.0-rc.54:
   version "2.0.0-rc.54"
   resolved "https://registry.yarnpkg.com/docz-utils/-/docz-utils-2.0.0-rc.54.tgz#1092ca3fe2ae17f872f9f5aefd8c8e41b047e7a5"
@@ -5044,6 +5101,30 @@ docz@2.0.0-rc.55:
     gatsby-plugin-eslint "^2.0.5"
     gatsby-plugin-typescript "^2.1.6"
     gatsby-theme-docz "2.0.0-rc.55"
+    lodash "^4.17.14"
+    marksy "^8.0.0"
+    match-sorter "^3.1.1"
+    prop-types "^15.7.2"
+    scheduler "^0.15.0"
+    ulid "^2.3.0"
+    yargs "^13.3.0"
+
+docz@2.0.0-rc.57:
+  version "2.0.0-rc.57"
+  resolved "https://registry.yarnpkg.com/docz/-/docz-2.0.0-rc.57.tgz#a56f39ae0b45d58afd95f8fb9cd21328ca52c7fe"
+  integrity sha512-btZg9VmVjHhUNwH/VgDRKIDS331mksuX82na3EGXN4ghzMC/+ONyicgAvkADOqQsGA/PB7Us9SwHKej0f/6d7Q==
+  dependencies:
+    "@emotion/core" "^10.0.16"
+    "@mdx-js/react" "^1.0.27"
+    array-sort "^1.0.0"
+    capitalize "^2.0.0"
+    docz-components "2.0.0-rc.48"
+    docz-core "2.0.0-rc.57"
+    fast-deep-equal "^2.0.1"
+    gatsby "^2.13.27"
+    gatsby-plugin-eslint "^2.0.5"
+    gatsby-plugin-typescript "^2.1.6"
+    gatsby-theme-docz "2.0.0-rc.57"
     lodash "^4.17.14"
     marksy "^8.0.0"
     match-sorter "^3.1.1"
@@ -5276,7 +5357,7 @@ emojis-list@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
 
-emotion-theming@^10.0.10, emotion-theming@^10.0.14:
+emotion-theming@^10.0.10, emotion-theming@^10.0.14, emotion-theming@^10.0.19:
   version "10.0.19"
   resolved "https://registry.yarnpkg.com/emotion-theming/-/emotion-theming-10.0.19.tgz#66d13db74fccaefad71ba57c915b306cf2250295"
   dependencies:
@@ -7019,6 +7100,45 @@ gatsby-telemetry@^1.1.30:
     stack-trace "^0.0.10"
     stack-utils "1.0.2"
     uuid "3.3.3"
+
+gatsby-theme-docz@../docz/core/gatsby-theme-docz, gatsby-theme-docz@2.0.0-rc.57:
+  version "2.0.0-rc.57"
+  dependencies:
+    "@emotion/core" "^10.0.14"
+    "@emotion/styled" "^10.0.14"
+    "@loadable/component" "^5.10.2"
+    "@mdx-js/mdx" "^1.1.0"
+    "@mdx-js/react" "^1.0.27"
+    "@theme-ui/typography" "^0.2.5"
+    babel-plugin-export-metadata "2.0.0-rc.56"
+    copy-text-to-clipboard "^2.1.0"
+    docz "2.0.0-rc.57"
+    docz-core "2.0.0-rc.57"
+    emotion-theming "^10.0.14"
+    fs-extra "^8.1.0"
+    gatsby "^2.13.27"
+    gatsby-plugin-alias-imports "^1.0.5"
+    gatsby-plugin-compile-es6-packages "^2.0.0"
+    gatsby-plugin-emotion "^4.1.2"
+    gatsby-plugin-manifest "^2.2.3"
+    gatsby-plugin-mdx "^1.0.13"
+    gatsby-plugin-react-helmet "^3.1.2"
+    gatsby-plugin-root-import "^2.0.5"
+    lodash "^4.17.14"
+    mdx-utils "^0.2.0"
+    prop-types "^15.7.2"
+    re-resizable "^6.1.0"
+    react-feather "^2.0.3"
+    react-helmet "^5.2.1"
+    react-live "^2.1.2"
+    rehype-docz "2.0.0-rc.54"
+    rehype-slug "^2.0.3"
+    remark-docz "2.0.0-rc.54"
+    remark-frontmatter "^1.3.2"
+    theme-ui "^0.2.38"
+    typescript "3.5.3"
+    typography-theme-moraga "^0.16.19"
+    yargs "^13.3.0"
 
 gatsby-theme-docz@2.0.0-rc.55:
   version "2.0.0-rc.55"
@@ -11454,7 +11574,7 @@ parse-english@^4.0.0:
     unist-util-modify-children "^1.0.0"
     unist-util-visit-children "^1.0.0"
 
-parse-entities@^1.0.2, parse-entities@^1.1.0:
+parse-entities@^1.0.2, parse-entities@^1.1.0, parse-entities@^1.1.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/parse-entities/-/parse-entities-1.2.2.tgz#c31bf0f653b6661354f8973559cb86dd1d5edf50"
   dependencies:
@@ -12217,7 +12337,7 @@ prismjs@1.6:
   optionalDependencies:
     clipboard "^1.5.5"
 
-prismjs@^1.17.1:
+prismjs@^1.17.1, prismjs@~1.17.0:
   version "1.17.1"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.17.1.tgz#e669fcbd4cdd873c35102881c33b14d0d68519be"
   optionalDependencies:
@@ -12485,7 +12605,7 @@ re-resizable@^5.0.1:
   dependencies:
     fast-memoize "^2.5.1"
 
-re-resizable@^6.0.0:
+re-resizable@^6.0.0, re-resizable@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/re-resizable/-/re-resizable-6.1.0.tgz#ba4ece505b48f05691446d57837151349d7575e8"
   integrity sha512-Jj9zdYW6SnUto8pmH4b/3Kms/PKPv9CuWE70W1IuUIR1HlrEibgsqhbUe8BYDRBTuagH1gav09806k7TieUeSA==
@@ -13023,6 +13143,15 @@ redux@^4.0.4:
   dependencies:
     loose-envify "^1.4.0"
     symbol-observable "^1.2.0"
+
+refractor@^2.3.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/refractor/-/refractor-2.10.0.tgz#4cc7efc0028a87924a9b31d82d129dec831a287b"
+  integrity sha512-maW2ClIkm9IYruuFYGTqKzj+m31heq92wlheW4h7bOstP+gf8bocmMec+j7ljLcaB1CAID85LMB3moye31jH1g==
+  dependencies:
+    hastscript "^5.0.0"
+    parse-entities "^1.1.2"
+    prismjs "~1.17.0"
 
 regenerate-unicode-properties@^8.1.0:
   version "8.1.0"
@@ -15991,7 +16120,7 @@ unist-util-visit@2.0.0, unist-util-visit@^2.0.0:
     unist-util-is "^4.0.0"
     unist-util-visit-parents "^3.0.0"
 
-unist-util-visit@^1.0.0, unist-util-visit@^1.0.1, unist-util-visit@^1.1.0, unist-util-visit@^1.3.0, unist-util-visit@^1.4.0, unist-util-visit@^1.4.1:
+unist-util-visit@^1.0.0, unist-util-visit@^1.0.1, unist-util-visit@^1.1.0, unist-util-visit@^1.1.3, unist-util-visit@^1.3.0, unist-util-visit@^1.4.0, unist-util-visit@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-1.4.1.tgz#4724aaa8486e6ee6e26d7ff3c8685960d560b1e3"
   dependencies:

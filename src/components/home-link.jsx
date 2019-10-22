@@ -1,37 +1,49 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
+import { themed } from 'theme-ui/src/themed'
+import { styled } from 'theme-ui/src/styled'
 import { Box, Link, StyledOcticon, Text } from '@primer/components'
 import { Link as GatsbyLink } from 'gatsby'
 import { ChevronLeft } from '@primer/octicons-react'
+import useThemeContext from '../hooks/themeContext'
+
+const Styled = tag => styled(tag)(themed(tag))
+
+const StyledBox = Styled(Box)
+const StyledText = Styled(Text)
+const StyledLink = Styled(Link)
+const OctIcon = Styled(StyledOcticon)
 
 export const HomeLink = ({url = "/", text = "Home"}) =>{
+  const { theme: { colors: { lightText, darkText}} } = useThemeContext()
   return (
-     <Text
+     <StyledText
        sx={{
-         fontSize:5,
-         mx:4
+         fontSize:3,
+         mx:2
        }}>
-       <Box
+       <StyledBox
          as={'span'}
          sx={{
            display: 'flex',
            alignItems: 'center',
          }}
        >
-         <Link
+         <StyledLink
            as={GatsbyLink}
            to={url}
            sx={{
              display:'flex',
              alignItems: 'center',
-             color: 'text',
+             color: lightText,
             ':hover': {
-               color: 'darkText',
+               opacity: .75,
+               color: darkText,
                textDecoration:'none',
             }
          }}
          >
-           <StyledOcticon
+           <OctIcon
              icon={ChevronLeft}
              sx={{
                size: 16 ,
@@ -41,8 +53,8 @@ export const HomeLink = ({url = "/", text = "Home"}) =>{
                ariaLabel={text}
            />
            {text}
-         </Link>
-       </Box>
-     </Text>
+         </StyledLink>
+       </StyledBox>
+     </StyledText>
   )
 }

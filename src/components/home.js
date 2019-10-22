@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 
-import Projects from '~components/projects'
-import Interests from '~components/interests'
-import Thoughts from '~components/thoughts'
-import { HomePageWrapper } from '~components/home-page-wrapper'
+import Projects from './projects'
+import Interests from './interests'
+import Thoughts from './thoughts'
+import { HomePageWrapper } from './home-page-wrapper'
 
 export default () => {
   return (

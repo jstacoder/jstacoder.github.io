@@ -6,6 +6,19 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 const DotenvWebpackPlugin = require('dotenv-webpack')
 const dotenv = require('dotenv')
 const { paginate } = require('gatsby-awesome-pagination')
+const rehypePrism = require('@mapbox/rehype-prism')
+const remarkFrontmatter = require('remark-frontmatter')
+const remarkDocz = require('remark-docz')
+const rehypeSlug = require('rehype-slug')
+const rehypeDocz = require('rehype-docz')
+
+const refractor = require('refractor/core.js')
+const jsxSyntax = require('refractor/lang/jsx.js')
+
+jsxSyntax.aliases = ['mdx']
+
+refractor.register(jsxSyntax)
+refractor.register(require('refractor/lang/markdown.js'))
 
 dotenv.config()
 
@@ -282,33 +295,50 @@ exports.createPages = ({ graphql, actions }) => {
 }
 
 exports.onCreateWebpackConfig = ({ actions, stage, loaders }) => {
+  console.log(loaders)
   let config = {
-    plugins: [new DotenvWebpackPlugin()],
-    resolve: {
-      alias: {
-        'gatsby-theme-basic-blog': path.resolve(
-          __dirname,
-          '..',
-          'gatsby-theme-basic-blog'
-        ),
-        components: path.resolve(__dirname, 'src/components'),
-        templates: path.resolve(__dirname, 'src/templates'),
-        scss: path.resolve(__dirname, 'src/scss'),
-        '~components': path.resolve(__dirname, 'src/components'),
-        '~templates': path.resolve(__dirname, 'src/templates'),
-        '~scss': path.resolve(__dirname, 'src/scss'),
-      },
-    },
+    // module: {
+    //   rules: [
+    //     {
+    //       test: /.mdx?$/,
+    //       use:[
+    //         {
+    //           loader: 'babel-loader',
+    //           options: {
+    //             presets: ['preset-env']
+    //           }
+    //         },
+    //         {
+    //           loader: '@mdx-js/loader',
+    //           options: {
+    //             rehypePlugins: [rehypePrism, rehypeDocz, rehypeSlug],
+    //             remarkPlugins: [remarkFrontmatter, remarkDocz]
+    //           }
+    //         },
+    //       ]
+    //     }
+    //
+    //   ]
+    // },
+    // plugins: [new DotenvWebpackPlugin()],
+    // resolve: {
+    //   alias: {
+    //     'gatsby-theme-basic-blog': path.resolve(
+    //       __dirname,
+    //       '..',
+    //       'gatsby-theme-basic-blog'
+    //     ),
+    //   },
+    // },
   }
   if (stage === 'build-html') {
-    config.module = {
-      rules: [
-        {
-          test: /react-ace|brace/,
-          use: loaders.null(),
-        },
-      ],
-    }
+    config.module.rules = [
+      ...config.module.rules,
+      {
+        test: /react-ace|brace/,
+        use: loaders.null(),
+      },
+    ]
   }
   actions.setWebpackConfig(config)
 }

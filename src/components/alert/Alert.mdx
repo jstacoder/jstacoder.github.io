@@ -14,32 +14,34 @@ Here is an alert component ive written.
 
 Here are its props
 
-<ComponentProps component={Alert}/>
+<ComponentProps component={<Alert/>}/>
 
 
 Here is an example of using it.
 
   
+  
+   
 
 <Alert kind={'warning'}>  
-  Your Alert Message  
+
+  Your Alert Message   
+
 </Alert>  
 
 
 
+Here are some more examples.  
+Try changing the code in the example below.   
 
-```jsx
-<Alert kind={'warning'}>
-  Your Alert Message
-</Alert>
-```
-
-Here are some more examples.
-Try changing the code in the example below.
 
 ```jsx live=true
-<Alert icon={Star}>
-    My Message with no type and custom icon
+
+<Alert icon={Star}>    
+  
+ 
+ My Message with no type and custom icon
+     
 </Alert>
 ```
 
@@ -49,16 +51,17 @@ Try changing the code in the example below.
 ### Warning 
 
 ```jsx live=true
-<Alert kind='warning'>
-    A warning alert
-</Alert>
+<Alert kind='warning'>  
+  A warning alert  
+</Alert>  
 ```
 
 ### Danger with custom icon
 
 ```jsx live=true
-<Alert icon={props=> <GitBranch {...props} size={25}/>} kind='danger'>
-    Danger will robinson with custom icon
+<Alert icon={props=>(<GitBranch {...props} size={25}/>)} kind='danger'>
+    Danger will robinson with custom icon  
+
 </Alert>
 ```
 
@@ -66,7 +69,8 @@ Try changing the code in the example below.
 
 ```jsx live=true
 <Alert kind='error'>
-    An error alert
+    An error alert  
+
 </Alert>
 ```
 
@@ -74,7 +78,8 @@ Try changing the code in the example below.
 
 ```jsx live=true
 <Alert kind='success' dismissable>
-    A successful alert
+    A successful alert  
+
 </Alert>
 ```
 

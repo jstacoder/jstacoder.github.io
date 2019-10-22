@@ -1,3 +1,4 @@
+const rehypePrism = require('@mapbox/rehype-prism')
 const { buildClientSchema } = require(`graphql`)
 const { createHttpLink } = require(`apollo-link-http`)
 const fetch = require('node-fetch')
@@ -20,6 +21,19 @@ module.exports = {
   },
   pathPrefix: process.env.PATH_PREFIX || '/',
   plugins: [
+    {
+      resolve: 'gatsby-plugin-alias-imports',
+      options: {
+        alias: {
+          components: path.resolve(__dirname, 'src/components'),
+          templates: path.resolve(__dirname, 'src/templates'),
+          scss: path.resolve(__dirname, 'src/scss'),
+          '~components': path.resolve(__dirname, 'src/components'),
+          '~templates': path.resolve(__dirname, 'src/templates'),
+          '~scss': path.resolve(__dirname, 'src/scss'),
+        },
+      },
+    },
     // {
     //   resolve: `gatsby-plugin-prefetch-google-fonts`,
     //   options: {
@@ -227,17 +241,20 @@ module.exports = {
     {
       resolve: `gatsby-theme-docz`,
       // options: {
-      //   gatsbyRemarkPlugins: [
-      //      {
-      //       resolve: 'gatsby-remark-images',
-      //       options: {
-      //         maxWidth: 750,
-      //         linkImagesToOriginal: false,
-      //         wrapperStyle: 'margin-bottom: 1.0725rem;',
-      //       },
+      //   mdxConfig:{
+      //   rehypePlugins: [rehypePrism],
+      // gatsbyRemarkPlugins: [
+      //    {
+      //     resolve: 'gatsby-remark-images',
+      //     options: {
+      //       maxWidth: 750,
+      //       linkImagesToOriginal: false,
+      //       wrapperStyle: 'margin-bottom: 1.0725rem;',
       //     },
-      //   ]
+      //   },
+      // ]
       // }
+      //}
     },
     // {
     //   resolve: `gatsby-plugin-mdx`,
@@ -268,12 +285,12 @@ module.exports = {
     },
     //    'gatsby-plugin-mdx',
     // `gatsby-theme-style-guide`,
-    {
-      resolve: `gatsby-remark-images`,
-      options: {
-        maxWidth: 1080,
-      },
-    },
+    // {
+    //   resolve: `gatsby-remark-images`,
+    //   options: {
+    //     maxWidth: 1080,
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-remote-images`,
       options: {
