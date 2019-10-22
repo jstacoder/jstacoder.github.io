@@ -11,6 +11,6 @@ export const StyledText = styled(Text)`
 export const P = props =>{
   const { theme } = useThemeContext()
   return (
-    <StyledText {...props} theme={theme} fontSize={[2,3,4]} as={'p'} color={'lightText'}/>
+    <StyledText {...props} theme={theme} fontSize={[4,3,2]} as={'p'} color={'lightText'}/>
   )
 }
