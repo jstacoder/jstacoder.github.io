@@ -10,7 +10,7 @@ export default {
   wrapper: Wrapper,
   // props: Props,
   // Props,
-  // playground: Playground,
+  playground: Playground,
   // Playground,
   pre: components.Code,
   ul: components.Ul,
@@ -24,6 +24,7 @@ export default {
   h5: components.H5,
   h6: components.H6,
   li: components.Li,
+
   blockquote: components.Blockquote,
   PhotoCredit: components.PhotoCredit,
 }

@@ -1,12 +1,19 @@
+/** @jsx jsx */
 /* eslint-disable prettier/prettier */
-import React, { useContext } from 'react'
+import { jsx } from 'theme-ui'
+import { Fragment } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import PostCard from './postCard'
 import { Heading, Flex, Text } from '@primer/components'
 import useThemeContext from '../hooks/themeContext'
 
 const Thoughts = () => {
-  const { style } = useThemeContext()
+  const {
+    style,
+    theme: {
+      colors: { lightText, darkText },
+    },
+  } = useThemeContext()
   const {
     allMdx: { posts },
     allMarkdownRemark: { edges },
@@ -49,11 +56,11 @@ const Thoughts = () => {
   )
   const isProduction = process.env.BUILD_STAGE !== 'develop'
   return edges.length > 0 ? (
-    <>
-      <Heading as={'h2'} color={'text'}>
+    <Fragment>
+      <Heading as={'h2'} sx={{ color: lightText }}>
         My Thoughts
       </Heading>
-      <Text as={'p'} fontSize={4} mb={4} color={'subText'}>
+      <Text as={'p'} fontSize={4} mb={4} color={darkText}>
         Articles I've written.
       </Text>
       <Flex display={[null, 'flex']} mb={4} my={'-8px'} flexWrap={'wrap'}>
@@ -65,7 +72,7 @@ const Thoughts = () => {
             </Flex.Item>
           ))}
       </Flex>
-    </>
+    </Fragment>
   ) : null
 }
 

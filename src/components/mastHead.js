@@ -34,7 +34,13 @@ const StyledHr = styled.hr`
 
 function mastHead() {
   const { layout } = useSiteMetadata()
-  const { style, theme, setTheme } = useThemeContext()
+  const {
+    style,
+    theme: {
+      colors: { lightText, darkText, white, iconColor, success },
+    },
+    setTheme,
+  } = useThemeContext()
 
   function onThemeChange(e) {
     const newStyle = e.target.checked ? 'dark' : 'light'
@@ -109,7 +115,7 @@ function mastHead() {
         }}
       />
       <Heading
-        color={theme.colors.lightText}
+        color={lightText}
         sx={{
           mb: 2,
           lineHeight: 1.25,
@@ -119,7 +125,7 @@ function mastHead() {
       </Heading>
       <Box sx={{ fontSize: 2, mb: 2 }}>
         {name && (
-          <MetaComponent color={theme.colors.lightText}>
+          <MetaComponent color={lightText}>
             <StyledOcticon
               sx={{
                 color: 'iconColor',
@@ -130,10 +136,7 @@ function mastHead() {
               icon={MarkGithub}
               ariaLabel="GitHub"
             />
-            <PrimerLink
-              href={`https://github.com/${login}`}
-              color={theme.colors.lightText}
-            >
+            <PrimerLink href={`https://github.com/${login}`} color={lightText}>
               {login}
             </PrimerLink>
           </MetaComponent>
@@ -141,7 +144,7 @@ function mastHead() {
       </Box>
       <StyledHr color={style} />
       {isDeveloperProgramMember && (
-        <MetaComponent color={theme.colors.lightText}>
+        <MetaComponent color={lightText}>
           <StyledOcticon
             sx={{
               color: 'iconColor',
@@ -154,8 +157,8 @@ function mastHead() {
           />
           <BorderBox
             as={'span'}
-            bg={theme.colors.success}
-            color={theme.colors.white}
+            bg={success}
+            color={white}
             sx={{
               fontSize: 1,
               border: 0,
@@ -172,7 +175,7 @@ function mastHead() {
       )}
       <Text
         as={'p'}
-        color={theme.colors.lightText}
+        color={lightText}
         mb={3}
         sx={{
           fontSize: 1,
@@ -182,9 +185,9 @@ function mastHead() {
       </Text>
       <Box sx={{ mb: 2, fontSize: 1 }}>
         {company && (
-          <MetaComponent color={theme.colors.lightText}>
+          <MetaComponent>
             <StyledOcticon
-              color={theme.colors.iconColor}
+              color={lightText}
               size={20}
               mr={2}
               sx={{
@@ -193,13 +196,13 @@ function mastHead() {
               ariaLabel="Location"
               icon={Organization}
             />
-            {company}
+            <Text color={darkText}>{company}</Text>
           </MetaComponent>
         )}
         {location && (
-          <MetaComponent color={theme.colors.lightText}>
+          <MetaComponent color={lightText}>
             <StyledOcticon
-              color={theme.colors.iconColor}
+              color={iconColor}
               size={20}
               mr={2}
               sx={{
@@ -208,29 +211,29 @@ function mastHead() {
               icon={Location}
               ariaLabel="Location"
             />
-            {location}
+            <Text color={darkText}>{location}</Text>
           </MetaComponent>
         )}
         {email && (
-          <MetaComponent color={theme.colors.lightText}>
+          <MetaComponent color={lightText}>
             <StyledOcticon
-              color={theme.colors.iconColor}
+              color={iconColor}
               icon={Mail}
               size={20}
               verticalAlign="middle"
               mr={2}
               ariaLabel="email"
             />
-            <PrimerLink href={`mailto:${email}`} color={theme.colors.lightText}>
+            <PrimerLink href={`mailto:${email}`} color={darkText}>
               {email}
             </PrimerLink>
           </MetaComponent>
         )}
         {websiteUrl && (
-          <MetaComponent sx={{ color: 'lightText' }}>
+          <MetaComponent sx={{ color: lightText }}>
             <StyledOcticon
               sx={{
-                color: 'iconColor',
+                color: iconColor,
                 size: 20,
                 verticalAlign: 'middle',
                 mr: 2,
@@ -238,7 +241,7 @@ function mastHead() {
               icon={Link}
               ariaLabel="email"
             />
-            <PrimerLink href={websiteUrl} sx={{ color: 'lightText' }}>
+            <PrimerLink href={websiteUrl} sx={{ color: darkText }}>
               {websiteUrl}
             </PrimerLink>
           </MetaComponent>
@@ -261,7 +264,7 @@ function mastHead() {
         )}
         <StyledHr color={style} />
         <Box sx={{ mb: 1 }}>
-          <Heading sx={{ mb: 2, fontSize: 1, color: 'darkText' }}>
+          <Heading sx={{ mb: 2, fontSize: 1, color: darkText }}>
             Organizations
           </Heading>
           {organizations &&

@@ -24,8 +24,8 @@ export { H5 } from './h5'
 
 export { H6 } from './h6'
 
-// export { Code } from './pre'
-export const Code = ({ children }) => <>{children}</>
+export { Code } from './pre'
+//export const Code = ({ children }) => <>{children}</>
 
 export { PhotoCredit } from './photo-credit'
 

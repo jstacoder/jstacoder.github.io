@@ -10,7 +10,12 @@ import ProjectGrid from 'components/ProjectGrid'
 import useThemeContext from '../hooks/themeContext'
 
 function Projects() {
-  const { style } = useThemeContext()
+  const {
+    style,
+    theme: {
+      colors: { lightText },
+    },
+  } = useThemeContext()
   const {
     github: {
       viewer: { MyPinnedRepos, TopProjects, TopContributions },
@@ -53,7 +58,7 @@ function Projects() {
   )
   return (
     <>
-      <Heading as={'h2'} color={'text'} textAlign={['center', null, 'left']}>
+      <Heading as={'h2'} color={lightText} textAlign={['center', null, 'left']}>
         My Github Projects
       </Heading>
 

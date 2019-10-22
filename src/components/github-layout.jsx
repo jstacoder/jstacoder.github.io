@@ -113,21 +113,25 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
             >
               {!isIndex ? <HomeLink text={backText} url={backUrl} /> : null}
               <Heading
+                theme={theme}
                 sx={{
                   pl: [2, 2, null],
                   fontSize: 40,
                   fontWeight: 300,
                   lineHeight: 1.25,
                 }}
+                color={'lightText'}
               >
                 {title}
               </Heading>
               <Text
+                theme={theme}
                 sx={{
                   mx: [2, 2, null],
                   mb: 2,
                   color: 'lightText'
                 }}
+                color={'darkText'}
                 as={'p'}
               >
                 {timeToRead ? (<small>{timeToRead} min read</small>) : null}
