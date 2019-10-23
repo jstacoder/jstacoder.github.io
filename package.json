@@ -81,6 +81,7 @@
     "gatsby-transformer-remark": "^2.6.15",
     "gatsby-transformer-sharp": "2.2.21",
     "gatsby-transformer-yaml": "^2.2.5",
+    "graphql-request": "^1.8.2",
     "isomorphic-git": "^0.67.2",
     "js-yaml": "^3.13.1",
     "line-diff": "^2.1.0",

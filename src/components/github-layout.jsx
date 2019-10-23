@@ -30,37 +30,39 @@ const Header = ({children, ...props}) =>{
 }
 
 
-export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUrl, backText, path}) => {
-  const isIndex = path === '/'
+export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUrl, backText, path, ...props}) => {
+  
+  const isIndex = path === '/' || props.isIndex
   const { style } = useThemeContext()
-  const mainWidth = sidebar ? [null, '60%','60%', 9 / 12] : ['100%']
+  const mainWidth = sidebar ? [null, null, '60%','60%', 9 / 12] : ['100%']
   const { theme } = useThemeContext()
 
   return (
 
     <BorderBox
       as={Flex}
-      display={[null, 'flex']}
+      display={[null, null, 'flex']}
+      width={'100%'}
       sx={{
         bg: theme.colors.mainBackground,
         flexDirection: sidebar ? 'row': 'column',
         border: 0,
         borderBottom: [null, null, null, style !== 'dark' ? 1 : 0],
         minHeight: '100vh',
-        width: '100%',
       }}
     >
       <SEO/>
         <BorderBox
+          px={[1,1,3,4]}
+          py={2}
+          width={[null, null, '40%', '20%']}
           sx={{
             alignSelf: 'stretch',
             bg: theme.colors.secondaryBackground,
             border: 0,
             borderRight: [null, null, null, style !== 'dark' ? 0 : 3],
             borderRadius: 0,
-            px: [1, 1, 3, 4],
-            py: 2,
-            width: [null, '40%', '25%'],
+            
             display: sidebar ? 'flex' : 'none',
           }}
         >
@@ -76,18 +78,18 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
           </Position>
         </BorderBox>
         <Header
-          sx={{display: sidebar ? 'none': 'inherit'}}
+          display={sidebar ? 'none': 'inherit'}
         >
           <Box sx={{width:20, height: 20,border: "1px solid blue"}}>Hi</Box>
         </Header>
       <BorderBox
+        width={mainWidth}
+        px={[0,0,1,2]}
+        border={0}
+        borderTop={[1,1,1,0]}
+        borderRadius={0}
+        py={[0,0,1,2]}
         sx={{
-          width: mainWidth,
-          px: [0, 0, 1, 2],
-          border: 0,
-          borderTop: [1, 1, 1, 0],
-          borderRadius: 0,
-          py: [0, 0, 1, 2],
           flex: sidebar ? 1 : 0,
         }}
         as={sidebar ? BorderBox : Flex}
@@ -99,47 +101,37 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
           }}
         >
           <Box
-            sx={{
-              fontSize: 4,
-              color: 'lightText',
-              mb: 2
-            }}>
-            <Box
-              sx={{
-                my: [2, 2, null],
-                fontSize: 4,
-                color: 'lightText'
-              }}
+            fontSize={4}
+            color={'lightText'}
+            mb={2}>
+            <Box                 
+              my={[2, 2, null]}
+              fontSize={4}
+              color={'lightText'}
+    
             >
               {!isIndex ? <HomeLink text={backText} url={backUrl} /> : null}
               <Heading
                 theme={theme}
-                sx={{
-                  pl: [2, 2, null],
-                  fontSize: 40,
-                  fontWeight: 300,
-                  lineHeight: 1.25,
-                }}
+                pl={[2, 2, null]}
+                fontSize={40}
+                fontWeight={300}
+                lineHeight={1.25}                
                 color={'lightText'}
               >
                 {title}
               </Heading>
               <Text
-                theme={theme}
-                sx={{
-                  mx: [2, 2, null],
-                  mb: 2,
-                  color: 'lightText'
-                }}
+                theme={theme}               
+                mx={[2, 2, null]}
+                mb={2}                
                 color={'darkText'}
                 as={'p'}
               >
                 {timeToRead ? (<small>{timeToRead} min read</small>) : null}
               </Text>
               <Box
-                sx={{
-                  px: [0, 1, 2, 1, null],
-                }}
+                px={[0, 1, 2, 1, null]}                
                 className={'markdown-body'}>
                 {children}
               </Box>

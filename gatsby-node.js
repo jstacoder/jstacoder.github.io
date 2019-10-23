@@ -294,51 +294,51 @@ exports.createPages = ({ graphql, actions }) => {
   })
 }
 
-exports.onCreateWebpackConfig = ({ actions, stage, loaders }) => {
-  console.log(loaders)
-  let config = {
-    // module: {
-    //   rules: [
-    //     {
-    //       test: /.mdx?$/,
-    //       use:[
-    //         {
-    //           loader: 'babel-loader',
-    //           options: {
-    //             presets: ['preset-env']
-    //           }
-    //         },
-    //         {
-    //           loader: '@mdx-js/loader',
-    //           options: {
-    //             rehypePlugins: [rehypePrism, rehypeDocz, rehypeSlug],
-    //             remarkPlugins: [remarkFrontmatter, remarkDocz]
-    //           }
-    //         },
-    //       ]
-    //     }
-    //
-    //   ]
-    // },
-    // plugins: [new DotenvWebpackPlugin()],
-    // resolve: {
-    //   alias: {
-    //     'gatsby-theme-basic-blog': path.resolve(
-    //       __dirname,
-    //       '..',
-    //       'gatsby-theme-basic-blog'
-    //     ),
-    //   },
-    // },
-  }
-  if (stage === 'build-html') {
-    config.module.rules = [
-      ...config.module.rules,
-      {
-        test: /react-ace|brace/,
-        use: loaders.null(),
-      },
-    ]
-  }
-  actions.setWebpackConfig(config)
-}
+// exports.onCreateWebpackConfig = ({ actions, stage, loaders }) => {
+//   console.log(loaders)
+//   let config = {
+//     // module: {
+//     //   rules: [
+//     //     {
+//     //       test: /.mdx?$/,
+//     //       use:[
+//     //         {
+//     //           loader: 'babel-loader',
+//     //           options: {
+//     //             presets: ['preset-env']
+//     //           }
+//     //         },
+//     //         {
+//     //           loader: '@mdx-js/loader',
+//     //           options: {
+//     //             rehypePlugins: [rehypePrism, rehypeDocz, rehypeSlug],
+//     //             remarkPlugins: [remarkFrontmatter, remarkDocz]
+//     //           }
+//     //         },
+//     //       ]
+//     //     }
+//     //
+//     //   ]
+//     // },
+//     // plugins: [new DotenvWebpackPlugin()],
+//     // resolve: {
+//     //   alias: {
+//     //     'gatsby-theme-basic-blog': path.resolve(
+//     //       __dirname,
+//     //       '..',
+//     //       'gatsby-theme-basic-blog'
+//     //     ),
+//     //   },
+//     // },
+//   }
+//   // if (stage === 'build-html') {
+//   //   config.module.rules = [
+//   //     ...config.module.rules,
+//   //     {
+//   //       test: /react-ace|brace/,
+//   //       use: loaders.null(),
+//   //     },
+//   //   ]
+//   // }
+//   actions.setWebpackConfig(config)
+// }

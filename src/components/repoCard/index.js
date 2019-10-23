@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, Flex } from 'theme-ui'
+import { styled as themeStyled } from 'theme-ui/src/styled'
 import Emoji from 'react-emoji-render'
 import { Link } from 'gatsby'
 import useThemeContext from '../../hooks/themeContext'
@@ -7,7 +8,7 @@ import { StarIcon, RepoIcon, GitBranchIcon } from 'react-octicons'
 import {
   Box,
   Text,
-  BorderBox,
+  BorderBox as BaseBorderBox,
   StyledOcticon,
   Heading,
   //Flex,
@@ -16,6 +17,8 @@ import {
 import styles from '../layout.scss'
 import styled, { css } from 'styled-components'
 import repoStyles from './repoCard.module.scss'
+
+const BorderBox = themeStyled(BaseBorderBox)()
 
 const repoColorBallStyle = css`
   border-radius: 50%;
@@ -53,6 +56,7 @@ function RepoCard({ repository }) {
   const { style, theme } = useThemeContext()
   return (
     <BorderBox
+      as={'div'}
       className={`${styles.githubComponent}`}
       sx={{
         height: '100%',
@@ -81,13 +85,7 @@ function RepoCard({ repository }) {
             mb: 1,
           }}
         >
-          <Heading
-            sx={{
-              fontSize: `13px`,
-              lineHeight: 1.25,
-              mb: 1,
-            }}
-          >
+          <Heading fontSize={`13px`} lineHeight={1.25} mb={1}>
             <Link to={`/github/${repository.owner.login}/${repository.name}`}>
               <StyledOcticon icon={RepoIcon} marginRight={1} />
               <Text

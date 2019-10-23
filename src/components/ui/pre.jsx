@@ -332,42 +332,26 @@ const handleChildren = children => {
     return Array.isArray(children.props.children) ? children.props.children.map(handleChildren) : children.props.children
   }
 
-  return children.map(handleChildren)
+  return children||[]
 }
 
 const flatten = arr => arr.map(itm=> Array.isArray(itm) ? itm.join('') : itm)
 
-export const Code = ({children, onChange, className: codeClassName, ...props}) =>{
+export const Code = ({children, filename, onChange, className: codeClassName, live, ...props}) =>{
+  console.log(props)  
 
-  const liveEditorRequested = getLive(children)
-  // debugger
-  const filename = getFilename(children)
+  const childArray = React.useMemo(()=> handleChildren(children), [children])
 
-  const childArray = React.useMemo(()=> {
-    const processed = handleChildren(children)
-    console.log(processed)
-    const flat = processed.flat(Infinity)
-    console.log(flat)
-    return flat
-  }, [children])
-
-  const initialCode = React.useMemo(()=> childArray.join(''), [childArray])
-
-  // debugger
+  const initialCode = React.useMemo(()=> childArray, [childArray])
 
   const [code, setCode] = React.useState(initialCode)
 
-  // const code = getChildren(children)
-
   const handleChange = useCallback((code)=>{
-      // console.log('changing',code)
         onChange && onChange(code)
         setCode(code)
   },[code])
 
-  // console.log(code, filename, liveEditorRequested)
-
-  const classParts = codeClassName.split(' ')
+  const classParts = codeClassName && codeClassName.split(' ') || ['language-py']
   const languageName = classParts.filter(part=> part.search('language') > -1)[0]
   const language = filename ? getLanguageFromFilename(filename) : languageName.replace(/language-/, '')
 
@@ -397,8 +381,18 @@ export const Code = ({children, onChange, className: codeClassName, ...props}) =
     }
     return `<React.Fragment>${code}</React.Fragment>`
   }
-  console.log(language)
-  return liveEditorRequested ? (
+  const [highlightLine, setHighlightLine] = useState(null)
+
+  const clickLine = ({line, key, i, props}) =>{   
+    setHighlightLine(i)
+  }
+  const getbg = line =>{
+    if(line===highlightLine){
+      return 'yellow'
+    }
+    return 'transparent'
+  }
+  return live ? (
       <BorderBox
         border={0}
         mt={3} mb={3} p={2}
@@ -418,9 +412,10 @@ export const Code = ({children, onChange, className: codeClassName, ...props}) =
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={`${codeClassName} ${className}`} style={{ ...style }}>
             {tokens.map((line, i) => (
-              <div key={i} {...getLineProps({ line, key: i })}>
+              <div key={i} {...getLineProps({ line, key: i })} style={{border: `1px dashed ${getbg(i)}`}}>
                 {line.map((token, key) => (
                   <span
+                    onClick={()=>clickLine({line, key, i, props: getLineProps({ token, key })})}
                     key={key}
                     {...getTokenProps({ token, key })}
                     style={{display:'inline-block'}}

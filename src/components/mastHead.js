@@ -264,7 +264,7 @@ function mastHead() {
         )}
         <StyledHr color={style} />
         <Box sx={{ mb: 1 }}>
-          <Heading sx={{ mb: 2, fontSize: 1, color: darkText }}>
+          <Heading mb={2} fontSize={3} color={darkText}>
             Organizations
           </Heading>
           {organizations &&
