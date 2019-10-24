@@ -157,7 +157,7 @@ export default ({data: { github : { resource : commit }}, ...props}) =>{
   const { tree } = commit
   const { addedItems, deletedItems, updatedItems } = getChangedFilesFromCommit(commit)
   const updatedKeys = Object.keys(updatedItems)
-  console.log(updatedItems)
+    
   const clickLine = num =>{
     console.log('clicked ', num)
   }

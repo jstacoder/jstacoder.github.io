@@ -34,14 +34,14 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
   
   const isIndex = path === '/' || props.isIndex
   const { style } = useThemeContext()
-  const mainWidth = sidebar ? [null, null, '60%','60%', 9 / 12] : ['100%']
+  const mainWidth = sidebar ? [null, null, null,'60%', 9 / 12] : ['100%']
   const { theme } = useThemeContext()
 
   return (
 
     <BorderBox
       as={Flex}
-      display={[null, null, 'flex']}
+      display={[null, null, null, 'flex']}
       width={'100%'}
       sx={{
         bg: theme.colors.mainBackground,
@@ -55,7 +55,8 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
         <BorderBox
           px={[1,1,3,4]}
           py={2}
-          width={[null, null, '40%', '20%']}
+          width={[null, '60%', '35%','25%']}
+          mx={['auto', null, null]}
           sx={{
             alignSelf: 'stretch',
             bg: theme.colors.secondaryBackground,
@@ -68,11 +69,12 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
         >
           <Position 
               sx={{
-                maxWidth: [null, '40%', '18%']
+                maxWidth: [null, null, '100%', '19%']
               }} 
-              position={['static', null, 'fixed']} 
+              position={['static', null, null, 'fixed']} 
               top={'3em'} 
-              left={'3em'}
+              left={'1em'}
+             
             >
             <MastHead metaData={true} />
           </Position>

@@ -17,6 +17,7 @@ import { LiveEditor as BaseEditor } from './editor'
 import { Center, SpaceBetween, SpaceAround, SpaceEvenly, FlexStart, FlexEnd, BlockGroup, FlexBlock } from '../flex-docs/justify-content.jsx'
 import FlexComponent from '../flex'
 import Slider from '../slider'
+import useThemeContext from 'src/hooks/themeContext';
 
 
 const LiveEditor = styled(BaseEditor)`
@@ -265,7 +266,7 @@ const extractChildren = children =>{
     default:
       childArray =  [""]
   }
-  console.log(childArray)
+  // console.log(childArray)
   return childArray.join('')
   // if(!!children && typeof children !== String && children.props){
   //   return React.Children.toArray(children.props.children).map(child=>
@@ -290,16 +291,19 @@ const getClassName = children =>
 
 
 const CodeWrapper = ({children, filename, code}) =>{
+  const { theme } = useThemeContext()
   return filename  !== undefined ? (
     <Box mt={3} width={"100%"}>
       <FilenameBox
-        bg='secondaryBackground'
+        theme={theme}
+        backgroundColor='secondaryBackground'
         color='lightText'
         opacity='0.8'
         display='flex'
         py={2}
         pl={3}
-        borderColor={'darkBorder'}
+        borderColor='darkBorder'
+
         >
         <Text
           opacity='1'
@@ -313,7 +317,7 @@ const CodeWrapper = ({children, filename, code}) =>{
   ) : (
     <Flex mt={3} flexDirection='column'>
       <Flex mb={[null,null,null,-40]} alignSelf={'flex-end'}>
-        <ClipBoardHelper copyText={code} opacity={'0.8'} color={'black'} />
+        <ClipBoardHelper copyText={code} opacity={'0.8'} color={'lightText'} />
       </Flex>
       {children}
     </Flex>
@@ -338,7 +342,7 @@ const handleChildren = children => {
 const flatten = arr => arr.map(itm=> Array.isArray(itm) ? itm.join('') : itm)
 
 export const Code = ({children, filename, onChange, className: codeClassName, live, ...props}) =>{
-  console.log(props)  
+  // console.log(props)  
 
   const childArray = React.useMemo(()=> handleChildren(children), [children])
 
@@ -407,8 +411,8 @@ export const Code = ({children, filename, onChange, className: codeClassName, li
         </LiveProvider>
         </BorderBox>
   ) : (
-    <CodeWrapper filename={filename} code={code}>
-      <Highlight {...defaultProps} code={code} language={language} theme={darkTheme}>
+    <CodeWrapper filename={filename} code={code || ' '}>
+      <Highlight {...defaultProps} code={code || ' '} language={language} theme={darkTheme}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={`${codeClassName} ${className}`} style={{ ...style }}>
             {tokens.map((line, i) => (

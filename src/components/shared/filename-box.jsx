@@ -7,4 +7,6 @@ export const FilenameBox = styled(BorderBox)`
   margin-bottom: -7px;
   border-bottom: 1px solid darkslategray;
   font-family: 'Lato', monospace, Sans-Serif;
+  color: ${props=> props.color || props.theme.colors.lightText};
+  background-color: ${props=> props.backgroundColor || props.theme.colors.background};
 `
