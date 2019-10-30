@@ -12,7 +12,7 @@ import {
   Organization,
 } from '@primer/octicons-react'
 import {
-  StyledOcticon,
+  StyledOcticon as BaseStyledOcticon,
   Heading,
   Avatar,
   Box,
@@ -26,11 +26,15 @@ import './Toggle.css'
 import useSiteMetadata from '../hooks/siteMetaData'
 import useThemeContext from '../hooks/themeContext'
 import styled from 'styled-components'
+import { styled as themeStyled } from 'theme-ui/src/styled'
+import themed from 'theme-ui/src/themed'
 
 const StyledHr = styled.hr`
   max-width: '40%';
   ${props => props.color === 'dark' && 'border-top-color: whitesmoke;'}
 `
+
+const StyledOcticon = themeStyled(BaseStyledOcticon)(themed(BaseStyledOcticon))
 
 function mastHead() {
   const { layout } = useSiteMetadata()
@@ -147,7 +151,7 @@ function mastHead() {
         <MetaComponent color={lightText}>
           <StyledOcticon
             sx={{
-              color: 'iconColor',
+              color: lightText,
               size: 20,
               verticalAlign: 'middle',
               mr: 2,

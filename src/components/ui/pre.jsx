@@ -436,4 +436,4 @@ export const Code = ({children, filename, onChange, className: codeClassName, li
 
 }
 
-export const Pre = ({children}) => <div>{children}</div>
+export const Pre = props => props.children

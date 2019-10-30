@@ -43,7 +43,7 @@ export const CommitBlock = ({ commit, branch, repo, owner }) => {
     return (
         <BorderBox px={1} py={2} width={['100%', 'inherit']}>            
             <Box display={['flex', 'flex', 'none']} as={Flex}>
-                {avatarUrl && <Avatar px={2} height={25} width={40} borderRadius='3px' src={avatarUrl} />}
+                {avatarUrl && <Avatar px={2} size={30} borderRadius='3px' src={avatarUrl} />}
                 <Flex flexDirection='column'>
                     <Text color={'black'} fontWeight={700} p={2}>{shortMessage}</Text>
                     <Flex>
@@ -64,7 +64,7 @@ export const CommitBlock = ({ commit, branch, repo, owner }) => {
                     <Box as={Flex}>
                         { avatarUrl && 
                         <Link href={''}>
-                            <Avatar px={2} height={25} width={40} src={avatarUrl} />
+                            <Avatar px={2} size={35} src={avatarUrl} />
                         </Link>
                         }
                         <Link
