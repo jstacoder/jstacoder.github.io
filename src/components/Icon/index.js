@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 
 import {
@@ -58,7 +59,8 @@ library.add(
   faLinux,
   faMagento,
   faMarkdown,
-  faPython
+  faPython,
+  faCircleNotch
 )
 
 const iconList = [
@@ -88,16 +90,18 @@ const iconList = [
   faMagento,
   faMarkdown,
   faPython,
+  faCircleNotch,
 ]
 
 const icons = {}
 iconList.forEach(icon => {
+  console.log(icon.iconName)
   icons[icon.iconName] = icon
 })
 
-const Icon = ({ name, icon, text = '' }) => (
+const Icon = ({ name, icon, text = '', ...props }) => (
   <div className="icon" title={name || icon.iconName}>
-    <FontAwesomeIcon icon={icons[name || icon.iconName]} />
+    <FontAwesomeIcon icon={icons[name || icon.iconName]} {...props} />
     <p>{text}</p>
   </div>
 )

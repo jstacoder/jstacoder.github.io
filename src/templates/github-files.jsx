@@ -7,13 +7,24 @@ import { StyledOcticon, Details, Flex } from '@primer/components'
 import { detailedDiff } from 'deep-object-diff'
 import lightFormat from 'date-fns/lightFormat'
 import { useConfig } from 'docz'
+import { GraphQLClient } from 'graphql-request'
 
 import { CodeEditor } from 'components/ui/editor'
+import  Icon from 'components/icon'
 import { Code as Pre } from 'components/ui/pre'
 import { GithubLayout } from 'components/github-layout'
 import { unifiedDiff } from 'difflib'
 import ReactDiffViewer from 'react-diff-viewer'
 
+
+
+const getClient = (apiKey) =>{
+  return new GraphQLClient('https://api.github.com/graphql',{
+    headers: {
+      Authorization: `bearer ${apiKey}`
+    }
+  })
+}
 
 
 export const getChangedFilesFromCommit = commit =>{
@@ -27,7 +38,12 @@ export const getChangedFilesFromCommit = commit =>{
     parents: {
       nodes: parents
     }
-  } = commit
+  } = commit || {
+    tree: {entries: []},
+    parents: {
+      nodes: []
+    },
+  }
 
   let addedItems = []
   let deletedItems = []
@@ -44,7 +60,11 @@ export const getChangedFilesFromCommit = commit =>{
 
   const commitNames = getNames(commitEntries)
 
-  parents.forEach(parent=> parentEntries[parent.oid] = parent.tree.entries)
+  parents.forEach(parent=>{
+    if(parent){
+      parentEntries[parent.oid] = parent.tree.entries
+    }
+  })
 
   // console.log('ENTRIES: ',  commitEntries, parentEntries)
 
@@ -63,106 +83,284 @@ export const getChangedFilesFromCommit = commit =>{
   const commits = recursiveEntrys(commitEntries)
 
   const parentCommits = parents.reduce(
-    (prev, parent)=> ({...prev, [parent.oid]: recursiveEntrys(parentEntries[parent.oid])}), {}
+    (prev, parent)=>{
+      if(parent){
+       return ({...prev, [parent.oid]: recursiveEntrys(parentEntries[parent.oid])})
+      }
+    }, {}
   )
 
   // console.log('HERELL ==>  ', commits, parentCommits)
 
   parents.forEach(parent=>{
-    const currentParentEntries = parentEntries[parent.oid]
-    const {
-      parentCommittedDate
-    } = parent
-    const parentObj = parentCommits[parent.oid] ? parentCommits[parent.oid] : [] //mapArrToObj('name')(currentParentEntries)
-    const addedFiles = commitEntries.length > currentParentEntries.length
-    const removedFiles = commitEntries.length < currentParentEntries.length
-    // console.log('first: ', addedFiles)
-    // console.log('second: ', additions)
-    // console.log('removed: ', removedFiles)
+    if(parent){
+      const currentParentEntries = parentEntries[parent.oid]
+      const {
+        parentCommittedDate
+      } = parent
+      const parentObj = parentCommits[parent.oid] ? parentCommits[parent.oid] : [] //mapArrToObj('name')(currentParentEntries)
+      const addedFiles = commitEntries.length > currentParentEntries.length
+      const removedFiles = commitEntries.length < currentParentEntries.length
+      // console.log('first: ', addedFiles)
+      // console.log('second: ', additions)
+      // console.log('removed: ', removedFiles)
 
 
 
-    const parentNames = getNames(currentParentEntries)
+      const parentNames = getNames(currentParentEntries)
 
-    const diffFiles = (arrA, arrB) => arrA.filter(n=> !arrB.includes(n)).concat(arrB.filter(n=> !arrA.includes(n)))
+      const diffFiles = (arrA, arrB) => arrA.filter(n=> !arrB.includes(n)).concat(arrB.filter(n=> !arrA.includes(n)))
 
-    const changedFiles = diffFiles(parentNames, commitNames)
+      const changedFiles = diffFiles(parentNames, commitNames)
 
-    // console.log('changed: ', commits, 'added: ', parentObj, 'removed: ', removedFiles)
+      // console.log('changed: ', commits, 'added: ', parentObj, 'removed: ', removedFiles)
 
-    const { added, deleted, updated } = detailedDiff(commits, parentObj)
+      const { added, deleted, updated } = detailedDiff(commits, parentObj)
 
-    addedItems.concat(Object.keys(added))
-    deletedItems.concat(Object.keys(deleted))
+      addedItems.concat(Object.keys(added))
+      deletedItems.concat(Object.keys(deleted))
 
-    // console.log('added: ', added, '\ndeleted: ',deleted, '\nupdated: ',updated)
+      // console.log('added: ', added, '\ndeleted: ',deleted, '\nupdated: ',updated)
 
-    const updatedKeys = Object.keys(updated)
+      const updatedKeys = Object.keys(updated)
 
-    updatedKeys.forEach(key=>{
-      const idx = commitEntries.indexOf(commitObj[key])
+      updatedKeys.forEach(key=>{
+        const idx = commitEntries.indexOf(commitObj[key])
 
-      const parentIdx = currentParentEntries.indexOf(parentObj[key])
+        const parentIdx = currentParentEntries.indexOf(parentObj[key])
 
-      const entry = commitEntries[idx]
-      const _commitText = entry && entry.object && entry.object.text
-      const commitText = _commitText && _commitText.split('\n')
+        const entry = commitEntries[idx]
+        const _commitText = entry && entry.object && entry.object.text
+        const commitText = _commitText && _commitText.split('\n')
 
 
-      const parentEntry = currentParentEntries[parentIdx]
-      const _parentText = parentEntry && parentEntry.object && parentEntry.object.text
-      const parentText = _parentText && _parentText.split('\n')
+        const parentEntry = currentParentEntries[parentIdx]
+        const _parentText = parentEntry && parentEntry.object && parentEntry.object.text
+        const parentText = _parentText && _parentText.split('\n')
 
-      // const updatedFileBase = updated[key]
+        // const updatedFileBase = updated[key]
 
-      // const updatedFile = updatedFileBase && updatedFileBase.object && updatedFileBase.object.text
+        // const updatedFile = updatedFileBase && updatedFileBase.object && updatedFileBase.object.text
 
-      // const oldFileBase = parentObj[key]
+        // const oldFileBase = parentObj[key]
 
-      // const oldFile = oldFileBase && oldFileBase.object && oldFileBase.object.text
+        // const oldFile = oldFileBase && oldFileBase.object && oldFileBase.object.text
 
-      updatedItems = {
-        ...updatedItems, [key]: {
-          diff: unifiedDiff(
+        updatedItems = {
+          ...updatedItems, [key]: {
+            diff: unifiedDiff(
+              commitText,
+              parentText,
+              {
+                fromfile: `${key}[OLD]=>`,
+                fromfiledate: parentCommittedDate,
+                tofile: `${key}[NEW]=>`,
+                tofiledate: committedDate,
+              }
+            ).map((line, idx) => `${idx}| ${line}`).join('\n'),
             commitText,
             parentText,
-            {
-              fromfile: `${key}[OLD]=>`,
-              fromfiledate: parentCommittedDate,
-              tofile: `${key}[NEW]=>`,
-              tofiledate: committedDate,
-            }
-          ).map((line, idx) => `${idx}| ${line}`).join('\n'),
-          commitText,
-          parentText,
-          name: key,
+            name: key,
+          }
         }
-      }
-    })
+      })
+   }
   })
-  return {
+return {
     addedItems,
     deletedItems,
     updatedItems,
   }
 }
 
-export default ({data: { github : { resource : commit }}, ...props}) =>{
-
-  const stuff = useThemeUI()
-  // console.log("THEME-UI", stuff)
-  const config = useConfig()
-  // console.log("DOCZ",config)
-  const [show, setShow] = useState(true)
-  const { tree } = commit
-  const { addedItems, deletedItems, updatedItems } = getChangedFilesFromCommit(commit)
+export default ({data, pageContext, ...props}) =>{
+    
+    const [queryResult, setQueryResult] = useState(null)
+    const stuff = useThemeUI()
+    // console.log("THEME-UI", stuff)
+    const config = useConfig()
+    // console.log("DOCZ",config)
+    const [show, setShow] = useState(true)
+    const client = getClient(pageContext.apiUrl)
+    const query =  /* GraphQL */`
+    query commitQuery($commitUrl: URI!){
+        
+            resource(url: $commitUrl){
+                ...on Commit {
+                    oid
+                    additions
+                    deletions
+                    committedDate
+                    parents(first: 2) {
+                      nodes {
+                        oid
+                        parentAdditions:additions
+                        parentDeletions:deletions
+                        parentCommittedDate: committedDate
+                        tree {
+                          entries{
+                              name 
+                              object {
+                                  ...on Blob {
+                                      text
+                                  }
+                                  ...on Tree {
+                                      entries {
+                                          name 
+                                          object {
+                                              ...on Tree {
+                                                  entries {
+                                                      name
+                                                      object {
+                                                        ...on Blob {
+                                                          text
+                                                        }
+                                                        ...on Tree {
+                                                          entries {
+                                                            name
+                                                            object {
+                                                              ...on Blob {
+                                                                text
+                                                              }
+                                                              ...on Tree {
+                                                                entries {
+                                                                  name
+                                                                  object {
+                                                                    ...on Blob {
+                                                                      text
+                                                                    }
+                                                                    ...on Tree {
+                                                                      entries {
+                                                                        name
+                                                                        object {
+                                                                          ...on Blob {
+                                                                            text
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                  }
+                                              }
+                                              ...on Blob {
+                                                  text
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                        }
+                      }
+                    }
+                    tree {
+                        entries{
+                            name 
+                            object {
+                                ...on Blob {
+                                    text
+                                }
+                                ...on Tree {
+                                    entries {
+                                        name 
+                                        object {
+                                            ...on Tree {
+                                                entries {
+                                                    name
+                                                    object {
+                                                      ...on Blob {
+                                                        text
+                                                      }
+                                                      ...on Tree {
+                                                        entries {
+                                                          name
+                                                          object {
+                                                            ...on Blob {
+                                                              text
+                                                            }
+                                                            ...on Tree {
+                                                              entries {
+                                                                name
+                                                                object {
+                                                                  ...on Blob {
+                                                                    text
+                                                                  }
+                                                                  ...on Tree {
+                                                                    entries {
+                                                                      name
+                                                                      object {
+                                                                        ...on Blob {
+                                                                          text
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                }
+                                            }
+                                            ...on Blob {
+                                                text
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } 
+            }
+        }
+    
+`
+console.log('QUERY RESULT', queryResult)
+if(queryResult === null){
+  if(data){ 
+    const {
+      github : { 
+        resource : commit 
+      }
+    } = data
+    setQueryResult(commit)
+  }else {     
+    const result = client.request(query, {commitUrl: pageContext.commitUrl})     
+    result.then(({resource})=>{
+      setQueryResult(resource)
+    })
+  }
+  return (
+    <GithubLayout>
+      <div>
+        <p>Loading...</p>
+        <Icon color='black' size='5x' name='circle-notch' spin={true}/> 
+      </div>
+    </GithubLayout>
+  )
+}
+// if(queryResult === null){
+//   return null
+// }
+ 
+  const { tree } = queryResult ? queryResult : { tree: {}}
+  const { addedItems, deletedItems, updatedItems } = getChangedFilesFromCommit(queryResult)
   const updatedKeys = Object.keys(updatedItems)
     
   const clickLine = num =>{
     console.log('clicked ', num)
   }
-  return (
-    <GithubLayout title={commit.oid.slice(0, 6)} backUrl={props.pageContext.parentPath} backText={'go back'} >
+  return queryResult === null ? queryResult : (
+    <GithubLayout title={queryResult.oid.slice(0, 6)} backUrl={pageContext.parentPath} backText={'go back'} >
       <Box sx={{border: '1px solid grey', p: 0}}>
         <button onClick={()=> setShow(!show)}>{!!show ? 'hide' : 'show' }</button>
         <Box sx={{border: '1px solid black'}}>
@@ -191,6 +389,7 @@ export default ({data: { github : { resource : commit }}, ...props}) =>{
     </GithubLayout>
   )
 }
+
 
 const RenderBlob = ({name, text}) => {
   const [showText, setShowText] = useState(false)
@@ -230,155 +429,12 @@ const RenderTree = ({name = 'root', entries, showFiles = false, level = 1}) =>{
       <Box sx={{border: '0px solid gray'}}>
         {show && entries && entries.map(({name: innerName, object})=>{
         if(object && object.text !== undefined){
-          return <RenderBlob name={innerName} text={object.text}/>
+          return <RenderBlob key={object.text} name={innerName} text={object.text}/>
           }
-          return <RenderTree name={innerName} entries={object.entries} level={level+1}/>
+          return <RenderTree key={innerName} name={innerName} entries={object.entries} level={level+1}/>
         })}
       </Box>
     </Box>
 
   )
 }
-
-export const query = graphql`
-    query commitQuery($commitUrl: Github_URI!){
-        github{
-            resource(url: $commitUrl){
-                ...on Github_Commit {
-                    oid
-                    additions
-                    deletions
-                    committedDate
-                    parents(first: 2) {
-                      nodes {
-                        oid
-                        parentAdditions:additions
-                        parentDeletions:deletions
-                        parentCommittedDate: committedDate
-                        tree {
-                          entries{
-                              name 
-                              object {
-                                  ...on Github_Blob {
-                                      text
-                                  }
-                                  ...on Github_Tree {
-                                      entries {
-                                          name 
-                                          object {
-                                              ...on Github_Tree {
-                                                  entries {
-                                                      name
-                                                      object {
-                                                        ...on Github_Blob {
-                                                          text
-                                                        }
-                                                        ...on Github_Tree {
-                                                          entries {
-                                                            name
-                                                            object {
-                                                              ...on Github_Blob {
-                                                                text
-                                                              }
-                                                              ...on Github_Tree {
-                                                                entries {
-                                                                  name
-                                                                  object {
-                                                                    ...on Github_Blob {
-                                                                      text
-                                                                    }
-                                                                    ...on Github_Tree {
-                                                                      entries {
-                                                                        name
-                                                                        object {
-                                                                          ...on Github_Blob {
-                                                                            text
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                  }
-                                              }
-                                              ...on Github_Blob {
-                                                  text
-                                              }
-                                          }
-                                      }
-                                  }
-                              }
-                          }
-                        }
-                      }
-                    }
-                    tree {
-                        entries{
-                            name 
-                            object {
-                                ...on Github_Blob {
-                                    text
-                                }
-                                ...on Github_Tree {
-                                    entries {
-                                        name 
-                                        object {
-                                            ...on Github_Tree {
-                                                entries {
-                                                    name
-                                                    object {
-                                                      ...on Github_Blob {
-                                                        text
-                                                      }
-                                                      ...on Github_Tree {
-                                                        entries {
-                                                          name
-                                                          object {
-                                                            ...on Github_Blob {
-                                                              text
-                                                            }
-                                                            ...on Github_Tree {
-                                                              entries {
-                                                                name
-                                                                object {
-                                                                  ...on Github_Blob {
-                                                                    text
-                                                                  }
-                                                                  ...on Github_Tree {
-                                                                    entries {
-                                                                      name
-                                                                      object {
-                                                                        ...on Github_Blob {
-                                                                          text
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                }
-                                            }
-                                            ...on Github_Blob {
-                                                text
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } 
-            }
-        }
-    }
-`

@@ -94,6 +94,7 @@ exports.createPages = ({ graphql, actions }) => {
         branchName,
         owner,
         ownerIsViewer,
+        apiUrl: process.env.GH_API_KEY,
       }
       createPage({
         path: branchPath,
