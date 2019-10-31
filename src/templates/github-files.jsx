@@ -10,7 +10,7 @@ import { useConfig } from 'docz'
 import { GraphQLClient } from 'graphql-request'
 
 import { CodeEditor } from 'components/ui/editor'
-import  Icon from 'components/icon'
+import  Icon from 'components/Icon'
 import { Code as Pre } from 'components/ui/pre'
 import { GithubLayout } from 'components/github-layout'
 import { unifiedDiff } from 'difflib'
