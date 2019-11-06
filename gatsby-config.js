@@ -101,6 +101,14 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-source-graphql',
+      options: {
+        fieldName: 'commentApi',
+        typeName: 'Comment',
+        url: `http://massive-comment-api.herokuapp.com/graphql/`,
+      },
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/content/posts/`,
