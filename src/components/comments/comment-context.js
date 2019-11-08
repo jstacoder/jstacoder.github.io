@@ -30,7 +30,7 @@ export const CommentContextProvider = ({ postId: passedPostId, children }) => {
     `
   useEffect(() => {
     const client = new GraphQLClient(
-      'http://massive-comment-api.herokuapp.com/graphql/'
+      'https://massive-comment-api.herokuapp.com/graphql/'
     )
     const makeRequest = async () => {
       client

@@ -23,7 +23,7 @@ export const AddCommentForm = props =>{
     const [submittedText, setSubmittedText] = useState(null)
     const [submittedAuthor, setSubmittedAuthor] = useState(null)
     const [errorState, setErrorState] = useState({text: null, author: null})
-    const client = new GraphQLClient('http://massive-comment-api.herokuapp.com/graphql/')
+    const client = new GraphQLClient('https://massive-comment-api.herokuapp.com/graphql/')
     const textRef = useRef()
     const authorRef = useRef()
     const { addComment, postId } = useContext(CommentContext)
