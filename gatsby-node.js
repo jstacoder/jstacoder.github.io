@@ -86,32 +86,32 @@ exports.createPages = ({ graphql, actions }) => {
         repoName: repo.name,
       },
     })
-    repo.refs.branches.map(({ name: branchName, ...branch }) => {
-      const ownerIsViewer = owner === viewer.login
-      const branchPath = `${repoPath}/${branchName}`
-      const context = {
-        repoName: repo.name,
-        branchName,
-        owner,
-        ownerIsViewer,
-        apiUrl: process.env.GH_API_KEY,
-      }
-      createPage({
-        path: branchPath,
-        component: githubBranchComponent,
-        context,
-      })
-      if (ownerIsViewer && branch.target) {
-        context.commitUrl = branch.target.commitUrl
-        context.parentPath = branchPath
-        const commitPath = `${branchPath}/${branch.target.sha}`
-        createPage({
-          path: commitPath,
-          component: githubFilesComponent,
-          context,
-        })
-      }
-    })
+    // // repo.refs.branches.map(({ name: branchName, ...branch }) => {
+    // //   const ownerIsViewer = owner === viewer.login
+    // //   const branchPath = `${repoPath}/${branchName}`
+    // //   const context = {
+    // //     repoName: repo.name,
+    // //     branchName,
+    // //     owner,
+    // //     ownerIsViewer,
+    // //     apiUrl: process.env.GH_API_KEY,
+    // //   }
+    // //   createPage({
+    // //     path: branchPath,
+    // //     component: githubBranchComponent,
+    // //     context,
+    // //   })
+    // //   if (ownerIsViewer && branch.target) {
+    // //     context.commitUrl = branch.target.commitUrl
+    // //     context.parentPath = branchPath
+    // //     const commitPath = `${branchPath}/${branch.target.sha}`
+    // //     createPage({
+    // //       path: commitPath,
+    // //       component: githubFilesComponent,
+    // //       context,
+    // //     })
+    // //   }
+    // })
   }
 
   const pageLength = 2
