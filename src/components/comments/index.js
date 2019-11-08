@@ -1,7 +1,7 @@
 import { GraphQLClient } from 'graphql-request'
 
 const getClient = () =>
-  new GraphQLClient('http://massive-comment-api.herokuapp.com/graphql', {
+  new GraphQLClient('https://massive-comment-api.herokuapp.com/graphql', {
     // credentials: 'include',
     // mode: 'no-cors'
   })
