@@ -8,7 +8,7 @@ import { GithubLayout } from './github-layout'
 export default function PageTemplate({
   data: {
     mdx: {
-      frontmatter: { title },
+      frontmatter: { title, commentApiId },
       timeToRead,
       body,
     },
@@ -21,6 +21,7 @@ export default function PageTemplate({
       title={title}
       timeToRead={timeToRead}
       components={componentsMap}
+      commentApiId={commentApiId}
     >
       {body}
     </MDXRenderer>
@@ -33,6 +34,7 @@ export const pageQuery = graphql`
       id
       frontmatter {
         title
+        commentApiId
       }
       timeToRead
       body

@@ -141,6 +141,12 @@ exports.createPages = ({ graphql, actions }) => {
       graphql(
         `
           {
+            commentApi {
+              getBlogs {
+                blogId: id
+                name
+              }
+            }
             allMdx(filter: { frontmatter: { title: { ne: "" } } }) {
               edges {
                 node {
@@ -247,12 +253,24 @@ exports.createPages = ({ graphql, actions }) => {
           reject(errors)
         }
         const {
+          commentApi: { getBlogs: blogs } = {},
           allMdx: { edges: mdxPosts } = {},
           allPosts: { posts } = {},
           github: {
             viewer: { repositories, repositoriesContributedTo, login },
           },
         } = data || {}
+
+        blogs.forEach(({ name, blogId }) => {
+          createPage({
+            path: `/blog/${name}/posts/`,
+            component: require.resolve('./src/templates/add-post-form.js'),
+            context: {
+              name,
+              blogId,
+            },
+          })
+        })
 
         createPage({
           path: `/github-repos/`,

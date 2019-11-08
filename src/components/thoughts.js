@@ -20,7 +20,10 @@ const Thoughts = () => {
   } = useStaticQuery(
     graphql`
       query {
-        allMdx(filter: { frontmatter: { title: { ne: "" } } }) {
+        allMdx(
+          sort: { fields: fields___slug, order: ASC }
+          filter: { frontmatter: { title: { ne: "" } } }
+        ) {
           posts: edges {
             post: node {
               fields {

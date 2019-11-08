@@ -1,0 +1,20 @@
+---
+  name: Add Blog
+  title: add blog
+  route: /add-blog/
+  path: /add-blog/
+---
+
+import { AddBlogForm } from '../components/add-blog-form'
+import { BlogList } from '../components/blog-list'
+import { BlogProvider } from '../components/blog-context'
+import {GithubLayout} from '../components/github-layout'
+import { graphql } from 'gatsby'
+
+export default GithubLayout
+
+<BlogProvider>
+    <AddBlogForm/>
+    <BlogList/>
+</BlogProvider>
+
