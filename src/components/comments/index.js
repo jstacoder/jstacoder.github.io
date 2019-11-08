@@ -11,7 +11,7 @@ query getCommentQuery($postId: ID){
     getComments(postId: $postId){
         id
         text
-        date
+        createdAt
         authorEmail
     }
 }

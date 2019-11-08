@@ -23,7 +23,7 @@ export const CommentContextProvider = ({ postId: passedPostId, children }) => {
         getComments(postId: $postId){
             id
             text
-            date
+            createdAt
             authorEmail
         }
     }
