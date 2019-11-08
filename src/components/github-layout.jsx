@@ -14,6 +14,8 @@ import styled, { css } from 'styled-components'
 import SEO from '../components/seo'
 import { HomeLink } from '../components/home-link'
 import useThemeContext from '../hooks/themeContext'
+import { getComments } from './comments'
+import { CommentBlock } from './comments/comment-box'
 
 const pStyle = css`
   div {
@@ -30,13 +32,16 @@ const Header = ({children, ...props}) =>{
 }
 
 
-export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUrl, backText, path, ...props}) => {
+export const GithubLayout = ({ children, commentApiId, timeToRead, title, sidebar=true, backUrl, backText, path, ...props}) => {
   
   const isIndex = path === '/' || props.isIndex
   const { style } = useThemeContext()
   const mainWidth = sidebar ? [null, null, null,'60%', 9 / 12] : ['100%']
   const { theme } = useThemeContext()
-
+  const result = getComments(commentApiId)
+  result.then(({getComments})=>{
+    console.log('cc',getComments)
+  })
   return (
 
     <BorderBox
@@ -138,6 +143,7 @@ export const GithubLayout = ({ children, timeToRead, title, sidebar=true, backUr
                 {children}
               </Box>
             </Box>
+            {commentApiId ? <CommentBlock postId={commentApiId} /> :null }
             {!isIndex ? <HomeLink text={backText} url={backUrl} /> : null}
           </Box>
         </Box>
