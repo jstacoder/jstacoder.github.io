@@ -88,7 +88,7 @@
     "gatsby-transformer-yaml": "^2.2.5",
     "graphql-request": "^1.8.2",
     "graphql-tag": "^2.10.1",
-    "isomorphic-git": "^0.67.2",
+    "isomorphic-git": "^1.8.2",
     "js-yaml": "^3.13.1",
     "line-diff": "^2.1.0",
     "lodash.camelcase": "^4.3.0",
