@@ -117,7 +117,7 @@
     "remark-task-list": "^0.0.3",
     "remark-unwrap-images": "^1.0.0",
     "sass": "^1.22.9",
-    "sharp": "0.23.1",
+    "sharp": "0.30.5",
     "styled-bootstrap": "^0.1.10",
     "styled-bootstrap-components": "^4.0.0-alpha.0",
     "styled-components": "^4.2.0",
