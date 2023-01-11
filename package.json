@@ -83,7 +83,7 @@
     "gatsby-theme-style-guide": "^0.2.36",
     "gatsby-transformer-json": "^2.2.3",
     "gatsby-transformer-react-docgen": "^5.0.2",
-    "gatsby-transformer-remark": "^2.6.15",
+    "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "2.2.21",
     "gatsby-transformer-yaml": "^2.2.5",
     "graphql-request": "^1.8.2",
